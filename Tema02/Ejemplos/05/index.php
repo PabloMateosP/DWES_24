@@ -7,10 +7,4 @@
 
     */
 
-    $alumno = "Pablo Mateos";
-
-    //Si usamos echo o print el resultado sería de la misma forma 
-    print "El alumno es: ";
-    print $alumno;
-
 ?>

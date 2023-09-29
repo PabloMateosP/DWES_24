@@ -1,6 +1,6 @@
 <?php
 /*
-    Funcion is_null()
+    Funcion isset()
 
     FALSO
         - variable no definido

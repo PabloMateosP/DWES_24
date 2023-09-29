@@ -1,5 +1,5 @@
 <?php
-$var = 3;
+$var = "3";
 
 // conversión mediante las funciones
 $var1 = strval($var);

@@ -1,0 +1,3 @@
+decbin para pasar de decimal a binario
+decoct para pasar de decimal a octal
+dechex para pasar de decimal a hexadecimal 

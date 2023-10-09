@@ -22,10 +22,11 @@
 
         <legend>Formulario  Conversor</legend>
         <form method="post">
-
+        
             <!-- Valor Decimal -->
             <div class="form-group">
                 <label for="velInicial"></label>
+                <p>Valor Decimal:</p>
                 <input type="number" name="valInicial" class="form-control" placeholder="" aria-describedby="helpId">
                 <small id="helpId" class="text-muted"></small>
             </div>

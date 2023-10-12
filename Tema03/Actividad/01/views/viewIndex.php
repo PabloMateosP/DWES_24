@@ -3,7 +3,7 @@
 
 <head>
     <!-- Incluir head -->
-    <title>Actividad 01 - Tema 03 </title>
+    <title>Actividad 3.1 - Tema 03  </title>
 
     <!-- Añadimos el php include para el css bootstrap -->
     <?php
@@ -24,46 +24,40 @@
 
         <legend>Formulario Conversor</legend>
         <form method="post" action="acceso.php">
+            <!-- Formulario -->
+            <div class="mb-3">
+                <label class="form-label" >Nombre</label>
+                <input class="form-control" name="nombreUsuario">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" >Correo Electrónico</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp" name="email">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" >Contraseña</label>
+                <input type="password" class="form-control" name="contrasena">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" >Confirmación Contraseña</label>
+                <input type="password" class="form-control" name="contrasenaConfirmada">
+            </div>
 
-            <form>
-                <!-- Formulario -->
-                <div class="mb-3">
-                    <label class="form-label" name=""nombreUsuario>Nombre</label>
-                    <input type="email" class="form-control" aria-describedby="emailHelp"
-                        name="usuario">
-                    <div id="emailHelp" class="form-text">Entre 6 y 16 carácteres.</div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" name="email">Correo Electrónico</label>
-                    <input type="email" class="form-control"  aria-describedby="emailHelp"
-                        name="correo">
-                    <div id="emailHelp" class="form-text">Entre </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" name="contasena">Contraseña</label>
-                    <input type="password" class="form-control" >
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" name="contasenaConfirmada">Confirmación Contraseña</label>
-                    <input type="password" class="form-control" >
-                </div>
+            <!-- Botones de acción  -->
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input">
+                <label class="form-check-label" for="exampleCheck1">Recuérdame</label>
+            </div>
 
-                <!-- Botones de acción  -->
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" >
-                    <label class="form-check-label" for="exampleCheck1">Recuérdame</label>
-                </div>
-
-                <select class="form-select" aria-label="Default select example" name="perfil">
-                    <option selected disabled>Seleccione Perfil</option>
-                    <option value="user">Usuario</option>
-                    <option value="admin">Administrador</option>
-                    <option value="publishers">Editor</option>
-                </select>
-                <br>
-                <button type="submit" class="btn btn-primary" formaction="">Entrar</button>
-                <button type="reset" class="btn btn-secondary">Borrar</button>
-            </form>
+            <select class="form-select" aria-label="Default select example" name="perfil">
+                <option selected disabled>Seleccione Perfil</option>
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+                <option value="publishers">Editor</option>
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary" formaction="acceso.php">Entrar</button>
+            <button type="reset" class="btn btn-secondary">Borrar</button>
 
         </form>
 

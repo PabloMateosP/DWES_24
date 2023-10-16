@@ -40,7 +40,7 @@
     <!-- Pie del documento -->
     <?php include 'layouts/footer.html'; ?>
 
-    <!-- Bootstrap Javascript y popper -->
+    <!-- Bootstrap Javascript -->
     <?php include 'layouts/javascript.html' ?>
  
 </body>

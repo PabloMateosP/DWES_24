@@ -19,6 +19,7 @@
             <tbody>
                 <?php for ($ind = 1; $ind <= 10; $ind++) :?>
                     <tr>
+                        <th><?=$ind ?></th>
                     <?php for ($ind2 = 1; $ind2 <= 10; $ind2++) :?>
                         <td> <?=($ind * $ind2)?></td>
                     <?php endfor; ?>

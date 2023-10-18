@@ -18,20 +18,28 @@
         <legend>Formulario Nuevo Libro</legend>
 
         <form>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="idL">
+                <label for="idLibro" class="form-label">Id</label>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="tituloL">
+                <label for="tituloLibro" class="form-label">Titulo</label>
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="autorL">
+                <label for="autorLibro" class="form-label">Autor</label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="generoL">
+                <label for="generopLibro" class="form-label">Género</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="precioL">
+                <label for="precioLibro" class="form-label">Precio</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" formaction="create.php">Submit</button>
         </form>
 
     </div>

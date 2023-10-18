@@ -4,6 +4,6 @@
     include "models/model.index.php";
 
     //Cargamos vista
-    include "views/viewIndex.php";
+    include "views/view.index.php";
     
 ?>

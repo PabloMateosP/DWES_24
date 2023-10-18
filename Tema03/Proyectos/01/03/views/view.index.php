@@ -16,6 +16,11 @@
 
         </header>
         <legend>Tabla libros</legend>
+        
+        <?php 
+            include 'views/partials/menu_prin.php';
+        ?>
+
         <table class="table">
             <thead>
                 <!-- Encabezado Tabla -->

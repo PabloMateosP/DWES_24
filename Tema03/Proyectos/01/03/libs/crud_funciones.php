@@ -61,11 +61,11 @@ function nuevoLibro($tabla = [], $libro)
     // Por otra parte si anteriormente no se ha encontrado ningún libro con mayro id 
     // la variable posicionInsercion seguirá valiendo -1 y el nuevo libro se añadirá al final.
     if ($posicionInsercion !== -1) {
-        array_splice($tabla, $posicionInsercion, 0, [$libro]);
+        return array_splice($tabla, $posicionInsercion, 0, [$libro]);
     } else {
         // Si no detectamos ningún libro con id mayor al nuevo libro 
         // añadimos ese libro a la última posición 
-        $tabla[] = $libro;
+        return $tabla[] = $libro;
     }
 }
 

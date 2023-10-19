@@ -17,29 +17,30 @@
         </header>
         <legend>Formulario Nuevo Libro</legend>
 
-        <form>
+        <form method="post">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="idL">
+                <input type="text" class="form-control" name="id">
                 <label for="idLibro" class="form-label">Id</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="tituloL">
+                <input type="text" class="form-control" name="titulo">
                 <label for="tituloLibro" class="form-label">Titulo</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="autorL">
+                <input type="text" class="form-control" name="autor">
                 <label for="autorLibro" class="form-label">Autor</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="generoL">
+                <input type="text" class="form-control" name="genero">
                 <label for="generopLibro" class="form-label">Género</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="precioL">
+                <input type="text" class="form-control" name="precio">
                 <label for="precioLibro" class="form-label">Precio</label>
             </div>
             
             <button type="submit" class="btn btn-primary" formaction="create.php">Submit</button>
+            <button type="reset" class="btn btn-danger">Borrar</button>
         </form>
 
     </div>

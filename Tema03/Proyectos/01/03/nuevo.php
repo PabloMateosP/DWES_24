@@ -5,11 +5,10 @@
     // Descripción: permite eliminar un elemento de la tabla
 
     # Librería
-    //include 'libs/crud_funciones.php';
+    include 'libs/crud_funciones.php';
 
     # Model
-    //include 'models/model.index.php';
-    //include 'models/model.nuevo.php';
+    include 'models/model.index.php';
 
     # View
     include 'views/view.nuevo.php';

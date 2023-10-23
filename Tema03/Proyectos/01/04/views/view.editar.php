@@ -17,40 +17,38 @@
         </header>
         <legend>Formulario Edicion Libro</legend>
 
-        <form method="post">
-            <div class="form-floating mb-3">
-                <label for="idLibro" class="form-label">ID</label>
-                <label for="idLibro" class="form-label">
-                    <?= $libroEditar['id'] ?>
-                </label>
-            </div>
-            <div class="form-floating mb-3">
-                <label for="idLibro" class="form-label">TITULO: </label>
-                <label for="tituloLibro" class="form-label">
-                    <?= $libroEditar['titulo'] ?>
-                </label>
-            </div>
-            <div class="form-floating mb-3">
-                <label for="idLibro" class="form-label">AUTOR: </label>
-                <label for="autorLibro" class="form-label">
-                    <?= $libroEditar['autor'] ?>
-                </label>
-            </div>
-            <div class="form-floating mb-3">
-                <label for="idLibro" class="form-label">GENERO: </label>
-                <label for="generopLibro" class="form-label">
-                    <?= $libroEditar['genero'] ?>
-                </label>
-            </div>
-            <div class="form-floating mb-3">
-                <label for="idLibro" class="form-label">PRECIO: </label>
-                <label for="precioLibro" class="form-label">
-                    <?= $libroEditar['precio'] ?>
-                </label>
+        <form action="update.php?id=<?= $id ?>" method="POST">
+        
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Id</label>
+                <input type="text" class="form-control" name="id" value="<?= $libro['id'] ?>" readonly>
             </div>
 
-            <button type="text" class="btn btn-secondary" formaction="index.php">Cancelar</button>
-            <button type="text" class="btn btn-secondary" formaction="update.php">Actualizar</button>
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" name="titulo" value="<?= $libro['titulo'] ?>">
+            </div>
+            
+            <div class="mb-3">
+                <label for="autor" class="form-label">Autor</label>
+                <input type="text" class="form-control" name="autor" value="<?= $libro['autor'] ?>">
+            </div>
+            
+            <div class="mb-3">
+                <label for="genero" class="form-label">Género</label>
+                <input type="text" class="form-control" name="genero" value="<?= $libro['genero'] ?>">
+            </div>
+            
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio (€)</label>
+                <input type="number" class="form-control" name="precio" step="0.01" value="<?= $libro['precio'] ?>">
+            </div>
+
+
+            <a class="btn btn-secondary" href="index.php" role="button">Cancelar</a>
+            <button type="reset" class="btn btn-danger">Borrar</button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+
         </form>
 
     </div>

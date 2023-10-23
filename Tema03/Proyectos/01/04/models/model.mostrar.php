@@ -4,6 +4,13 @@ $id = $_GET['id'];
 
 $indice_mostrar = buscar_en_tabla($libros, 'id', $id);
 
-$libros = $libros[$indice_mostrar];
+if ($indice_mostrar != null ) {
+
+    $libro = $libros[$indice_mostrar];
+
+} else {
+    
+    echo ("Libro no encontrado");
+}
 
 ?>

@@ -18,40 +18,51 @@
             <span class="fs-4">Proyecto 3.9 - Gestión de libros</span>
 
         </header>
-        <legend>Tabla libros</legend>
-        <table class="table">
-            <thead>
-                <!-- Encabezado Tabla -->
-                <tr>
-                    <!-- Personalizado -->
-                    <th>Id</th>
-                    <th>Título</th>
-                    <th>Autor</th>
-                    <th>Género</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($libros as $libro): ?>
-                    <tr>
-                        <!-- Mismo formato a cada campo de la Tabla -->
-                        <?php foreach ($libro as $campo): ?>
-                            <td>
-                                <?= $campo ?>
-                            </td>
-                        <?php endforeach; ?>
-                    </tr>
-                <?php endforeach; ?>
+        <legend>Libro seleccionado</legend>
+        <form>
 
-                <?php
-                'views/layouts/footer.html';
-                ?>
-                <!-- javascript bootstrap 512 -->
-                <?php
-                include "views/layouts/javascript.html"; ?>
-            </tbody>
-        </table>
+        <form action="mostrar.php">
+            
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Id: </label>
+                <input type="text" class="form-control" name="id" value="<?=$libro['id']?>" disabled>
+                
+            </div>
+            
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título: </label>
+                <input type="text" class="form-control" name="titulo" value="<?=$libro['titulo']?>" disabled>
+                
+            </div>
+            
+            <div class="mb-3">
+                <label for="autor" class="form-label">Autor: </label>
+                <input type="text" class="form-control" name="autor" value="<?=$libro['autor']?>" disabled>
+                
+            </div>
+            
+            <div class="mb-3">
+                <label for="genero" class="form-label">Género: </label>
+                <input type="text" class="form-control" name="genero" value="<?=$libro['genero']?>" disabled>
+                
+            </div>
+            
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio: </label>
+                <input type="number" class="form-control" name="precio" value="<?=$libro['precio']?>" disabled>
+                
+            </div>
+
+            <!-- Botones de acción -->
+
+            <div class="btn-group" role="group">
+
+                <a class="btn btn-primary" href="index.php" role="button">Volver</a>
+
+            </div>
+
+
+        </form>
     </div>
 </body>
 </html>

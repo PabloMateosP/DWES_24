@@ -17,10 +17,10 @@
             Ordenar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Titulo</a></li>
-            <li><a class="dropdown-item" href="#">Autor</a></li>
-            <li><a class="dropdown-item" href="#">Género</a></li>
-            <li><a class="dropdown-item" href="#">Precio</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=titulo">Titulo</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=autor">Autor</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=genero">Género</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=precio">Precio</a></li>
           </ul>
         </li>
       </ul>

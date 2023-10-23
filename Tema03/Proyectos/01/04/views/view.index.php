@@ -25,10 +25,7 @@
             <thead>
                 <!-- Encabezado Tabla -->
                 <tr>
-                    <!-- <//?php foreach (array_keys($libros[0]) as $clave): ?>
-                        //<th><//?= $clave ?></th>
-                    <//?php endforeach; ?> -->
-
+            
                     <!-- Personalizado -->
                     <th>Id</th>
                     <th>Título</th>
@@ -51,27 +48,15 @@
 
                         <td>
                             <a href="eliminar.php?id=<?= $libro['id']?>">
-                            <i class="bi bi-trash-fill">
-                        </td>
-                        <td>
+                            <i class="bi bi-trash-fill"></i></a>
                             <a href="editar.php?id=<?= $libro['id']?>">
-                            <i class="bi bi-pen-fill">
-                        </td>
-                        <td>
+                            <i class="bi bi-pen-fill"></i></a>
                             <a href="mostrar.php?id=<?= $libro['id']?>">
-                            <i class="bi bi-eye">
+                            <i class="bi bi-eye"></i></a>
                         </td>
-                        
 
-                        <!-- También se puede hacer de esta otra forma -->
-                        <!-- 
-                        <td><?= $titulo['id'] ?></td>
-                        <td><?= $libro['id'] ?></td> 
-                        -->
                     </tr>
                 <?php endforeach; ?>
-
-
             </tbody>
             <tfoot>
                 <tr>

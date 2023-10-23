@@ -6,7 +6,7 @@ $id = $_GET['id'];
 
 $indice_mostrar = buscar_en_tabla($libros, 'id', $id);
 
-if ($indice_mostrar != null ) {
+if ($indice_mostrar !== false ) {
 
     $libro = $libros[$indice_mostrar];
 

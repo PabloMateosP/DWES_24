@@ -21,27 +21,27 @@
         
             <div class="mb-3">
                 <label for="titulo" class="form-label">Id</label>
-                <input type="text" class="form-control" name="id" value="<?= $libros['id'] ?>" readonly>
+                <input type="text" class="form-control" name="id" value="<?= $libro['id'] ?>" readonly>
             </div>
 
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" name="titulo" value="<?= $libros['titulo'] ?>">
+                <input type="text" class="form-control" name="titulo" value="<?= $libro['titulo'] ?>">
             </div>
             
             <div class="mb-3">
                 <label for="autor" class="form-label">Autor</label>
-                <input type="text" class="form-control" name="autor" value="<?= $libros['autor'] ?>">
+                <input type="text" class="form-control" name="autor" value="<?= $libro['autor'] ?>">
             </div>
             
             <div class="mb-3">
                 <label for="genero" class="form-label">Género</label>
-                <input type="text" class="form-control" name="genero" value="<?= $libros['genero'] ?>">
+                <input type="text" class="form-control" name="genero" value="<?= $libro['genero'] ?>">
             </div>
             
             <div class="mb-3">
                 <label for="precio" class="form-label">Precio (€)</label>
-                <input type="number" class="form-control" name="precio" step="0.01" value="<?= $libros['precio'] ?>">
+                <input type="number" class="form-control" name="precio" step="0.01" value="<?= $libro['precio'] ?>">
             </div>
 
 

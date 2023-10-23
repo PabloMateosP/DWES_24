@@ -7,7 +7,7 @@
 
     */
 
-    
+    $libros = generar_Tabla();
 
     # Cargo la expresión de búsqueda 
     $expresion = $_GET['expresion'];

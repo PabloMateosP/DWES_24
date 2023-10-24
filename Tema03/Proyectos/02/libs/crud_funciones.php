@@ -38,7 +38,7 @@ function generar_Tabla()
             'modelo' => 'Aspire 3',
             'categoria' => 0,
             'unidades' => 100,
-            'precio' => 430.50
+            'precio' => 430
         ],
         [
             'id' => 2,
@@ -46,7 +46,7 @@ function generar_Tabla()
             'modelo' => 'Version 102',
             'categoria' => 3,
             'unidades' => 10,
-            'precio' => 600.34
+            'precio' => 600
         ],
         [
             'id' => 3,
@@ -54,7 +54,7 @@ function generar_Tabla()
             'modelo' => 'ideacentre 5105-07',
             'categoria' => 1,
             'unidades' => 1,
-            'precio' => 200.5
+            'precio' => 200
         ],
         [
             'id' => 4,
@@ -62,7 +62,7 @@ function generar_Tabla()
             'modelo' => '340 - Intel I5',
             'categoria' => 0,
             'unidades' => 3,
-            'precio' => 15.50
+            'precio' => 15
         ],
         [
             'id' => 5,
@@ -70,7 +70,7 @@ function generar_Tabla()
             'modelo' => 'ASUS ROG STRIX Z790-F',
             'categoria' => 2,
             'unidades' => 100,
-            'precio' => 14.99
+            'precio' => 14
         ]
     ];
 

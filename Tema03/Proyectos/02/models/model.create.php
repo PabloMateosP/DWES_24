@@ -13,16 +13,13 @@ $articulo =
         'id' => $_POST['id'],
         'descripcion' => $_POST['descripcion'],
         'modelo' => $_POST['modelo'],
-        'categoria' => $_POST['genero'],
+        'categoria' => $_POST['categoria'],
         'unidades' => $_POST['unidades'],
         'precio' => $_POST['precio']
     ];
 
 
-// La función nuevoLibro me sale como no definida por lo que opte por medir el array y añadir el nuevo libro en el ultimo espacio,
-// aunque en este caso la variable $libros, es decir la matriz de libros me da como no definida 
-$ultimovalor = strlen($articulo);
-
-$articulos[$ultimovalor - 1] = $articulo;
-
+# Añado nuevo libro a la tabla
+array_push($articulos, $articulo);
+    
 ?>

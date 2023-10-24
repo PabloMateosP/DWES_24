@@ -1,6 +1,7 @@
 <?php
 
 $articulos = generar_Tabla();
+$categorias = generar_Tabla_categoria();
 
 #Cargamos el criterio de ordenación 
 $criterio = $_GET['criterio'];
@@ -17,7 +18,5 @@ if (!in_array($criterio, $aux) === false) {
 
 //Funcion array multisort
 array_multisort($aux, SORT_ASC, $articulos);
-
-
 
 ?>

@@ -1,5 +1,8 @@
 <?php
 
+// Librerías
+include 'libs/crud_funciones.php';
+
 // Model
 include 'models/model.ordenar.php';
 

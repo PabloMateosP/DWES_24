@@ -10,7 +10,7 @@
     $articulos = generar_Tabla();
     $categorias = generar_Tabla_categoria();
 
-    $id = $_POST['id'];
+    $id = $_GET['id'];
     $descripcion = $_POST['descripcion'];
     $modelo = $_POST['modelo'];
     $categoria = $_POST['categoria'];

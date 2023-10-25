@@ -83,7 +83,7 @@ function generar_Tabla()
 /*
 
 función: genera_tabla_categoria()
-descripcion: elimina un elemento de la tabla
+descripcion: generamos la tabla de la categoría 
 parámetros:
 salida: 
     - tabla actualizada
@@ -101,5 +101,14 @@ function generar_Tabla_categoria()
 
 
 //-------------------------------------------------------------------------------------------
+
+/*
+
+    función: eliminar()
+    descripcion: eliminamos un elemento de la tabla
+    parámetros: id producto 
+
+*/
+
 
 ?>

@@ -5,12 +5,12 @@
     // Descripción: permite eliminar un elemento de la tabla
 
     # Librería
-    include 'libs/crud_funciones.php';
+    require_once ('libs/crud_funciones.php');
 
     # Model
-    include 'models/model.index.php';
+    require_once ('models/model.nuevo.php');
 
     # View
-    include 'views/view.nuevo.php';
+    require_once ('views/view.nuevo.php');
 
 ?>

@@ -61,7 +61,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5"> Nº Libros:
+                    <td colspan="6"> Nº Libros:
                         <?= count($articulos); ?>
                     </td>
                 </tr>

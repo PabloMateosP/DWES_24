@@ -6,6 +6,7 @@
     Descripcion: genera en array los datos de los artículos
 
 */
+
 setlocale(LC_MONETARY, "es_ES");
 $categorias = generar_Tabla_categoria();
 $articulos = generar_Tabla();

@@ -10,7 +10,7 @@ $categorias = generar_Tabla_categoria();
 //TODO DEBEMOS CAMBIAR LOS DATOS DENTRO DEL POST
 $articulo =
     [
-        'id' => $_POST['id'],
+        'id' =>  sizeof($articulos) + 1,
         'descripcion' => $_POST['descripcion'],
         'modelo' => $_POST['modelo'],
         'categoria' => $_POST['categoria'],

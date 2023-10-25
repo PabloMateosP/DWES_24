@@ -9,35 +9,42 @@
     <!-- Capa principal -->
     <div class="container">
         <!-- cabecera documento -->
-        <?php include "views/partials/header.php"?>
-        
+        <?php include "views/partials/header.php" ?>
+
         <legend>Formulario Edicion Articulo</legend>
 
         <form action="update.php?id=<?= $id ?>" method="POST">
-        
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Id</label>
-                <input type="text" class="form-control" name="id" value="<?= $articulo['id'] ?>" readonly>
-            </div>
 
             <div class="mb-3">
                 <label for="titulo" class="form-label">Descripción</label>
                 <input type="text" class="form-control" name="descripcion" value="<?= $articulo['descripcion'] ?>">
             </div>
-            
+
             <div class="mb-3">
                 <label for="autor" class="form-label">Modelo</label>
                 <input type="text" class="form-control" name="modelo" value="<?= $articulo['modelo'] ?>">
             </div>
-            
+
             <div class="mb-3">
-                <label for="genero" class="form-label">Categoría</label>
-                <input type="text" class="form-control" name="categoria" value="<?= $articulo['categoria'] ?>">
-            </div>
+            <label for="categoriaArticulos" class="form-label">Categoria</label>
+                <select class="form-select" aria-label="SeleccionarCategoria" name="categoria">
             
+                    <?php foreach ($categorias as $key => $categoria): ?>
+                        <option value="<?= $key ?>"
+                        
+                            <?= ($articulo['categoria'] == $key)?'selected':null?>
+                        >
+                        
+                            <?=$categoria ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label for="precio" class="form-label">Unidades</label>
-                <input type="number" class="form-control" name="unidades" step="0.01" value="<?= $articulo['unidades'] ?>">
+                <input type="number" class="form-control" name="unidades" step="0.01"
+                    value="<?= $articulo['unidades'] ?>">
             </div>
 
             <div class="mb-3">

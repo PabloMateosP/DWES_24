@@ -1,6 +1,7 @@
 <?php 
 
 $articulos = generar_Tabla();
+$categorias = generar_Tabla_categoria();
 
 $id = $_GET['id'];
 

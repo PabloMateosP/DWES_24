@@ -11,6 +11,7 @@
     $categorias = generar_Tabla_categoria();
 
     $id = $_GET['id'];
+    
     $descripcion = $_POST['descripcion'];
     $modelo = $_POST['modelo'];
     $categoria = $_POST['categoria'];

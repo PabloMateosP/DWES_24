@@ -39,7 +39,7 @@
             
             <div class="mb-3">
                 <label for="categoria" class="form-label">Categoría: </label> <!-- @todo: HAY QUE ESPECIFICAR EL ID DE LA CATEGORÍA --> 
-                <input type="text" class="form-control" name="categoria" value="<?=$articulo['categoria']?>" disabled>
+                <input type="text" class="form-control" name="categoria" value="<?=$categorias[$articulo['categoria']]?>" disabled>
                 
             </div>
             

@@ -38,39 +38,39 @@ function generar_Tabla()
             'modelo' => 'Aspire 3',
             'categoria' => 0,
             'unidades' => 100,
-            'precio' => 430
+            'precio' => 430.05
         ],
         [
             'id' => 2,
             'descripcion' => 'Pantalla @lhua',
             'modelo' => 'Version 102',
             'categoria' => 3,
-            'unidades' => 10,
-            'precio' => 600
+            'unidades' => 10.5,
+            'precio' => 600.03
         ],
         [
             'id' => 3,
             'descripcion' => 'Pc Sobremesa - Lenovo Intel core',
             'modelo' => 'ideacentre 5105-07',
             'categoria' => 1,
-            'unidades' => 1,
-            'precio' => 200
+            'unidades' => 1.75,
+            'precio' => 200.30
         ],
         [
             'id' => 4,
             'descripcion' => 'Portatil LG',
             'modelo' => '340 - Intel I5',
             'categoria' => 0,
-            'unidades' => 3,
-            'precio' => 15
+            'unidades' => 3.0,
+            'precio' => 15.7
         ],
         [
             'id' => 5,
             'descripcion' => 'Placa base ',
             'modelo' => 'ASUS ROG STRIX Z790-F',
             'categoria' => 2,
-            'unidades' => 100,
-            'precio' => 14
+            'unidades' => 100.50,
+            'precio' => 14.5
         ]
     ];
 
@@ -94,6 +94,8 @@ function generar_Tabla_categoria()
 {
 
     $categorias = ['Portatiles', 'PCs sobremesa', 'Componentes', 'Pantallas', 'Impresora'];
+
+    asort($categorias);
 
     return $categorias;
 }

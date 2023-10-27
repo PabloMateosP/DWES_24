@@ -32,7 +32,7 @@
             <!-- TENEMOS QUE HACER UN SELECT -->
             <div class="form-floating mb-3">
                 <select class="form-select" aria-label="SeleccionarCategoria" name="categoria">
-                    <option disabled>Categorías</option>
+                    <option selected disabled>Seleccione categoría</option>
                     <?php foreach ($categorias as $key => $categoria): ?>
                     <option value="<?=$key ?>"><?= $categoria ?></option>
                     <?php endforeach; ?>
@@ -41,12 +41,12 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="unidades">
+                <input type="Number" class="form-control" name="unidades">
                 <label for="unidadesArticulos" class="form-label">Unidades</label>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="precio">
+                <input type="Number" class="form-control" name="precio">
                 <label for="precioArticulo" class="form-label">Precio</label>
             </div>
 

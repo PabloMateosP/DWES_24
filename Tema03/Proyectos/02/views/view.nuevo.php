@@ -29,12 +29,14 @@
                 <label for="modeloaArticulo" class="form-label">Modelo</label>
             </div>
 
-            <!-- TENEMOS QUE HACER UN SELECT -->
+            <!-- Marcas -->
             <div class="form-floating mb-3">
-                <select class="form-select" aria-label="SeleccionarCategoria" name="categoria">
+                <select class="form-select" aria-label="SeleccionarCategoria" name="marcas">
                     <option selected disabled>Seleccione categoría</option>
-                    <?php foreach ($categorias as $key => $categoria): ?>
-                    <option value="<?=$key ?>"><?= $categoria ?></option>
+                    <?php foreach ($marcas as $key => $marca): ?>
+                        <option value="<?= $key ?>">
+                            <?= $marca ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
                 <label for="categoriaArticulos" class="form-label">Categoria</label>
@@ -48,6 +50,10 @@
             <div class="form-floating mb-3">
                 <input type="Number" class="form-control" name="precio">
                 <label for="precioArticulo" class="form-label">Precio</label>
+            </div>
+
+            <div class="mb-3">
+                
             </div>
 
 

@@ -36,7 +36,7 @@ function generar_Tabla()
             'id' => 1,
             'descripcion' => 'Portatil Acer',
             'modelo' => 'Aspire 3',
-            'categoria' => 0,
+            'marca' => 0,
             'unidades' => 100,
             'precio' => 430.05
         ],
@@ -44,7 +44,7 @@ function generar_Tabla()
             'id' => 2,
             'descripcion' => 'Pantalla @lhua',
             'modelo' => 'Version 102',
-            'categoria' => 3,
+            'marca' => 3,
             'unidades' => 10.5,
             'precio' => 600.03
         ],
@@ -52,7 +52,7 @@ function generar_Tabla()
             'id' => 3,
             'descripcion' => 'Pc Sobremesa - Lenovo Intel core',
             'modelo' => 'ideacentre 5105-07',
-            'categoria' => 1,
+            'marca' => 1,
             'unidades' => 1.75,
             'precio' => 200.30
         ],
@@ -60,7 +60,7 @@ function generar_Tabla()
             'id' => 4,
             'descripcion' => 'Portatil LG',
             'modelo' => '340 - Intel I5',
-            'categoria' => 0,
+            'marca' => 0,
             'unidades' => 3.0,
             'precio' => 15.7
         ],
@@ -68,7 +68,7 @@ function generar_Tabla()
             'id' => 5,
             'descripcion' => 'Placa base ',
             'modelo' => 'ASUS ROG STRIX Z790-F',
-            'categoria' => 2,
+            'marca' => 2,
             'unidades' => 100.50,
             'precio' => 14.5
         ]
@@ -104,6 +104,40 @@ function generar_Tabla_categoria()
 
 //-------------------------------------------------------------------------------------------
 
+/*
+
+función: genera_tabla_categoria()
+descripcion: generamos la tabla de la categoría 
+parámetros:
+salida: 
+    - tabla actualizada
+    
+*/
+
+function generar_Tabla_marcas()
+{
+
+    $marcas = [
+        'Xiaomi',
+        'Apple',
+        'Samsung',
+        'HP',
+        'Lenovo',
+        'Asus',
+        'Acer',
+        'Dell',
+        'Toshiba',
+        'Fujitsu'
+    ];
+
+    asort($marcas);
+
+    return $marcas;
+}
+
+
+
+//-------------------------------------------------------------------------------------------
 /*
 
     función: eliminar()

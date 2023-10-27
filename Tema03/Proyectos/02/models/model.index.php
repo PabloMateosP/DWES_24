@@ -10,5 +10,6 @@
 setlocale(LC_MONETARY, "es_ES");
 $categorias = generar_Tabla_categoria();
 $articulos = generar_Tabla();
+$marcas = generar_Tabla_marcas();
 
 ?>

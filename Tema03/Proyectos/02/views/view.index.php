@@ -28,7 +28,7 @@
                     <th>Id</th>
                     <th>Desripción</th>
                     <th>Modelo</th>
-                    <th>Categorías</th>
+                    <th>Marcas</th>
                     <th class="text-end">Unidades</th>
                     <th class="text-end">Precio</th>
                     <th>Acciones</th>
@@ -43,7 +43,7 @@
                         <td><?= $articulo['id'] ?></td>
                         <td><?= $articulo['descripcion'] ?></td>
                         <td><?= $articulo['modelo'] ?></td>
-                        <td><?= $categorias[$articulo['categoria']] ?></td>
+                        <td><?= $marcas[$articulo['marca']] ?></td>
                         <td class="text-end"><?= $articulo['unidades'] ?></td>
                         <td class="text-end"><?= $articulo['precio'] ?></td>
 

@@ -9,12 +9,14 @@
 
     $articulos = generar_Tabla();
     $categorias = generar_Tabla_categoria();
+    $marcas = generar_Tabla_marcas();
 
     $id = $_GET['id'];
     
     $descripcion = $_POST['descripcion'];
     $modelo = $_POST['modelo'];
-    $categoria = $_POST['categoria'];
+    $categoria = $_POST['categorias'];
+    $marca = $_POST['marca'];
     $unidades = $_POST['unidades'];
     $precio = $_POST['precio'];
 
@@ -30,6 +32,7 @@
         'id' => $id,
         'descripcion' => $descripcion,
         'modelo' => $modelo,
+        'marcas' => $marca,
         'categoria' => $categoria,
         'unidades' => $unidades,
         'precio' => $precio

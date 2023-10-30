@@ -29,6 +29,7 @@
                     <th>Desripción</th>
                     <th>Modelo</th>
                     <th>Marcas</th>
+                    <th>Categorias</th>
                     <th class="text-end">Unidades</th>
                     <th class="text-end">Precio</th>
                     <th>Acciones</th>
@@ -44,8 +45,9 @@
                         <td><?= $articulo['descripcion'] ?></td>
                         <td><?= $articulo['modelo'] ?></td>
                         <td><?= $marcas[$articulo['marca']] ?></td>
+                        <td><?= implode(", ", mostrarCategoria($categorias, $articulo['categoria']))?></td>
                         <td class="text-end"><?= $articulo['unidades'] ?></td>
-                        <td class="text-end"><?= $articulo['precio'] ?></td>
+                        <td class="text-end"><?= number_format($articulo['precio'], 2, ',', '.') ?> €</td>
 
                         <td>
                             <a href="eliminar.php?id=<?= $articulo['id'] ?>">

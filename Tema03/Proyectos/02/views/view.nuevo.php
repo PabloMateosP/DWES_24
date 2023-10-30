@@ -31,7 +31,7 @@
 
             <!-- Marcas -->
             <div class="form-floating mb-3">
-                <select class="form-select" aria-label="SeleccionarCategoria" name="marcas">
+                <select class="form-select" aria-label="SeleccionarMarca" name="marcas">
                     <option selected disabled>Seleccione categoría</option>
                     <?php foreach ($marcas as $key => $marca): ?>
                         <option value="<?= $key ?>">
@@ -39,7 +39,20 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <label for="categoriaArticulos" class="form-label">Categoria</label>
+                <label for="marcas" class="form-label">Marcas</label>
+            </div>
+
+            <!-- Categorias -->
+            <div class="mb-3">
+                <label for="categorias" class="form-label">Seleccione Categorias</label>
+                <?php foreach ($categorias as $indice => $categoria): ?>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias[]">
+                        <label class="form-check-label" for="">
+                            <?= $categoria ?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
             </div>
 
             <div class="form-floating mb-3">
@@ -53,7 +66,7 @@
             </div>
 
             <div class="mb-3">
-                
+
             </div>
 
 

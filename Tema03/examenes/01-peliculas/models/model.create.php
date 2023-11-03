@@ -8,6 +8,11 @@
 
 */
 
+$peliculas = getPeliculas();
+$paises = getPaises();
+$listGeneros = getGeneros();
+
+
 $nuevaPelicula = [
     'id' => sizeof($peliculas) + 1,
     'tiulo' => $_POST['titulo'],

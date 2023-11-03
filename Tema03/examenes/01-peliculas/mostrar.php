@@ -4,9 +4,9 @@
     include "lib/funciones.php";
 
     //Cargamos modelo
-    include "models/model.create.php";
+    include "models/model.mostrar.php";
 
     //Cargamos vista
-    include "views/view.index.php"
+    include "views/view.mostrar.php"
 
 ?>

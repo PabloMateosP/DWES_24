@@ -8,6 +8,8 @@ include('class/class.deportivo.php');
 $coche1 = new Deportivo('Honda', 'Civic Vtec', 195, '3421G', 1200, 150000);
 
 var_dump($coche1);
+VelocidadMax();
+
 
 $coche2 = new Vehiculo_privado('Honda', 'Civic Type R', 250, '4561D');
 

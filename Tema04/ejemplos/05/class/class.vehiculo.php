@@ -1,21 +1,13 @@
 <?php
 
-class Vehiculo
-{
-    //Datos del vehículo en modo público. 
-    public $nombre;
-    public $modelo;
-    public $matricula;
-    public $velocidad;
-
-}
-
 class Vehiculo_privado
 {
     // Datos del vehículo en modo privado 
     private $modelo;
     private $nombre;
-    private $velocidad;
+
+    // Cambiamos la velocidad a
+    protected $velocidad;
     private $matricula;
 
     public function __construct($nombre = null, $modelo = null, $velocidad = null, $matricula = null)

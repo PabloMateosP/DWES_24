@@ -23,7 +23,13 @@
  
         }
 
+        public function VelocidadMax(){
+            
+            //Para hacer esto como no conocemos velocidad ya que es privada en vehículo, debemos de poner este dato como protegido.
 
+            $this -> velocidad = 500;
+
+        }
     }
 
 ?>

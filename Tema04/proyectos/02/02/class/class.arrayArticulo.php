@@ -148,6 +148,11 @@ class ArrayArticulo
     public function create(Articulo $data){
         $this->tabla[]= $data;
     }
+
+    public function delete($indice){
+        unset($this -> tabla[$indice]);
+    }
+
 }
 
 ?>

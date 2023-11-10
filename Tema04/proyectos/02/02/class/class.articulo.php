@@ -6,40 +6,37 @@
 
 class Articulo
 {
-    private $id;
-    private $modelo;
-    private $marca;
-    private $descripcion;
-    private $categorias;
-    private $unidades;
-    private $precio;
+        private $id;
+        private $modelo;
+        private $descripcion;
+        private $marca;
+        private $categorias;
+        private $unidades;
+        private $precio;
 
-    public function __construct(
-        $id = null, 
-        $descripcion = null,
-        $modelo = null, 
-        $marca = null, 
-         
-        $categorias = [],
-        $unidades = null, 
-        $precio = null
-        )
-    {
+        public function __construct(
+                $id = null,
+                $modelo = null,
+                $descripcion = null,
+                $marca = null,
+                $categorias = [],
+                $unidades = null,
+                $precio = null
+        ) {
 
-        $this->id = $id;
-        $this->descripcion = $descripcion;
-        $this->modelo = $modelo;
-        $this->marca = $marca;
-        
-        $this->categorias = $categorias;
-        $this->unidades = $unidades;
-        $this->precio = $precio;
+                $this->id = $id;
+                $this->modelo = $modelo;
+                $this->descripcion = $descripcion;
+                $this->marca = $marca;
+                $this->categorias = $categorias;
+                $this->unidades = $unidades;
+                $this->precio = $precio;
 
-    }
+        }
 
         /**
          * Get the value of id
-         */ 
+         */
         public function getId()
         {
                 return $this->id;
@@ -49,7 +46,7 @@ class Articulo
          * Set the value of id
          *
          * @return  self
-         */ 
+         */
         public function setId($id)
         {
                 $this->id = $id;
@@ -59,7 +56,7 @@ class Articulo
 
         /**
          * Get the value of modelo
-         */ 
+         */
         public function getModelo()
         {
                 return $this->modelo;
@@ -69,7 +66,7 @@ class Articulo
          * Set the value of modelo
          *
          * @return  self
-         */ 
+         */
         public function setModelo($modelo)
         {
                 $this->modelo = $modelo;
@@ -79,7 +76,7 @@ class Articulo
 
         /**
          * Get the value of marca
-         */ 
+         */
         public function getMarca()
         {
                 return $this->marca;
@@ -89,7 +86,7 @@ class Articulo
          * Set the value of marca
          *
          * @return  self
-         */ 
+         */
         public function setMarca($marca)
         {
                 $this->marca = $marca;
@@ -99,7 +96,7 @@ class Articulo
 
         /**
          * Get the value of descripcion
-         */ 
+         */
         public function getDescripcion()
         {
                 return $this->descripcion;
@@ -109,7 +106,7 @@ class Articulo
          * Set the value of descripcion
          *
          * @return  self
-         */ 
+         */
         public function setDescripcion($descripcion)
         {
                 $this->descripcion = $descripcion;
@@ -119,7 +116,7 @@ class Articulo
 
         /**
          * Get the value of categorias
-         */ 
+         */
         public function getCategorias()
         {
                 return $this->categorias;
@@ -129,7 +126,7 @@ class Articulo
          * Set the value of categorias
          *
          * @return  self
-         */ 
+         */
         public function setCategorias($categorias)
         {
                 $this->categorias = $categorias;
@@ -139,7 +136,7 @@ class Articulo
 
         /**
          * Get the value of unidades
-         */ 
+         */
         public function getUnidades()
         {
                 return $this->unidades;
@@ -149,7 +146,7 @@ class Articulo
          * Set the value of unidades
          *
          * @return  self
-         */ 
+         */
         public function setUnidades($unidades)
         {
                 $this->unidades = $unidades;
@@ -159,7 +156,7 @@ class Articulo
 
         /**
          * Get the value of precio
-         */ 
+         */
         public function getPrecio()
         {
                 return $this->precio;
@@ -169,7 +166,7 @@ class Articulo
          * Set the value of precio
          *
          * @return  self
-         */ 
+         */
         public function setPrecio($precio)
         {
                 $this->precio = $precio;

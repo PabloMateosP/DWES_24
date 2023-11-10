@@ -10,10 +10,11 @@ $articulos -> getDatos();
 $categorias = ArrayArticulo::getCategorias();
 $marcas = ArrayArticulo::getMarcas();
 
+$id = $_POST['id'];
 $modelo = $_POST['modelo'];
 $descripcion = $_POST['descripcion'];
 $marca_Art = $_POST['marca'];
-$categoria_art = $_POST['categorias'];
+$categoria_art = $_POST['categorias[]'];
 $unidades = $_POST['unidades'];
 $precio = $_POST['precio'];
 
@@ -23,7 +24,7 @@ $precio = $_POST['precio'];
 # Creo un objeto clase artículo a partir de los detalles 
 # del formulario 
 $articulo = new Articulo(
-    6,
+    $id,
     $modelo,
     $descripcion,
     $marca_Art,
@@ -35,5 +36,7 @@ $articulo = new Articulo(
 # Añadimos el artículo a la tabla 
 $articulos -> create($articulo);
 
+# Generamos notificación
+$notificacion = "Artículo creado con éxito"
 
 ?>

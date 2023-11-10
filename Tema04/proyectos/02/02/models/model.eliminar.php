@@ -1,26 +1,27 @@
-<?php 
+<?php
 
-    // Model: model.eliminar.php
-    
-    // Descripción: eliminar un elemto de la tabla
+// Model: model.eliminar.php
 
-    $articulos = generar_Tabla();
-    $categorias = generar_Tabla_categoria();
+// Descripción: eliminar un elemto de la tabla
 
-    $id = $_GET['id'];
+$articulos = new ArrayArticulo();
+$articulos -> getDatos();
 
-    $indice_eliminar =  buscar_en_tabla($articulos, 'id', $id);
+$categorias = ArrayArticulo::getCategorias();
 
-    if ($indice_eliminar !== false) {
-        // elimino elemento seleccionado 
-        unset ($articulos[$indice_eliminar]);
+$marcas = ArrayArticulo::getMarcas();
 
-        // reorganizo array
-        $articulos = array_values($articulos);
-    
-    } else {
-        echo 'ERROR: libro no encontrado';
-        exit();
-    }
+$id = $_GET['id'];
+
+$indice_eliminar = buscar_en_tabla($articulos, 'id', $id);
+
+if ($indice_eliminar !== false) {
+    // elimino elemento seleccionado 
+    $articulos -> delete();
+
+} else {
+    echo 'ERROR: libro no encontrado';
+    exit();
+}
 
 ?>

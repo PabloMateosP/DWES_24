@@ -17,7 +17,10 @@
 
         <form action="create.php" method="post">
 
-
+        <div class="form-floating mb-3">
+                <input type="number" class="form-control" name="id">
+                <label for="descripcionArticulo" class="form-label">ID:</label>
+            </div>
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="descripcion">
@@ -47,7 +50,7 @@
                 <label for="categorias" class="form-label">Seleccione Categorias</label>
                 <?php foreach ($categorias as $indice => $categoria): ?>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias">
+                        <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias[]">
                         <label class="form-check-label" for="">
                             <?= $categoria ?>
                         </label>

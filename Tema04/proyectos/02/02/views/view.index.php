@@ -19,6 +19,10 @@
         include 'views/partials/menu_prin.php';
         ?>
 
+        <?php 
+        include 'views/partials/notificacion.php';
+        ?>
+
         <table class="table">
             <thead>
                 <!-- Encabezado Tabla -->
@@ -38,7 +42,7 @@
             </thead>
             <tbody>
 
-                <?php foreach ($articulos->getTabla() as $articulo): ?>
+                <?php foreach ($articulos->getTabla() as $indice => $articulo): ?>
                     <tr>
 
                         <td>

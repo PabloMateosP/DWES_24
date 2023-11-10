@@ -3,7 +3,7 @@
 
 <head>
   <!-- Incluimos HEAD -->
-  <?php include("partials/partial.head.php") ?>
+  <?php include("layouts/layout.head.php") ?>
   <title>Home - CRUD Tabla Películas</title>
 </head>
 
@@ -11,14 +11,14 @@
   <div class="container">
 
     <!-- Cabecera -->
-    <?php include("partials/partial.cabecera.php"); ?>
+    <?php include"partials/partial.cabecera.php" ?>
 
     <legend>
       Tabla Películas
     </legend>
 
     <!-- Incluimos Partials menu -->
-    <?php include("partials/partial.menu.php") ?>
+    <?php include "partials/partial.menu.php" ?>
 
     <table class="table">
       <thead>
@@ -28,7 +28,7 @@
           $claves[] = "Acciones";
           foreach ($claves as $clave): ?>
             <th>
-              <?= $clave ?>
+              <?= ucfirst($clave) ?>
             </th>
           <?php endforeach; ?>
         </tr>
@@ -36,26 +36,31 @@
       <tbody>
         <?php foreach ($peliculas as $indice => $pelicula): ?>
           <tr>
-            <!-- Muestro los datos del libro -->
-            <?php foreach ($pelicula as $key => $campo): ?>
-              <td>
-                <?php if ($key == 'generos'): ?>
-                  <!-- Si el índice / llave es géneros, se usará el método implode para concatenar los 
-                  elementos del array de géneros-->
-                  <?= implode(', ', listaGeneros($generos, $campo)) ?>
-                <?php else: ?>
-                  <?= $campo ?>
-                <?php endif ?>
-              </td>
-            <?php endforeach; ?>
+            <td>
+              <?= $pelicula['id'] ?>
+            </td>
+            <td>
+              <?= $pelicula['titulo'] ?>
+            </td>
+            <td>
+              <?= $paises[$pelicula['pais']] ?>
+            </td>
+            <td>
+              <?= $pelicula['director'] ?>
+            </td>
+            <td>
+              <?= implode(', ', mostrarGeneros($listGeneros, $pelicula['generos'])) ?>
+            </td>
+            <td>
+              <?= $pelicula['año'] ?>
+            </td>
 
             <!-- botones de acción -->
             <td>
-              <a href="eliminar.php?indice=<?= $indice ?>" Title="Eliminar"><i class="bi bi-trash-fill"></i></a>
-              <a href="editar.php?indice=<?= $indice ?>" Title="Modificar"><i class="bi bi-pencil-square"></i></a>
+              <a href=#><i class="bi bi-trash-fill"></i></a>
+              <a href=#><i class="bi bi-pencil-square"></i></a>
               <a href="mostrar.php?indice=<?= $indice ?>" Title="Mostrar"><i class="bi bi-eye"></i></a>
             </td>
-
 
           </tr>
         <?php endforeach; ?>
@@ -71,12 +76,12 @@
     </table>
 
     <!-- Incluimos Partials footer -->
-    <?php include("partials/partial.footer.php") ?>
+    <?php include "partials/partial.footer.php" ?>
 
   </div>
 
   <!-- Incluimos Partials javascript bootstrap -->
-  <?php include("partials/partial.javascript.php") ?>
+  <?php include "layouts/layout.javascript.php" ?>
 
 </body>
 

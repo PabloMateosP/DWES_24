@@ -1,7 +1,8 @@
 <?php 
 
     // Cargamos libreria 
-    include "libs/crud_funciones.php";
+    include "class/class.articulo.php";
+    include "class/class.arrayArticulo.php";
 
     // Cargamos el modelo
     include "models/model.mostrar.php";

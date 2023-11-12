@@ -21,49 +21,50 @@
 
                 <div class="mb-3">
                     <label for="id" class="form-label">Id: </label>
-                    <input type="text" class="form-control" name="id" value="<?= $articulo['id'] ?>" disabled>
+                    <input type="text" class="form-control" name="id" value="<?= $articulo->getId() ?>" disabled>
 
                 </div>
 
                 <div class="mb-3">
                     <label for="descripcion" class="form-label">Descripción: </label>
-                    <input type="text" class="form-control" name="descripcion" value="<?= $articulo['descripcion'] ?>"
+                    <input type="text" class="form-control" name="descripcion" value="<?= $articulo->getDescripcion() ?>"
                         disabled>
 
                 </div>
 
                 <div class="mb-3">
                     <label for="modelo" class="form-label">Modelo: </label>
-                    <input type="text" class="form-control" name="modelo" value="<?= $articulo['modelo'] ?>" disabled>
+                    <input type="text" class="form-control" name="modelo" value="<?= $articulo->getModelo() ?>" disabled>
 
                 </div>
 
+                <!-- Falta poner que no muestre los números sino los nombres. -->
                 <!-- MARCAS -->
                 <div class="mb-3">
                     <label for="categoria" class="form-label">Marcas: </label>
-                    <input type="text" class="form-control" name="categoria" value="<?= $marcas[$articulo['marca']] ?>"
+                    <input type="text" class="form-control" name="categoria" value="<?= $articulo->getMarca() ?>"
                         disabled>
 
                 </div>
 
                 <!-- CATEGORIAS -->
                 <div class="mb-3">
-                    <label for="categoria" class="form-label">Marcas: </label>
+                    <label for="categoria" class="form-label">Categoria: </label>
                     <input type="text" class="form-control" name="categoria"
-                        value="<?= implode(", ", mostrarCategoria($categorias, $articulo['categoria'])) ?>" disabled>
+                        value="<?= implode(", ", $articulo->getCategorias()) ?>" disabled>
 
                 </div>
 
                 <div class="mb-3">
                     <label for="unidades" class="form-label">Unidades: </label>
-                    <input type="number" class="form-control" name="unidades" value="<?= $articulo['unidades'] ?>"
+                    <input type="number" class="form-control" name="unidades" value="<?= $articulo->getUnidades() ?>"
                         disabled>
 
                 </div>
 
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio: </label>
-                    <input type="number" class="form-control" name="precio" value="<?= $articulo['precio'] ?>" disabled>
+                    <input type="number" class="form-control" name="precio" value="<?= $articulo->getPrecio() ?>" disabled>
 
                 </div>
 
@@ -74,6 +75,9 @@
                     <a class="btn btn-primary" href="index.php" role="button">Volver</a>
 
                 </div>
+                <br>
+                <br>
+                <br>
 
 
             </form>

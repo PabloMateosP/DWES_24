@@ -158,6 +158,12 @@ class ArrayArticulo
         return $this->tabla[$indice]; 
     }
 
+    public function buscarCategoria($indice){
+        
+    }
+
+    
+
 }
 
 ?>

@@ -14,7 +14,7 @@ $id = $_POST['id'];
 $modelo = $_POST['modelo'];
 $descripcion = $_POST['descripcion'];
 $marca_Art = $_POST['marca'];
-$categoria_art = $_POST['categorias[]'];
+$categoria_art = $_POST['categorias'];
 $unidades = $_POST['unidades'];
 $precio = $_POST['precio'];
 

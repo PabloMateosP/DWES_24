@@ -4,20 +4,20 @@
 
 // Descripción: eliminar un elemto de la tabla
 
-$articulos = new ArrayArticulo();
-$articulos -> getDatos();
-
 $categorias = ArrayArticulo::getCategorias();
 
 $marcas = ArrayArticulo::getMarcas();
 
-$id = $_GET['id'];
+$articulos = new ArrayArticulo();
+$articulos -> getDatos();
 
-$indice_eliminar = buscar_en_tabla($articulos, 'id', $id);
 
-if ($indice_eliminar !== false) {
+// No comprendo porqué se llama indice y no id
+$id = $_GET['indice'];
+
+if ($id !== false) {
     // elimino elemento seleccionado 
-    $articulos -> delete();
+    $articulos -> delete($id);
 
 } else {
     echo 'ERROR: libro no encontrado';

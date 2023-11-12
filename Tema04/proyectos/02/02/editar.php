@@ -1,12 +1,17 @@
 <?php 
 
-    // Librerias
-    include 'libs/crud_funciones.php';
+    // Controlador: editar.php
 
-    // Cargamos modelo 
+    // Descripción: permite eliminar un elemento de la tabla
+
+    # Librería
+    include 'class/class.articulo.php';
+    include 'class/class.arrayArticulo.php';
+    
+    # Model
     include 'models/model.editar.php';
 
-    // Cargamos vista
+    # View
     include 'views/view.editar.php';
 
 ?>

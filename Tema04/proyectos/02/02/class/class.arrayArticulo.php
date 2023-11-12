@@ -153,6 +153,11 @@ class ArrayArticulo
         unset($this -> tabla[$indice]);
     }
 
+    public function buscarId($indice){
+        // retornamos los valores de ese indice en la tabla de la clase
+        return $this->tabla[$indice]; 
+    }
+
 }
 
 ?>

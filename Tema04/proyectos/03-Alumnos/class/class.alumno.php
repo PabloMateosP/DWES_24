@@ -4,7 +4,7 @@
     Clase articulo
 */
 
-class Articulo
+class Alumno
 {
         private $id;
         private $nombre;
@@ -94,6 +94,7 @@ class Articulo
         {
                 $fechaNac = new DateTime($this -> fecha_nacimiento);
                 $hoy = new DateTime();
+                # Con el -> y le damos el formato en año.
                 $edad = $hoy -> diff($fechaNac)->y;
                 return $edad;
         }

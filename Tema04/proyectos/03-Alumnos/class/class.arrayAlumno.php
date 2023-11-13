@@ -2,13 +2,13 @@
 
 /**
  * 
- * class.arrayArticulo.php
- * tabla Artículos
- * Es un array donde cada elemento es un objeto de la clase Artículo
+ * class.arrayAlumno.php
+ * tabla Alumnos
+ * Es un array donde cada elemento es un objeto de la clase Alumnos
  * 
  */
 
-class ArrayArticulo
+class arrayAlumno
 {
     private $tabla;
 
@@ -30,40 +30,36 @@ class ArrayArticulo
         return $this;
     }
 
-    static public function getCategorias()
+    static public function getAsignaturas()
     {
-        $categorias = ['Portatiles', 'PCs sobremesa', 'Componentes', 'Pantallas', 'Impresora'];
+        $asignaturas = ['Base De Datos', 'Entorno de Desarrollo', 'Formación y Orientación Laboral', 'Lenguaje de Marcas y Sistemas de Gestión de Información', 'Programación',  'Sistemas Informáticos', 'Desarrollo web Entorno Cliente', 'Desarrollo web Entorno Web'];
 
-        asort($categorias);
+        asort($asignaturas);
 
-        return $categorias;
+        return $asignaturas;
     }
 
-    static public function getMarcas()
+    static public function getCursos()
     {
-        $marcas = [
-            'Xiaomi',
-            'Apple',
-            'Samsung',
-            'HP',
-            'Lenovo',
-            'Asus',
-            'Acer',
-            'Dell',
-            'Toshiba',
-            'Fujitsu'
+        $cursos = [
+            '1SMR',
+            '2SMR',
+            '1DAW',
+            '2DAW',
+            '1ADI',
+            '2ADI'
         ];
 
-        asort($marcas);
+        asort($cursos);
 
-        return $marcas;
+        return $cursos;
     }
 
     public function getDatos()
     {
 
-        #Articulo 1
-        $articulo = new Articulo(
+        #Alumno 1
+        $alumno = new Alumno(
             1,
             'Portatil Acer',
             'Aspire 3',
@@ -74,10 +70,10 @@ class ArrayArticulo
         );
 
         # Añadir artículo a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
-        #Articulo 2
-        $articulo = new Articulo(
+        #Alumno 2
+        $alumno = new Alumno(
             2,
             'Pantalla @lhua',
             'Version 102',
@@ -88,10 +84,10 @@ class ArrayArticulo
         );
 
         # Añadir artículo a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
-        #Articulo 3
-        $articulo = new Articulo(
+        #Alumno 3
+        $alumno = new Alumno(
             3,
             'Pc Sobremesa - Lenovo Intel core',
             'ideacentre 5105-07',
@@ -102,10 +98,10 @@ class ArrayArticulo
         );
 
         # Añadir artículo a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
-        #Articulo 4
-        $articulo = new Articulo(
+        #Alumno 4
+        $alumno = new Alumno(
             4,
             'Portatil LG',
             '340 - Intel I5',
@@ -116,10 +112,10 @@ class ArrayArticulo
         );
 
         # Añadir artículo a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
-        #Articulo 5
-        $articulo = new Articulo(
+        #Alumno 5
+        $alumno = new Alumno(
             5,
             'Placa base ',
             'ASUS ROG STRIX Z790-F',
@@ -130,16 +126,16 @@ class ArrayArticulo
         );
 
         # Añadir artículo a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
     }
 
-    static public function mostrarCategoria($categorias, $categoriasArticulo)
+    static public function mostrarCategoria($asignaturas, $categoriasArticulo)
     {
         $arrayCategoria = [];
 
         foreach ($categoriasArticulo as $indice) {
-            $arrayCategoria[] = $categorias[$indice];
+            $arrayCategoria[] = $asignaturas[$indice];
         }
 
         asort($arrayCategoria);
@@ -147,7 +143,7 @@ class ArrayArticulo
 
     }
 
-    public function create(Articulo $data)
+    public function create(Alumno $data)
     {
         $this->tabla[] = $data;
     }
@@ -163,9 +159,9 @@ class ArrayArticulo
         return $this->tabla[$indice];
     }
 
-    public function update($indice, Articulo $articulo)
+    public function update($indice, Alumno $alumn)
     {
-        $this->tabla[$indice] = $articulo;
+        $this->tabla[$indice] = $alumno;
     }
 
     public function order($indice)

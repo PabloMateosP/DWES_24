@@ -7,37 +7,42 @@
 
     */
 
-    $articulos = generar_Tabla();
-    $categorias = generar_Tabla_categoria();
-    $marcas = generar_Tabla_marcas();
+    setlocale(LC_MONETARY, "es_ES"); // Indicamos
 
-    $id = $_GET['id'];
-    
+    # Cargamos los datos a partir de los métodos estáticos de la clase
+    $categorias = ArrayArticulo::getCategorias(); // getCategorias -> Método estático
+    $marcas = ArrayArticulo::getMarcas(); // getMarcas -> Método estático
+
+    $articulos = new ArrayArticulo();
+    $articulo = new Articulo();
+
+    # Cargo los datos
+    $articulos->getDatos();
+
+    $indice = $_GET['indice'];
+    $articulo = $articulos->buscarId($indice);
+
+    // Recogemos los datos del formulario
+
     $descripcion = $_POST['descripcion'];
     $modelo = $_POST['modelo'];
-    $categoria = $_POST['categorias'];
     $marca = $_POST['marca'];
+    $categoriasArt = $_POST['categorias'];
     $unidades = $_POST['unidades'];
     $precio = $_POST['precio'];
 
-    # obtenemos el indice del artículo que quiero editar
-    $id_editar = $_GET['id'];
+    # Editamos los valores del articulo con los valores
 
-    # obtenemos el indice del artículo
-    $indice_articulo_editar = buscar_en_tabla($articulos, 'id', $id_editar);
+    $articulo->setDescripcion($descripcion);
+    $articulo->setModelo($modelo);
+    $articulo->setMarca($marca);
+    $articulo->setCategorias($categoriasArt);
+    $articulo->setUnidades($unidades);
+    $articulo->setPrecio($precio);
 
-    # Creo un array asociativo con los detalles del nuevo artículo
+    $articulos->update($indice, $articulo);
 
-    $articulo = [
-        'id' => $id,
-        'descripcion' => $descripcion,
-        'modelo' => $modelo,
-        'marcas' => $marca,
-        'categoria' => $categoria,
-        'unidades' => $unidades,
-        'precio' => $precio
-    ];
+    # Generamos una notificación
+    $notificacion = 'Articulo modificado con éxito';
 
-    # actualizamos el artículo en su posicion correspondiente
-    $articulos[$indice_articulo_editar] = $articulo;
 ?>

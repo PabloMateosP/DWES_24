@@ -2,7 +2,7 @@
 
     // Controlador: editar.php
 
-    // Descripción: permite eliminar un elemento de la tabla
+    // Descripción: mostrar un formulario par editar los artículos 
 
     # Librería
     include 'class/class.articulo.php';

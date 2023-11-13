@@ -13,9 +13,9 @@
         <!-- cabecera documento -->
         <?php include "views/partials/header.php" ?>
 
-        <legend>Formulario Nuevo Articulo</legend>
+        <legend>Formulario Editar Articulo</legend>
 
-        <form action="update.php?id=<?= $id ?>" method="POST">
+        <form action="update.php?indice=<?= $idBuscado ?>" method="POST">
 
         <div class="form-floating mb-3">
                 

@@ -158,6 +158,10 @@ class ArrayArticulo
         return $this->tabla[$indice]; 
     }
 
+    public function update($indice, $articulo){
+        $this->tabla[$indice] = $articulo;
+    }
+
     public function buscarCategoria($indice){
         
     }

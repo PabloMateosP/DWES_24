@@ -32,7 +32,7 @@ class arrayAlumno
 
     static public function getAsignaturas()
     {
-        $asignaturas = ['Base De Datos', 'Entorno de Desarrollo', 'Formación y Orientación Laboral', 'Lenguaje de Marcas y Sistemas de Gestión de Información', 'Programación',  'Sistemas Informáticos', 'Desarrollo web Entorno Cliente', 'Desarrollo web Entorno Web'];
+        $asignaturas = ['Base De Datos', 'Entorno de Desarrollo', 'Formación y Orientación Laboral', 'Lenguaje de Marcas y Sistemas de Gestión de Información', 'Programación', 'Sistemas Informáticos', 'Desarrollo web Entorno Cliente', 'Desarrollo web Entorno Web'];
 
         asort($asignaturas);
 
@@ -61,12 +61,12 @@ class arrayAlumno
         #Alumno 1
         $alumno = new Alumno(
             1,
-            'Portatil Acer',
-            'Aspire 3',
-            0,
-            [1, 2],
-            100,
-            430.05
+            'Juan Manuel',
+            'Herrera Ramírez',
+            'juan.herrera@gmail.com',
+            '06/03/2002',
+            2,
+            [3, 4, 5]
         );
 
         # Añadir artículo a la tabla
@@ -75,58 +75,37 @@ class arrayAlumno
         #Alumno 2
         $alumno = new Alumno(
             2,
-            'Pantalla @lhua',
-            'Version 102',
+            'Pablo',
+            'Mateos Palas',
+            'pmatpal0105@g.educaand.es',
+            '01/05/2004',
             3,
-            [4, 0],
-            10.5,
-            600.03
+            [3, 7, 8]
         );
 
         # Añadir artículo a la tabla
         $this->tabla[] = $alumno;
 
         #Alumno 3
-        $alumno = new Alumno(
-            3,
-            'Pc Sobremesa - Lenovo Intel core',
-            'ideacentre 5105-07',
-            1,
-            [1, 2, 3],
-            1.75,
-            200.30
-        );
+        $alumno = new Alumno(3, 'Antonio Jesús', 'Téllez Perdigones', 'atelper@gmail.com', '10/05/1999', 2, [6, 7, 8]);
 
         # Añadir artículo a la tabla
         $this->tabla[] = $alumno;
 
         #Alumno 4
-        $alumno = new Alumno(
-            4,
-            'Portatil LG',
-            '340 - Intel I5',
-            0,
-            [2, 3],
-            3.0,
-            15.7
-        );
+        $articulo = new Alumno(4, 'Juan Maria', 'Mateos Ponce', 'jmherrera@gmail.com', '20/10/2004', 4, [6, 7, 8] );
 
         # Añadir artículo a la tabla
         $this->tabla[] = $alumno;
 
-        #Alumno 5
-        $alumno = new Alumno(
-            5,
-            'Placa base ',
-            'ASUS ROG STRIX Z790-F',
-            2,
-            [2, 0],
-            100.50,
-            14.5
-        );
-
-        # Añadir artículo a la tabla
+        $alumno = new Alumno(5, 'Jorge', 'Coronil Villalba', 'jcorvil600@gmail.com', '17/04/1997', 3, [6, 7, 8], ); 
+        
+        #Añadir articulo a la tabla 
         $this->tabla[] = $alumno;
+
+        
+
+
 
     }
 
@@ -159,14 +138,14 @@ class arrayAlumno
         return $this->tabla[$indice];
     }
 
-    public function update($indice, Alumno $alumn)
+    public function update($indice, Alumno $alumno)
     {
         $this->tabla[$indice] = $alumno;
     }
 
     public function order($indice)
     {
-        
+
     }
 
     public function buscarCategoria($indice)

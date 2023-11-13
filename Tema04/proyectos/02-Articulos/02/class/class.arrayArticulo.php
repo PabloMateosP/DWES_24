@@ -59,21 +59,22 @@ class ArrayArticulo
         return $marcas;
     }
 
-    public function getDatos (){
-        
+    public function getDatos()
+    {
+
         #Articulo 1
         $articulo = new Articulo(
             1,
             'Portatil Acer',
             'Aspire 3',
             0,
-            [1,2],
+            [1, 2],
             100,
             430.05
         );
 
         # Añadir artículo a la tabla
-        $this -> tabla[] = $articulo;
+        $this->tabla[] = $articulo;
 
         #Articulo 2
         $articulo = new Articulo(
@@ -81,13 +82,13 @@ class ArrayArticulo
             'Pantalla @lhua',
             'Version 102',
             3,
-            [4,0],
+            [4, 0],
             10.5,
             600.03
         );
 
         # Añadir artículo a la tabla
-        $this -> tabla[] = $articulo;
+        $this->tabla[] = $articulo;
 
         #Articulo 3
         $articulo = new Articulo(
@@ -95,13 +96,13 @@ class ArrayArticulo
             'Pc Sobremesa - Lenovo Intel core',
             'ideacentre 5105-07',
             1,
-            [1,2,3],
+            [1, 2, 3],
             1.75,
             200.30
         );
 
         # Añadir artículo a la tabla
-        $this -> tabla[] = $articulo;
+        $this->tabla[] = $articulo;
 
         #Articulo 4
         $articulo = new Articulo(
@@ -109,13 +110,13 @@ class ArrayArticulo
             'Portatil LG',
             '340 - Intel I5',
             0,
-            [2,3],
+            [2, 3],
             3.0,
             15.7
         );
 
         # Añadir artículo a la tabla
-        $this -> tabla[] = $articulo;
+        $this->tabla[] = $articulo;
 
         #Articulo 5
         $articulo = new Articulo(
@@ -123,50 +124,61 @@ class ArrayArticulo
             'Placa base ',
             'ASUS ROG STRIX Z790-F',
             2,
-            [2,0],
+            [2, 0],
             100.50,
             14.5
         );
 
         # Añadir artículo a la tabla
-        $this -> tabla[] = $articulo;
+        $this->tabla[] = $articulo;
 
     }
 
-    static public function mostrarCategoria($categorias, $categoriasArticulo){
+    static public function mostrarCategoria($categorias, $categoriasArticulo)
+    {
         $arrayCategoria = [];
-    
-        foreach($categoriasArticulo as $indice){
+
+        foreach ($categoriasArticulo as $indice) {
             $arrayCategoria[] = $categorias[$indice];
         }
-    
-        asort ($arrayCategoria);
+
+        asort($arrayCategoria);
         return $arrayCategoria;
-    
+
     }
 
-    public function create(Articulo $data){
-        $this->tabla[]= $data;
+    public function create(Articulo $data)
+    {
+        $this->tabla[] = $data;
     }
 
-    public function delete($indice){
-        unset($this -> tabla[$indice]);
+    public function delete($indice)
+    {
+        unset($this->tabla[$indice]);
     }
 
-    public function buscarId($indice){
+    public function buscarId($indice)
+    {
         // retornamos los valores de ese indice en la tabla de la clase
-        return $this->tabla[$indice]; 
+        return $this->tabla[$indice];
     }
 
-    public function update($indice, $articulo){
+    public function update($indice, Articulo $articulo)
+    {
         $this->tabla[$indice] = $articulo;
     }
 
-    public function buscarCategoria($indice){
+    public function order($indice)
+    {
         
     }
 
-    
+    public function buscarCategoria($indice)
+    {
+
+    }
+
+
 
 }
 

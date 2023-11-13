@@ -22,7 +22,7 @@
     $indice = $_GET['indice'];
     $articulo = $articulos->buscarId($indice);
 
-    // Recogemos los datos del formulario
+    # Recogemos los datos del formulario
 
     $descripcion = $_POST['descripcion'];
     $modelo = $_POST['modelo'];

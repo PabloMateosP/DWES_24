@@ -42,7 +42,7 @@
                 <!-- MARCAS -->
                 <div class="mb-3">
                     <label for="categoria" class="form-label">Marcas: </label>
-                    <input type="text" class="form-control" name="categoria" value="<?= $articulo->getMarca() ?>"
+                    <input type="text" class="form-control" value="<?= $marcas[$articulo->getMarca()] ?>"
                         disabled>
 
                 </div>
@@ -51,7 +51,7 @@
                 <div class="mb-3">
                     <label for="categoria" class="form-label">Categoria: </label>
                     <input type="text" class="form-control" name="categoria"
-                        value="<?= implode(", ", $articulo->getCategorias()) ?>" disabled>
+                        value="<?= implode(", ", ArrayArticulo::mostrarCategoria($categorias, $articulo->getCategorias())) ?>" disabled>
 
                 </div>
 

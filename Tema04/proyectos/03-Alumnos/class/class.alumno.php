@@ -14,6 +14,7 @@ class Articulo
         private $curso;
         private $asignatura;
 
+
         public function __construct(
                 $id = null,
                 $nombre = null,
@@ -30,8 +31,8 @@ class Articulo
                 $this->fecha_nacimiento = $fecha_nacimiento;
                 $this->curso = $curso;
                 $this->asignatura = $asignatura;
-        } 
-        
+        }
+
         // getters and setters 
         public function getId()
         {
@@ -88,6 +89,13 @@ class Articulo
         public function setAsignatura($asignatura)
         {
                 $this->asignatura = $asignatura;
+        }
+        public function getEdad()
+        {
+                $fechaNac = new DateTime($this -> fecha_nacimiento);
+                $hoy = new DateTime();
+                $edad = $hoy -> diff($fechaNac)->y;
+                return $edad;
         }
 }
 

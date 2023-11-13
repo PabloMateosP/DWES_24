@@ -33,16 +33,16 @@ class arrayAlumno
         return $this;
     }
 
-    static public function mostrarCategoria($asignaturas, $categoriasArticulo)
+    static public function mostrarCategoria($asignaturas, $asignaturasArticulo)
     {
-        $arrayCategoria = [];
+        $arrayAsignaturas = [];
 
-        foreach ($categoriasArticulo as $indice) {
-            $arrayCategoria[] = $asignaturas[$indice];
+        foreach ($asignaturasArticulo as $indice) {
+            $arrayAsignaturas[] = $asignaturas[$indice];
         }
 
-        asort($arrayCategoria);
-        return $arrayCategoria;
+        asort($arrayAsignaturas);
+        return $arrayAsignaturas;
 
     }
 
@@ -74,10 +74,24 @@ class arrayAlumno
     # Métodos para replicar los datos de una base de datos 
     # -------------------------------------------------------------------------------------
     
+    # Método para mostrar asignaturas 
+    static public function mostrarAsignatura($asignaturas, $asignaturasAlumno)
+    {
+        $arrayAsignaturas = [];
+
+        foreach ($asignaturasAlumno as $indice) {
+            $arrayAsignaturas[] = $asignaturas[$indice];
+        }
+
+        asort($arrayAsignaturas);
+        return $arrayAsignaturas;
+    }
+
+
     # Array con todas las asignaturas
     static public function getAsignaturas()
     {
-        $asignaturas = ['Base De Datos', 'Entorno de Desarrollo', 'Formación y Orientación Laboral', 'Lenguaje de Marcas y Sistemas de Gestión de Información', 'Programación', 'Sistemas Informáticos', 'Desarrollo web Entorno Cliente', 'Desarrollo web Entorno Web'];
+        $asignaturas = ['Base De Datos', 'Entorno de Desarrollo', 'Formación y Orientación Laboral', 'Lenguaje de Marcas y Sistemas de Gestión de Información', 'Programación', 'Sistemas Informáticos', 'Desarrollo web Entorno Cliente', 'Desarrollo web Entorno Web', 'Lenguaje de Marcas'];
 
         asort($asignaturas);
 
@@ -246,7 +260,7 @@ class arrayAlumno
         $this->tabla[] = $alumno;
 
         #Alumno 11
-        $articulo = new Articulo(
+        $alumno = new Alumno(
             11,
             'Juan Jesus',
             'Muñoz Perez',
@@ -257,7 +271,7 @@ class arrayAlumno
         );
 
         #Añadir alumno a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
         #Alumno 12
         $alumno = new Alumno(

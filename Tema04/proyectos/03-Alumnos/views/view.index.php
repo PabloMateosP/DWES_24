@@ -19,7 +19,7 @@
         include 'views/partials/menu_prin.php';
         ?>
 
-        <?php 
+        <?php
         include 'views/partials/notificacion.php';
         ?>
 
@@ -30,41 +30,41 @@
 
                     <!-- Personalizado -->
                     <th>Id</th>
-                    <th>Descripción</th>
-                    <th>Modelo</th>
-                    <th>Marcas</th>
-                    <th>Categorias</th>
-                    <th class="text-end">Unidades</th>
-                    <th class="text-end">Precio</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Curso</th>
+                    <th>Asignatura</th>
                     <th>Acciones</th>
 
                 </tr>
             </thead>
             <tbody>
 
-                <?php foreach ($articulos->getTabla() as $indice => $articulo): ?>
+                <?php foreach ($alumnos->getTabla() as $indice => $alumno): ?>
                     <tr>
 
                         <td>
-                            <?= $articulo->getId() ?>
+                            <?= $alumno->getId() ?>
                         </td>
                         <td>
-                            <?= $articulo->getDescripcion() ?>
+                            <?= $alumno->getNombre() ?>
                         </td>
                         <td>
-                            <?= $articulo->getModelo() ?>
+                            <?= $alumno->getApellidos() ?>
                         </td>
                         <td>
-                            <?= $marcas[$articulo->getMarca()] ?>
+                            <?= $alumno->getEmail() ?>
                         </td>
                         <td>
-                            <?= implode(", ", ArrayArticulo::mostrarCategoria($categorias, $articulo->getCategorias())) ?>
+                            <?= $alumno->getFechaNacimiento() ?>
                         </td>
-                        <td class="text-end">
-                            <?= $articulo->getUnidades() ?>
+                        <td>
+                            <?= $cursos[$alumno->getCurso()] ?>
                         </td>
-                        <td class="text-end">
-                            <?= number_format($articulo->getPrecio(), 2, ',', '.') ?> €
+                        <td>
+                            <?= implode(", ", ArrayAlumno::mostrarAsignatura($asignaturas, $alumno->getAsignaturas())) ?>
                         </td>
 
                         <td>

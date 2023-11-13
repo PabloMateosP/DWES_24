@@ -12,7 +12,7 @@ class Alumno
         private $email;
         private $fecha_nacimiento;
         private $curso;
-        private $asignatura;
+        private $asignaturas;
 
 
         public function __construct(
@@ -22,7 +22,7 @@ class Alumno
                 $email = null,
                 $fecha_nacimiento = null,
                 $curso = null,
-                $asignatura = null
+                $asignaturas = []
         ) {
                 $this->id = $id;
                 $this->nombre = $nombre;
@@ -30,7 +30,7 @@ class Alumno
                 $this->email = $email;
                 $this->fecha_nacimiento = $fecha_nacimiento;
                 $this->curso = $curso;
-                $this->asignatura = $asignatura;
+                $this->asignaturas = $asignaturas;
         }
 
         // getters and setters 
@@ -58,9 +58,9 @@ class Alumno
         {
                 return $this->curso;
         }
-        public function getAsignatura()
+        public function getAsignaturas()
         {
-                return $this->asignatura;
+                return $this->asignaturas;
         }
         public function setId($id)
         {
@@ -86,7 +86,7 @@ class Alumno
         {
                 $this->curso = $curso;
         }
-        public function setAsignatura($asignatura)
+        public function setAsignaturas($asignatura)
         {
                 $this->asignatura = $asignatura;
         }

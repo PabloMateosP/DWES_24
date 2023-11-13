@@ -17,11 +17,10 @@
             Ordenar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="ordenar.php?criterio=descripcion">Descripcion</a></li>
-            <li><a class="dropdown-item" href="ordenar.php?criterio=modelo">Modelo</a></li>
-            <li><a class="dropdown-item" href="ordenar.php?criterio=categoria">Categoria</a></li>
-            <li><a class="dropdown-item" href="ordenar.php?criterio=unidades">Unidades</a></li>
-            <li><a class="dropdown-item" href="ordenar.php?criterio=precio">Precio</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=descripcion">Nombre</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=modelo">Apellidos</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=categoria">Email</a></li>
+            <li><a class="dropdown-item" href="ordenar.php?criterio=unidades">Edad</a></li>
           </ul>
         </li>
       </ul>

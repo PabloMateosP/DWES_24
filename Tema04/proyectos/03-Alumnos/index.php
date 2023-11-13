@@ -2,12 +2,12 @@
 
     /**
      * Controlador index.php
-     * Muestra los detalles de los artículos ordenados
+     * Muestra los detalles de los alumnos ordenados
      */
 
     // Cargamos libreria
-    include 'class/class.articulo.php';
-    include 'class/class.arrayArticulo.php';
+    include 'class/class.alumno.php';
+    include 'class/class.arrayAlumno.php';
 
     //Cargamos modelo
     include "models/model.index.php";

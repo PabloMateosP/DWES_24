@@ -8,11 +8,11 @@
 */
 
 setlocale(LC_MONETARY, "es_ES");
-$categorias = ArrayArticulo::getCategorias();
+$asignaturas = ArrayAlumno::getAsignaturas();
 
-$marcas = ArrayArticulo::getMarcas();
+$cursos = ArrayAlumno::getCursos();
 
-$articulos = new ArrayArticulo();
-$articulos -> getDatos();
+$alumnos = new ArrayAlumno();
+$alumnos->getAlumnos();
 
 ?>

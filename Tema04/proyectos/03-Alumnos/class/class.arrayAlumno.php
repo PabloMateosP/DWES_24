@@ -84,6 +84,7 @@ class arrayAlumno
         }
 
         asort($arrayAsignaturas);
+        
         return $arrayAsignaturas;
     }
 
@@ -162,7 +163,7 @@ class arrayAlumno
         $this->tabla[] = $alumno;
 
         #Alumno 4
-        $articulo = new Alumno(
+        $alumno = new Alumno(
             4,
             'Juan Maria',
             'Mateos Ponce',
@@ -285,7 +286,7 @@ class arrayAlumno
         );
 
         #Añadir alumno a la tabla
-        $this->tabla[] = $articulo;
+        $this->tabla[] = $alumno;
 
     }
 

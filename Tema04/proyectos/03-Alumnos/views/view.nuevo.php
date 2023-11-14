@@ -15,7 +15,7 @@
 
         <legend>Formulario Nuevo Articulo</legend>
 
-        <form action="create.php" method="post">
+        <form action="create.php" method="POST">
 
         <div class="form-floating mb-3">
                 <input type="number" class="form-control" name="id">
@@ -44,7 +44,7 @@
 
             <!-- Curso -->
             <div class="form-floating mb-3">
-                <select class="form-select" aria-label="SeleccionarMarca" name="curos">
+                <select class="form-select" aria-label="SeleccionarMarca" name="cursos">
                     <option selected disabled>Seleccione curso</option>
                     <?php foreach ($cursos as $key => $curso): ?>
                         <option value="<?= $key ?>">
@@ -78,6 +78,10 @@
 
             <a class="btn btn-primary" href="index.php" role="button">Volver</a>
 
+            <br>
+            <br>
+            <br>
+            
         </form>
 
     </div>

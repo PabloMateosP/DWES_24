@@ -1,42 +1,46 @@
 <?php
 
 /**
- * Generamos nuesvo producto 
+ * Generamos nuevo alumno 
  */
 
-$articulos = new ArrayArticulo();
-$articulos -> getDatos();
+$alumnos = new ArrayAlumno();
+$alumnos->getAlumnos();
 
-$categorias = ArrayArticulo::getCategorias();
-$marcas = ArrayArticulo::getMarcas();
+$asignaturas = ArrayAlumno::getAsignaturas();
+
+$cursos = ArrayAlumno::getCursos();
 
 $id = $_POST['id'];
-$modelo = $_POST['modelo'];
-$descripcion = $_POST['descripcion'];
-$marca_Art = $_POST['marca'];
-$categoria_art = $_POST['categorias'];
-$unidades = $_POST['unidades'];
-$precio = $_POST['precio'];
+$nombre = $_POST['nombre'];
+$apellidos = $_POST['apellidos'];
+$email = $_POST['email'];
+$fecha_nac = $_POST['fechaNac'];
+$cursos = $_POST['cursos'];
+$asignaturas = $_POST['asignaturas'];
 
 # Validación
 
 
-# Creo un objeto clase artículo a partir de los detalles 
+# Creo un objeto clase alumno a partir de los detalles 
 # del formulario 
-$articulo = new Articulo(
+$alumno = new Alumno(
     $id,
-    $modelo,
-    $descripcion,
-    $marca_Art,
-    $categoria_art,
-    $unidades,
-    $precio
+    $nombre,
+    $apellidos,
+    $email,
+    $fecha_nac,
+    $cursos,
+    $asignaturas
 );
 
-# Añadimos el artículo a la tabla 
-$articulos -> create($articulo);
+var_dump($alumno);
+exit();
+
+# Añadimos el alumno a la tabla 
+#$alumnos->create($alumno);
 
 # Generamos notificación
-$notificacion = "Artículo creado con éxito"
+#$notificacion = "Alumno creado con éxito";
 
 ?>

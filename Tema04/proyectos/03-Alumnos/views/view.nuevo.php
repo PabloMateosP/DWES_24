@@ -68,16 +68,6 @@
                 <?php endforeach; ?>
             </div>
 
-            <div class="form-floating mb-3">
-                <input type="Number" class="form-control" name="unidades">
-                <label for="unidadesArticulos" class="form-label">Unidades</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input type="Number" class="form-control" name="precio">
-                <label for="precioArticulo" class="form-label">Precio</label>
-            </div>
-
             <div class="mb-3">
 
             </div>

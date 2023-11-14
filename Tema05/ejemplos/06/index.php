@@ -44,12 +44,17 @@
     echo 'Número de columnas: '. $result->field_count;
     echo '<br>';
 
-    $alumnos = $result -> fetch_object(); 
-    /* 
-     * Constante MSQLI_ASSOC con la cual se le indica la forma que extraeremos los datos,
-     * en este caso devolvemos solo el primer alumno 
-    */
+    // ; 
+    // /* 
+    //  * Constante MSQLI_ASSOC con la cual se le indica la forma que extraeremos los datos,
+    //  * en este caso devolvemos solo el primer alumno 
+    // */
+    //  var_dump($alumnos);
 
-    var_dump($alumnos);
+    while($alumnos = $result -> fetch_object()){
+        echo 'Nombre: ' . $alumno->get
+    }
+
+    
 
 ?>

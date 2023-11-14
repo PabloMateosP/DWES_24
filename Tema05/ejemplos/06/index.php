@@ -6,7 +6,7 @@
      * Conexión localhost con usuario root a la base de datos fp
      * 
      * - Conexión mediante la clase 
-     * - Retorna en dos arrays uno ASOCIATIVO y otro INDEXADO
+     * - Array objetos de la clase Alumno 
      * 
      * Las propiedades y métodos de la clase msqli aparecen en 'https://www.php.net/manual/es/class.mysqli.php' en el manual
      * 
@@ -44,14 +44,12 @@
     echo 'Número de columnas: '. $result->field_count;
     echo '<br>';
 
-    $alumnos = $result -> fetch_all(MYSQLI_BOTH); 
+    $alumnos = $result -> fetch_object(); 
     /* 
      * Constante MSQLI_ASSOC con la cual se le indica la forma que extraeremos los datos,
-     * en este caso mediante dos arrays, un array INDEXADO y otro ASOCIATIVO.
+     * en este caso devolvemos solo el primer alumno 
     */
 
-    $alumno = $alumnos[0];
-
-    var_dump($alumno);
+    var_dump($alumnos);
 
 ?>

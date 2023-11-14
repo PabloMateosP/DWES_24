@@ -6,7 +6,7 @@
      * Conexión localhost con usuario root a la base de datos fp
      * 
      * - Conexión mediante la clase 
-     * - Retorna en un array asociativo
+     * - Retorna en un array INDEXADO
      * 
      * Las propiedades y métodos de la clase msqli aparecen en 'https://www.php.net/manual/es/class.mysqli.php' en el manual
      * 

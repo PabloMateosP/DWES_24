@@ -3,13 +3,15 @@
 /**
  * 
  * Model: model.nuevo.php
- * Descripción: carga array categorias y array de marcas
+ * Descripción: carga array asignaturas y array de cursos
  * 
  */
 
 
 # Cargamos arrays para generar de forma dinámica la lista select
-$categorias = ArrayArticulo::getCategorias();
-$marcas = ArrayArticulo::getMarcas();
+setlocale(LC_MONETARY, "es_ES");
+$asignaturas = ArrayAlumno::getAsignaturas();
+
+$cursos = ArrayAlumno::getCursos();
 
 ?>

@@ -23,36 +23,46 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="descripcion">
-                <label for="descripcionArticulo" class="form-label">Descripcion:</label>
+                <input type="text" class="form-control" name="nombre">
+                <label for="descripcionArticulo" class="form-label">Nombre: </label>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="modelo">
-                <label for="modeloaArticulo" class="form-label">Modelo</label>
+                <input type="text" class="form-control" name="apellidos">
+                <label for="modeloaArticulo" class="form-label">Apellidos: </label>
             </div>
 
-            <!-- Marcas -->
             <div class="form-floating mb-3">
-                <select class="form-select" aria-label="SeleccionarMarca" name="marca">
-                    <option selected disabled>Seleccione categoría</option>
-                    <?php foreach ($marcas as $key => $marca): ?>
+                <input type="text" class="form-control" name="email">
+                <label for="modeloaArticulo" class="form-label">Email: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="fechaNac">
+                <label for="modeloaArticulo" class="form-label">Fecha Nacimiento: </label>
+            </div>
+
+            <!-- Curso -->
+            <div class="form-floating mb-3">
+                <select class="form-select" aria-label="SeleccionarMarca" name="curos">
+                    <option selected disabled>Seleccione curso</option>
+                    <?php foreach ($cursos as $key => $curso): ?>
                         <option value="<?= $key ?>">
-                            <?= $marca ?>
+                            <?= $curso ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <label for="marcas" class="form-label">Marcas</label>
+                <label for="marcas" class="form-label">Curso: </label>
             </div>
 
-            <!-- Categorias -->
+            <!-- Asignaturas -->
             <div class="mb-3">
-                <label for="categorias" class="form-label">Seleccione Categorias</label>
-                <?php foreach ($categorias as $indice => $categoria): ?>
+                <label for="asignaturas" class="form-label">Seleccione Asignaturas: </label>
+                <?php foreach ($asignaturas as $indice => $asignatura): ?>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="categorias[]">
+                        <input class="form-check-input" type="checkbox" value="<?= $indice ?>" name="asignaturas[]">
                         <label class="form-check-label" for="">
-                            <?= $categoria ?>
+                            <?= $asignatura ?>
                         </label>
                     </div>
                 <?php endforeach; ?>
@@ -72,16 +82,11 @@
 
             </div>
 
-
-
             <button type="submit" class="btn btn-primary" formaction="create.php">Enviar</button>
 
             <button type="reset" class="btn btn-danger">Borrar</button>
 
             <a class="btn btn-primary" href="index.php" role="button">Volver</a>
-
-
-
 
         </form>
 

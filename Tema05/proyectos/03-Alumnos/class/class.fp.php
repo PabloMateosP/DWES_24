@@ -26,7 +26,7 @@ class Fp extends Conexion
     {
         $sql = "SELECT 
                     alumnos.id, 
-                    concat_ws(',', alumnos.apellidos, alumnos.nombre) nombre,
+                    concat_ws(\',\', alumnos.apellidos, alumnos.nombre) nombre,
                     alumnos.email, 
                     alumnos.telefono, 
                     alumnos.direccion, 
@@ -40,6 +40,9 @@ class Fp extends Conexion
                     cursos 
                 ON alumnos.id_curso = cursos.id 
                 order by id";
+
+                $result = $this->db->prepare($sql);
+                return $result;
     }
 
 }

@@ -52,7 +52,7 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <label for="marcas" class="form-label">Curso: </label>
+                <label for="cursos" class="form-label">Curso: </label>
             </div>
 
             <!-- Asignaturas -->
@@ -66,10 +66,6 @@
                         </label>
                     </div>
                 <?php endforeach; ?>
-            </div>
-
-            <div class="mb-3">
-
             </div>
 
             <button type="submit" class="btn btn-primary" formaction="create.php">Enviar</button>

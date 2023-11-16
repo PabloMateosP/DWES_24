@@ -19,54 +19,42 @@
 
             <form action="mostrar.php">
 
-                <div class="mb-3">
-                    <label for="id" class="form-label">Id: </label>
-                    <input type="text" class="form-control" name="id" value="<?= $articulo->getId() ?>" disabled>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" name="id" value="<?= $alumno->getId()?>" disabled>
+                <label for="descripcionArticulo" class="form-label">ID:</label>
+            </div>
 
-                </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="nombre" value="<?= $alumno->getNombre() ?>" disabled>
+                <label for="descripcionArticulo" class="form-label">Nombre: </label>
+            </div>
 
-                <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción: </label>
-                    <input type="text" class="form-control" name="descripcion" value="<?= $articulo->getDescripcion() ?>"
-                        disabled>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="apellidos" value="<?= $alumno->getApellidos() ?>" disabled>
+                <label for="modeloaArticulo" class="form-label">Apellidos: </label>
+            </div>
 
-                </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="email" value="<?= $alumno->getEmail() ?>" disabled>
+                <label for="modeloaArticulo" class="form-label">Email: </label>
+            </div>
 
-                <div class="mb-3">
-                    <label for="modelo" class="form-label">Modelo: </label>
-                    <input type="text" class="form-control" name="modelo" value="<?= $articulo->getModelo() ?>" disabled>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="fechaNac" value="<?= $alumno->getFechaNacimiento() ?>" disabled>
+                <label for="modeloaArticulo" class="form-label">Fecha Nacimiento: </label>
+            </div>
 
-                </div>
+            <!-- Curso -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="curso" value="<?= $cursos[$alumno->getCurso()] ?>" disabled>
+                <label for="modeloaArticulo" class="form-label">Curso: </label>
+            </div>
 
-                <!-- Falta poner que no muestre los números sino los nombres. -->
-                <!-- MARCAS -->
-                <div class="mb-3">
-                    <label for="categoria" class="form-label">Marcas: </label>
-                    <input type="text" class="form-control" value="<?= $marcas[$articulo->getMarca()] ?>"
-                        disabled>
-
-                </div>
-
-                <!-- CATEGORIAS -->
-                <div class="mb-3">
-                    <label for="categoria" class="form-label">Categoria: </label>
-                    <input type="text" class="form-control" name="categoria"
-                        value="<?= implode(", ", ArrayArticulo::mostrarCategoria($categorias, $articulo->getCategorias())) ?>" disabled>
-
-                </div>
-
-                <div class="mb-3">
-                    <label for="unidades" class="form-label">Unidades: </label>
-                    <input type="number" class="form-control" name="unidades" value="<?= $articulo->getUnidades() ?>"
-                        disabled>
-
-                </div>
-
-                <div class="mb-3">
-                    <label for="precio" class="form-label">Precio: </label>
-                    <input type="number" class="form-control" name="precio" value="<?= $articulo->getPrecio() ?>" disabled>
-
-                </div>
+            <!-- Asignaturas -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="asignaturas" value="<?= implode(", ", ArrayAlumno::mostrarAsignatura($asignaturas, $alumno->getAsignaturas())) ?>" disabled>
+                <label for="modeloaArticulo" class="form-label">Asignaturas: </label>
+            </div>
 
                 <!-- Botones de acción -->
 

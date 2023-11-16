@@ -1,13 +1,16 @@
 <?php
 // Obtener categorías, marcas y cargar los artículos
-$categorias = ArrayArticulo::getCategorias();
-$marcas = ArrayArticulo::getMarcas();
-$articulos = new ArrayArticulo();
-$articulos->getDatos();
+setlocale(LC_MONETARY, "es_ES");
+$asignaturas = ArrayAlumno::getAsignaturas();
+
+$cursos = ArrayAlumno::getCursos();
+
+$alumnos = new ArrayAlumno();
+$alumnos->getAlumnos();
 
 $idBuscado = $_GET['indice'];
 
 # Usamos la funcion buscar de ArrayArticulos
-$articulo = $articulos->buscarId($idBuscado);
+$alumno = $alumnos->buscarID($idBuscado);
 
 ?>

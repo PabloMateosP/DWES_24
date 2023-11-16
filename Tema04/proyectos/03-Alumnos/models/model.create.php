@@ -16,8 +16,8 @@ $nombre = $_POST['nombre'];
 $apellidos = $_POST['apellidos'];
 $email = $_POST['email'];
 $fecha_nac = $_POST['fechaNac'];
-$cursos = $_POST['cursos'];
-$asignaturas = $_POST['asignaturas'];
+$cursos_alum = $_POST['cursos'];
+$asignaturas_alum = $_POST['asignaturas'];
 
 # Validación
 
@@ -30,17 +30,16 @@ $alumno = new Alumno(
     $apellidos,
     $email,
     $fecha_nac,
-    $cursos,
-    $asignaturas
+    $cursos_alum,
+    $asignaturas_alum
 );
 
-var_dump($alumno);
-exit();
+
 
 # Añadimos el alumno a la tabla 
-#$alumnos->create($alumno);
+$alumnos->create($alumno);
 
 # Generamos notificación
-#$notificacion = "Alumno creado con éxito";
+$notificacion = "Alumno creado con éxito";
 
 ?>

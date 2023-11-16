@@ -69,6 +69,12 @@ class arrayAlumno
     {
         unset($this->tabla[$indice]);
     }
+
+    public function buscarID($indice)
+    {
+        // retornamos los valores de ese indice en la tabla de la clase
+        return $this->tabla[$indice];
+    }
     
     # -------------------------------------------------------------------------------------
     # Métodos para replicar los datos de una base de datos 

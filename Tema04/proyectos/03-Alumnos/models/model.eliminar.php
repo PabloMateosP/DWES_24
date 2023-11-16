@@ -4,12 +4,13 @@
 
 // Descripción: eliminar un elemto de la tabla
 
-$categorias = ArrayArticulo::getCategorias();
+setlocale(LC_MONETARY, "es_ES");
+$asignaturas = ArrayAlumno::getAsignaturas();
 
-$marcas = ArrayArticulo::getMarcas();
+$cursos = ArrayAlumno::getCursos();
 
-$articulos = new ArrayArticulo();
-$articulos -> getDatos();
+$alumnos = new ArrayAlumno();
+$alumnos->getAlumnos();
 
 
 // No comprendo porqué se llama indice y no id
@@ -17,7 +18,10 @@ $id = $_GET['indice'];
 
 if ($id !== false) {
     // elimino elemento seleccionado 
-    $articulos -> delete($id);
+    $alumnos->delete($id);
+
+    # Generamos notificación
+    $notificacion = "Alumno eliminado con éxito";
 
 } else {
     echo 'ERROR: libro no encontrado';

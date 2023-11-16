@@ -92,12 +92,19 @@ class Alumno
         }
         public function getEdad()
         {
-                // Calculamos la edad a partir de la fecha de nacimiento y el dia actual.
-                $fechaNac = new DateTime($this -> fecha_nacimiento);
+                // // Calculamos la edad a partir de la fecha de nacimiento y el dia actual.
+                // $fechaNac = new DateTime($this -> fecha_nacimiento);
+                // $hoy = new DateTime();
+                // # Con el -> y le damos el formato en año.
+                // $edad = $hoy->diff($fechaNac)->y;
+                // return $edad;
+
+
+                $fechaNacimiento = DateTime::createFromFormat('d/m/Y', $this->fecha_nacimiento);
                 $hoy = new DateTime();
-                # Con el -> y le damos el formato en año.
-                $edad = $hoy -> diff($fechaNac)->y;
+                $edad = $hoy->diff($fechaNacimiento)->y;
                 return $edad;
+
 
         }
 }

@@ -1,48 +1,61 @@
 <?php
-
     /*
+        Modelo: modelUpdate.php
+        Descripción: actualiza los detalle de un articulo
 
-    Modelo: modelUpdate.php
-    Descripción: Actualiza un elemento a la tabla
-
+        Método POST 
+            - descripcion
+            - modelo
+            - Marca
+            - categorias (valor númerico)
+            - unidades
+            - precio
+        
+        Método GET
+            - id
     */
+// Carga de datos
+setlocale(LC_MONETARY, "es_ES"); // Indicamos
 
-    setlocale(LC_MONETARY, "es_ES"); // Indicamos
+# Cargamos los datos a partir de los métodos estáticos de la clase
+$asignaturas = arrayAlumno::getAsignaturas(); 
+$cursos = arrayAlumno::getCursos();
 
-    # Cargamos los datos a partir de los métodos estáticos de la clase
-    $categorias = ArrayArticulo::getCategorias(); // getCategorias -> Método estático
-    $marcas = ArrayArticulo::getMarcas(); // getMarcas -> Método estático
+# Creamos un objeto de la clase ArrayAlumnos
+$alumnos = new arrayAlumno();
 
-    $articulos = new ArrayArticulo();
-    $articulo = new Articulo();
+# Creamos un objeto de Alumno
+$articulo = new Alumno();
 
-    # Cargo los datos
-    $articulos->getDatos();
+# Cargo los datos
+$alumnos->getAlumnos();
 
-    $indice = $_GET['indice'];
-    $articulo = $articulos->buscarId($indice);
+$indice = $_GET['indice'];
 
-    # Recogemos los datos del formulario
+// Recogemos los datos del formulario
+$id = $indice+1;
+$nombre = $_POST['nombre'];
+$apellidos = $_POST['apellidos'];
+$email = $_POST['email'];
+$fecha_nac = $_POST['fechaNac'];
+$fecha_nac = date('d/m/Y', strtotime($fecha_nac));
+$curso = $_POST['cursos'];
+$asignaturasNew = $_POST['asignaturas'];
 
-    $descripcion = $_POST['descripcion'];
-    $modelo = $_POST['modelo'];
-    $marca = $_POST['marca'];
-    $categoriasArt = $_POST['categorias'];
-    $unidades = $_POST['unidades'];
-    $precio = $_POST['precio'];
+# Creamos un objeto de articulo y añadimos los valores
+$alumno = new Alumno(
+    $id,
+    $nombre,
+    $apellidos,
+    $email,
+    $fecha_nac,
+    $curso,
+    $asignaturasNew
+);
 
-    # Editamos los valores del articulo con los valores
+// Añadimos el alumno usando la funcion create de ArrayAlumnos
+$alumnos->update($indice, $alumno);
 
-    $articulo->setDescripcion($descripcion);
-    $articulo->setModelo($modelo);
-    $articulo->setMarca($marca);
-    $articulo->setCategorias($categoriasArt);
-    $articulo->setUnidades($unidades);
-    $articulo->setPrecio($precio);
-
-    $articulos->update($indice, $articulo);
-
-    # Generamos una notificación
-    $notificacion = 'Articulo modificado con éxito';
-
+# Generamos una notificación para feed-back al usuario
+$notificacion = 'Alumno editado con éxito';
 ?>

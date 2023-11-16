@@ -33,7 +33,7 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Email</th>
-                    <th>Fecha Nacimiento</th>
+                    <th>Edad</th>
                     <th>Curso</th>
                     <th>Asignatura</th>
                     <th>Acciones</th>
@@ -58,7 +58,7 @@
                             <?= $alumno->getEmail() ?>
                         </td>
                         <td>
-                            <?= $alumno->getFechaNacimiento() ?>
+                            <?= $alumno->getEdad() ?>
                         </td>
                         <td>
                             <?= $cursos[$alumno->getCurso()] ?>

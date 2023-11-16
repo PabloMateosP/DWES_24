@@ -40,8 +40,8 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="fechaNac" value="<?= $alumno->getFechaNacimiento() ?>" disabled>
-                <label for="modeloaArticulo" class="form-label">Fecha Nacimiento: </label>
+                <input type="text" class="form-control" name="fechaNac" value="<?= $alumno->getEdad() ?>" disabled>
+                <label for="modeloaArticulo" class="form-label">Edad: </label>
             </div>
 
             <!-- Curso -->

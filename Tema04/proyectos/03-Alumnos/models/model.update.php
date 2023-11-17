@@ -24,9 +24,6 @@ $cursos = arrayAlumno::getCursos();
 # Creamos un objeto de la clase ArrayAlumnos
 $alumnos = new arrayAlumno();
 
-# Creamos un objeto de Alumno
-$articulo = new Alumno();
-
 # Cargo los datos
 $alumnos->getAlumnos();
 

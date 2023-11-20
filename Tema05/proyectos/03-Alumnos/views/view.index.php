@@ -30,41 +30,45 @@
 
                     <!-- Personalizado -->
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
+                    <th>Alumno</th>
+                    <th class="text-end">Edad</th>
+                    <th>DNI</th>
+                    <th>Población</th>
                     <th>Email</th>
-                    <th>Fecha Nacimiento</th>
+                    <th>Teléfono</th>
                     <th>Curso</th>
-                    <th>Asignatura</th>
                     <th>Acciones</th>
 
                 </tr>
             </thead>
             <tbody>
 
-                <?php foreach ($alumnos->getTabla() as $indice => $alumno): ?>
+                <?php foreach ($alumnos as $alumno): ?>
                     <tr>
 
                         <td>
-                            <?= $alumno->getId() ?>
+                            <?= $alumno['id'] ?>
                         </td>
                         <td>
-                            <?= $alumno->getNombre() ?>
+                            <?= $alumno['alumno'] ?>
                         </td>
                         <td>
-                            <?= $alumno->getApellidos() ?>
+                            <?= $alumno['edad'] ?>
                         </td>
                         <td>
-                            <?= $alumno->getEmail() ?>
+                            <?= $alumno['dni'] ?>
                         </td>
                         <td>
-                            <?= $alumno->getFechaNacimiento() ?>
+                            <?= $alumno['poblacion'] ?>
                         </td>
                         <td>
-                            <?= $cursos[$alumno->getCurso()] ?>
+                            <?= $alumno['email'] ?>
                         </td>
                         <td>
-                            <?= implode(", ", ArrayAlumno::mostrarAsignatura($asignaturas, $alumno->getAsignaturas())) ?>
+                            <?= $alumno['telefono'] ?>
+                        </td>
+                        <td>
+                            <?= $alumno['curso'] ?>
                         </td>
 
                         <td>
@@ -82,8 +86,16 @@
                         </td>
 
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <!-- <td colspan="7">Nº Alumnos
+                            <//?= $alumnos->num_rows ?>
+                        </td> -->
+                    </tr>
+                </tfoot>
+            <?php endforeach; ?>
+
         </table>
 
     </div>

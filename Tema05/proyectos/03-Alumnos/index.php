@@ -6,8 +6,8 @@
      */
 
     // Cargamos libreria
-    include 'class/class.alumno.php';
-    include 'class/class.arrayAlumno.php';
+    include 'class/class.conexion.php';
+    include 'class/class.fp.php';
 
     //Cargamos modelo
     include "models/model.index.php";

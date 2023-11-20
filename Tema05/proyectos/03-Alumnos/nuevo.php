@@ -5,11 +5,11 @@
     // Descripción: permite añadir un nuevo articulo
 
     # Clases
-    include 'class/class.articulo.php';
-    include 'class/class.arrayArticulo.php';
+    include 'class/class.conexion.php';
+    include 'class/class.fp.php';
 
     # Model
-    include 'models/model.index.php';
+    include 'models/model.nuevo.php';
 
     # View
     include 'views/view.nuevo.php';

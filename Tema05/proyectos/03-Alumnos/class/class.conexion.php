@@ -16,7 +16,7 @@ class Conexion
         try {
             //Creamos la conexión a la base de datos
             $this->db = new mysqli("localhost", "root", "", "fp");
-            if($this->db->connect_error){
+            if ($this->db->connect_error) {
                 throw new Exception('Error: ' . $this->db->connect_errno);
             }
 

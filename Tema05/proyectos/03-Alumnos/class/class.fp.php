@@ -26,10 +26,9 @@ class Fp extends Conexion
     {
         $sql = "SELECT 
                     alumnos.id, 
-                    concat_ws(\',\', alumnos.apellidos, alumnos.nombre) nombre,
+                    concat_ws(\',\', alumnos.apellidos, alumnos.nombre) alumno,
                     alumnos.email, 
-                    alumnos.telefono, 
-                    alumnos.direccion, 
+                    alumnos.telefono,
                     alumnos.poblacion,
                     alumnos.dni, 
                     timestampdiff(YEAR, alumnos.fechaNac, NOW()) edad, 
@@ -41,8 +40,35 @@ class Fp extends Conexion
                 ON alumnos.id_curso = cursos.id 
                 order by id";
 
-                $result = $this->db->prepare($sql);
-                return $result;
+        #Ejecutamos directamente SQL
+        //Objeto de la clase mysqli_result
+        //$result = $this->db->query($sql);
+
+        #Mediante Plantilla SQL o Prepare
+        //Objeto clase mysqli_stmt
+        $stmt = $this->db->prepare($sql);
+
+        //ejecuto
+        $stmt->execute();
+
+        //objeto clase mysqli_result
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
+    public function getCursos(){
+        $sql="select id, nombreCorto curso from cursos order by id";
+
+        # Mediante Plantilla SQL o Prepare 
+        // Objeto clase prepare statement
+        $stmt=$this->db->prepare($sql);
+        // Ejecuto el Statement
+        $stmt->execute();
+        // Objeto clase mysqli_result
+        $result=$stmt->get_result();
+
+        return $result;
     }
 
 }

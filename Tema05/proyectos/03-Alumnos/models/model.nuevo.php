@@ -7,9 +7,8 @@
  * 
  */
 
-
 # Cargamos arrays para generar de forma dinámica la lista select
-$categorias = ArrayArticulo::getCategorias();
-$marcas = ArrayArticulo::getMarcas();
+$fp = new Fp();
+$cursos = $fp -> getCursos();
 
 ?>

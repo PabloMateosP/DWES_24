@@ -26,7 +26,7 @@ class Fp extends Conexion
     {
         $sql = "SELECT 
                     alumnos.id, 
-                    concat_ws(\',\', alumnos.apellidos, alumnos.nombre) alumno,
+                    concat_ws(',', alumnos.apellidos, alumnos.nombre) alumno,
                     alumnos.email, 
                     alumnos.telefono,
                     alumnos.poblacion,

@@ -41,7 +41,7 @@ class Alumnos extends Conexion
         $pdostmt = $this->pdo->prepare($sql);
         
         // Establezco fetch
-        $pdostmt->setFetchMode(PDO::FETCH_ASSOC);
+        $pdostmt->setFetchMode(PDO::FETCH_OBJ);
         // El blackbox delante del PDO escribe una \ por si después da fallos
 
         // ejecuto

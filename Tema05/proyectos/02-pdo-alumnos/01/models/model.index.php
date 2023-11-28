@@ -12,6 +12,4 @@
     # Extraigo los datos de los alumnos
     $alumnos = $conexion -> getAlumnos();
 
-    
-
 ?>

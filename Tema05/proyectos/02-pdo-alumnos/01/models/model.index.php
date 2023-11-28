@@ -7,18 +7,11 @@
     */
 
     # creamos objeto de la clase  curso
-    $curso = new Curso();
+    $conexion = new Alumnos();
 
-    # asignamos valores a las propiedades del objeto
-    $curso->nombre = "Primero Desarrollo Aplicaciones Multiplataforma";
-    $curso->ciclo = "Desarrollo Aplicaciones Multiplataforma";
-    $curso->nombreCorto = "1DAM";
-    $curso->nivel = "1";
+    # Extraigo los datos de los alumnos
+    $alumnos = $conexion -> getAlumnos();
 
-    # Conectamos con la base de datos
-    $fp = new Fp();
-    $fp->insert_curso($curso);
-
-    echo "curso añadido correctamente";
+    
 
 ?>

@@ -41,8 +41,8 @@
             <!-- Mostramos cuerpo de la tabla -->
             <tbody>
 
-                <!-- Objeto mysqli_result puede ser asignado a foreach -->
-                <?php foreach ($alumnos as $alumno): ?>
+                <!-- Se muestran los alumnos mientras no sea cero -->
+                <?php while ($alumno = $alumnos->fetch()): ?>
                     <tr>
                         <!-- Formatos distintos para cada  columna -->
 
@@ -73,7 +73,7 @@
                         </td>
                     </tr>
 
-                <?php endforeach; ?>
+                <?php endwhile; ?>
 
 
             </tbody>

@@ -42,7 +42,6 @@ class Alumnos extends Conexion
 
         // Establezco fetch
         $pdostmt->setFetchMode(PDO::FETCH_OBJ);
-        // El blackbox delante del PDO escribe una \ por si después da fallos
 
         // ejecuto
         $pdostmt->execute();
@@ -168,6 +167,85 @@ class Alumnos extends Conexion
 
         }
     }
+
+    public function getAlumno($indice)
+    {
+        try {
+
+            $sql = "SELECT * FROM alumnos WHERE id = :id LIMIT 1";
+
+            $stmt = $this->pdo->prepare($sql);
+
+            $stmt->bindParam(':id', $indice, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            $data = $stmt->fetch(PDO::FETCH_OBJ);
+
+            if (!$data) {
+                throw new Exception('Alumno No Encontrado');
+            }
+
+            return $data;
+
+        } catch (Exception $e) {
+            include('views/partials/errorDB.php');
+            exit();
+        }
+
+    }
+
+    public function update_alumno(Alumno $alumno, $id)
+    {
+
+        try {
+            # Prepare the SQL statement
+            $sql = "
+                UPDATE Alumnos SET
+                    nombre = :nombre,
+                    apellidos = :apellidos,
+                    email = :email,
+                    telefono = :telefono,
+                    direccion = :direccion,
+                    poblacion = :poblacion,
+                    provincia = :provincia,
+                    nacionalidad = :nacionalidad,
+                    dni = :dni,
+                    fechaNac = :fechaNac,
+                    id_curso = :id_curso
+                WHERE id = :id";
+
+            # Create a PDOStatement object
+            $pdostmt = $this->pdo->prepare($sql);
+
+            # Bind the parameters with values
+            $pdostmt->bindParam(':nombre', $alumno->nombre, PDO::PARAM_STR, 30);
+            $pdostmt->bindParam(':apellidos', $alumno->apellidos, PDO::PARAM_STR, 50);
+            $pdostmt->bindParam(':email', $alumno->email, PDO::PARAM_STR, 50);
+            $pdostmt->bindParam(':telefono', $alumno->telefono, PDO::PARAM_STR, 9);
+            $pdostmt->bindParam(':direccion', $alumno->direccion, PDO::PARAM_STR, 30);
+            $pdostmt->bindParam(':poblacion', $alumno->poblacion, PDO::PARAM_STR, 30);
+            $pdostmt->bindParam(':provincia', $alumno->provincia, PDO::PARAM_STR, 30);
+            $pdostmt->bindParam(':nacionalidad', $alumno->nacionalidad, PDO::PARAM_STR, 30);
+            $pdostmt->bindParam(':dni', $alumno->dni, PDO::PARAM_STR, 9);
+            $pdostmt->bindParam(':fechaNac', $alumno->fechaNac);
+            $pdostmt->bindParam(':id_curso', $alumno->id_curso, PDO::PARAM_INT);
+            $pdostmt->bindParam(':id', $id, PDO::PARAM_INT); // SE NECESITA EL id DEL ALUMNO A EDITAR PARA EL WHERE
+
+            # Execute the SQL statement
+            $pdostmt->execute();
+
+            # Free the PDOStatement object
+            $pdostmt = null;
+
+            # Close the connection
+            $this->pdo = null;
+        } catch (PDOException $e) {
+            include('views/partials/errorDB.php');
+            exit();
+        }
+    }
+
 }
 
 ?>

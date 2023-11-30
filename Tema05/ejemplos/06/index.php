@@ -52,7 +52,7 @@
     //  var_dump($alumnos);
 
     while($alumnos = $result -> fetch_object()){
-        echo 'Nombre: ' . $alumno->get
+        echo 'Nombre: ' . $alumno->get;
     }
 
     

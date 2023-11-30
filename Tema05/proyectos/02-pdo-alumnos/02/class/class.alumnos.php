@@ -246,6 +246,33 @@ class Alumnos extends Conexion
         }
     }
 
+    public function getCurso($indice)
+    {
+        try {
+
+            $sql = "SELECT nombre FROM cursos WHERE id = :id LIMIT 1";
+
+            $stmt = $this->pdo->prepare($sql);
+
+            $stmt->bindParam(':id', $indice, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            $data = $stmt->fetch(PDO::FETCH_OBJ);
+
+            if (!$data) {
+                throw new Exception('Curso No Encontrado');
+            }
+
+            return $data;
+
+        } catch (Exception $e) {
+            include('views/partials/errorDB.php');
+            exit();
+        }
+
+    }
+
 }
 
 ?>

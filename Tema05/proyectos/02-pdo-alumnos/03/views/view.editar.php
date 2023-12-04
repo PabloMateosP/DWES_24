@@ -15,7 +15,7 @@
         <legend>Formulario Editar Alumno</legend>
 
         <!-- Formulario para editar alumno -->
-        <form action="update.php?id=<?= $alumno->id ?>" method="POST">
+        <form action="update.php?id=<?= $id_editar ?>" method="POST">
             <!-- id oculto -->
             <!-- <label for="titulo" class="form-label">Id</label> -->
             <input type="hydeen" class="form-control" name="id" value="<?= $alumno->id ?>" hidden>

@@ -16,6 +16,8 @@ include('class/class.alumnos.php');
 # Cargo modelo
 include('models/model.create.php');
 
+// Una vez que se  añade un nuevo alumno se debe redireccionar al index
+
 header('location: index.php');
 
 ?>

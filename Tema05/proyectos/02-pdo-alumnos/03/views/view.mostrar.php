@@ -66,6 +66,8 @@
                 <?php endforeach; ?>
             </div>
 
+            <a class="btn btn-secondary" href="index.php" role="button">Volver</a>
+
         </form>
 
         <?php $conexion->cerrar_conexion();

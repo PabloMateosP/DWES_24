@@ -13,11 +13,7 @@ $criterio_ordenacion = $_GET['criterio'];
 //Conectamos a la base de datos
 $conexion = new Alumnos();
 
-//Le metemos los datos
-$alumnos = $conexion->getAlumnos();
-$cursos = $conexion->getCursos();
-
 //Con el método delete_alumno borramos el alumno a partir de los detalles del formulario
-$conexion->order($criterio_ordenacion);
+$alumno = $conexion->order($criterio_ordenacion);
 
 ?>

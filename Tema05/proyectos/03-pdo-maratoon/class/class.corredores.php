@@ -94,44 +94,48 @@ class Corredores extends Conexion
     public function insertCorredor(Corredor $corredor)
     {
         try {
-            # Prepare
-            $sql = "Insert into corredores values (
-                    null,
-                    :nombre, 
-                    :apellidos, 
-                    :ciudad,
-                    :fechaNacimiento,
-                    :sexo,
-                    :email,
-                    :dni,
-                    :edad,
-                    :id_categoria,
-                    :id_club
-                )";
+            $sql = "INSERT INTO maratoon.corredores (
+                nombre,
+                apellidos,
+                ciudad,
+                fechaNacimiento,
+                sexo,
+                email,
+                dni,
+                id_categoria,
+                id_club
+            ) VALUES(
+                :nombre,
+                :apellidos,
+                :ciudad,
+                :fechaNacimiento,
+                :sexo,
+                :email,
+                :dni,
+                :id_categoria,
+                :id_club)";
 
-            # Objeto clase mysqli_stmt
+            // Preparamos la consulta
             $pdostmt = $this->pdo->prepare($sql);
 
-            # Vinculo parámetros con variables
-            $pdostmt->bindParam(":nombre", $corredor->nombre, PDO::PARAM_STR, 50);
+            // Vinculamos los parametros
+            $pdostmt->bindParam(':nombre', $corredor->nombre, PDO::PARAM_STR, 30);
             $pdostmt->bindParam(':apellidos', $corredor->apellidos, PDO::PARAM_STR, 50);
-            $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 50);
-            $pdostmt->bindParam(':fechaNacimiento', $corredor->fechaNacimiento, PDO::PARAM_STR, 20);
-            $pdostmt->bindParam(':sexo', $corredor->sexo, PDO::PARAM_STR, 2);
-            $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 50);
+            $pdostmt->bindParam(':ciudad', $corredor->ciudad, PDO::PARAM_STR, 30);
+            $pdostmt->bindParam(':fechaNacimiento', $corredor->fechaNacimiento);
+            $pdostmt->bindParam(':sexo', $corredor->sexo);
+            $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 128);
             $pdostmt->bindParam(':dni', $corredor->dni, PDO::PARAM_STR, 9);
-            $pdostmt->bindParam(':edad', $corredor->edad, PDO::PARAM_INT, 3);
-            $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_INT, 2);
-            $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT, 2);
-            
+            $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_INT);
+            $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT);
 
-            // ejecuto
+            // Ejecutar la sentencia preparada
             $pdostmt->execute();
 
-            // libero memoria
+            // Libero Memoria
             $pdostmt = null;
 
-            // Cerrar conexión
+            // Cerramos la conexion
             $this->pdo = null;
 
         } catch (PDOException $e) {

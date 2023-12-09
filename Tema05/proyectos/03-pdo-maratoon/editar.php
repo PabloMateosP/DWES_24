@@ -15,7 +15,7 @@
     include('class/class.corredor.php');
 
     # Cargo modelo
-    include('models/model.index.php');
+    include('models/model.editar.php');
 
     # Cargo vista
     include('views/view.editar.php');

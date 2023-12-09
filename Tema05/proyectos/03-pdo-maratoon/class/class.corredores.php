@@ -180,7 +180,7 @@ class Corredores extends Conexion
         try {
             # Prepare the SQL statement
             $sql = "
-                UPDATE Alumnos SET
+                UPDATE corredores SET
                     nombre = :nombre,
                     apellidos = :apellidos,
                     ciudad = :ciudad,
@@ -188,7 +188,6 @@ class Corredores extends Conexion
                     sexo = :sexo,
                     email = :email,
                     dni = :dni,
-                    edad = :edad,
                     id_categoria = :id_categoria,
                     id_club = :id_club
                 WHERE id = :id";
@@ -204,12 +203,11 @@ class Corredores extends Conexion
             $pdostmt->bindParam(':sexo', $corredor->sexo, PDO::PARAM_STR, 2);
             $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 50);
             $pdostmt->bindParam(':dni', $corredor->dni, PDO::PARAM_STR, 9);
-            $pdostmt->bindParam(':edad', $corredor->edad, PDO::PARAM_INT, 3);
             $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_INT, 2);
             $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT, 2);
 
-            $pdostmt->bindParam(':id', $id, PDO::PARAM_INT); // SE NECESITA EL id DEL ALUMNO A EDITAR PARA EL WHERE
-
+            $pdostmt->bindParam(':id', $id, PDO::PARAM_INT); 
+            
             # Execute the SQL statement
             $pdostmt->execute();
 

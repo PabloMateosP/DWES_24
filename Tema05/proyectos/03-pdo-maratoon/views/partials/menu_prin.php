@@ -21,8 +21,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="ordenar.php?criterio=edad">Edad</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=nombre">Nombre</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=poblacion">Sexo</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=curso">Curso</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=categorias">Categoría</a></li>
                     </ul>
                 </li>
             </ul>

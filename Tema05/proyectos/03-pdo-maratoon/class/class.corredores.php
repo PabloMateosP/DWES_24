@@ -254,17 +254,16 @@ class Corredores extends Conexion
 
     public function order($criterio)
     {
-
         try {
             $sql = "SELECT 
                 corredores.id,
-                CONCAT_WS(', ',corredores.apellidos, corredores.nombre) as nombre,
+                CONCAT_WS(', ',corredores.apellidos, corredores.nombre) as corredor,
                 corredores.ciudad,
                 corredores.email,
                 TIMESTAMPDIFF(YEAR,
                     corredores.fechaNacimiento,
                     NOW()) AS edad,
-                categorias.nombrecorto AS categoria,
+                categorias.nombrecorto AS categorias,
                 clubs.nombreCorto AS club
             FROM
                 maratoon.corredores
@@ -292,19 +291,18 @@ class Corredores extends Conexion
         }
     }
 
-    public function filter($expresion)
+    public function buscar($expresion)
     {
         try {
-            // Creamos sentencia
             $sql = "SELECT 
                 corredores.id,
-                CONCAT_WS(', ',corredores.apellidos, corredores.nombre) as nombre,
+                CONCAT_WS(', ',corredores.apellidos, corredores.nombre) as corredor,
                 corredores.ciudad,
                 corredores.email,
                 TIMESTAMPDIFF(YEAR,
                     corredores.fechaNacimiento,
                     NOW()) AS edad,
-                categorias.nombrecorto AS categoria,
+                categorias.nombrecorto AS categorias,
                 clubs.nombreCorto AS club
             FROM
                 maratoon.corredores
@@ -339,9 +337,12 @@ class Corredores extends Conexion
 
             // Devolvemos el resultado de la consulta
             return $pdostmt;
+
         } catch (PDOException $e) {
+
             include 'views/partials/errorDB.php';
             exit();
+
         }
     }
 

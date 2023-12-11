@@ -254,6 +254,9 @@ class Corredores extends Conexion
 
     public function order($criterio)
     {
+        // Vamos a cambiar en vez de criterio a que sea por número del nombre
+        // ejemplo nombre es la fila 2 se le pone 2.
+        
         try {
             $sql = "SELECT 
                 corredores.id,

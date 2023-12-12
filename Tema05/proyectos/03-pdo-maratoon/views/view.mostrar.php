@@ -69,6 +69,7 @@
                 <label class="form-label">Categoria</label>
                 <?php foreach ($categorias as $categoria): ?>
                     <?php if ($categoria->id === $corredor->id_categoria): ?>
+                        <!-- $data->categoria <- este categoria viene del método get categorias y al igual en el club de arriba -->
                         <input type="text" class="form-control" name="categoria" value="<?= $categoria->categoria; ?>" disabled>
                     <?php endif; ?>
                 <?php endforeach; ?>

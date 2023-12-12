@@ -85,6 +85,7 @@
                     <option selected disabled>Seleccione Categoría</option>
                     <?php foreach ($categorias as $data): ?>
                         <option value="<?= $data->id ?>" <?= ($data->id == $corredor->id_categoria) ? 'selected' : null ?>>
+                            <!-- $data->categoria <- este categoria viene del método get categorias y al igual en el club de abajo -->
                             <?= $data->categoria ?>
                         </option>
                     <?php endforeach; ?>

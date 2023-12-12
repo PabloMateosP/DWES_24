@@ -13,7 +13,7 @@
     $conexion = new Corredores();
 
     # extraigo los valores de los alumnos y de los cursos
-    $corredores = $conexion->getCorredores(); 
+    // $corredores = $conexion->getCorredores(); 
     $clubs = $conexion->getClubs();
     $categorias = $conexion->getCategorias();
 

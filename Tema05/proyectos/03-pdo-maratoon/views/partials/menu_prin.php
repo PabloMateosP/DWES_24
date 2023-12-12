@@ -20,8 +20,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="ordenar.php?criterio=edad">Edad</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=nombre">Nombre</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredor">Nombre</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=categorias">Categoría</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=club">Club</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=ciudad">Ciudad</a></li>
                     </ul>
                 </li>
             </ul>

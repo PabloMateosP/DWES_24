@@ -224,7 +224,22 @@ class Corredores extends Conexion
 
     public function delete_corredor($id_corredor)
     {
+        # Debemos de tener claro que según la base de datos, 
+        # al no tener un borrado en cascada no deja borrar un corredor que haya corrido un carrera
+        # por lo tanto debemos borrar también el registro de este.
+        
         try {
+            $eliminarRegistros = "DELETE FROM 
+                maratoon.registros 
+                WHERE 
+                registros.id_corredor=:id_corredor";
+
+            
+            $pdostmtRegistros = $this->pdo->prepare($eliminarRegistros);
+            
+            $pdostmtRegistros->bindParam(":id", $id_corredor, PDO::PARAM_INT);
+
+            $pdostmtRegistros->execute();
 
             $sql = "DELETE FROM corredores WHERE id = :id_corredor";
 

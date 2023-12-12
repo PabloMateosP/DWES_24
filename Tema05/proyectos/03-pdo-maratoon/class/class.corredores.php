@@ -364,59 +364,60 @@ class Corredores extends Conexion
         }
     }
 
-    public function getClub($indice)
-    {
-        try {
+    // Estos dos métodos no eran necesarios ya que se coge en la vista la categoría y club que es
+    // public function getClub($indice)
+    // {
+    //     try {
 
-            $sql = "SELECT nombre FROM clubs WHERE id = :id LIMIT 1";
+    //         $sql = "SELECT nombre FROM clubs WHERE id = :id LIMIT 1";
 
-            $stmt = $this->pdo->prepare($sql);
+    //         $stmt = $this->pdo->prepare($sql);
 
-            $stmt->bindParam(':id', $indice, PDO::PARAM_INT);
+    //         $stmt->bindParam(':id', $indice, PDO::PARAM_INT);
 
-            $stmt->execute();
+    //         $stmt->execute();
 
-            $data = $stmt->fetch(PDO::FETCH_OBJ);
+    //         $data = $stmt->fetch(PDO::FETCH_OBJ);
 
-            if (!$data) {
-                throw new Exception('Curso No Encontrado');
-            }
+    //         if (!$data) {
+    //             throw new Exception('Club No Encontrado');
+    //         }
 
-            return $data;
+    //         return $data;
 
-        } catch (Exception $e) {
-            include('views/partials/errorDB.php');
-            exit();
-        }
+    //     } catch (Exception $e) {
+    //         include('views/partials/errorDB.php');
+    //         exit();
+    //     }
 
-    }
+    // }
 
-    public function getCategoria($indice)
-    {
-        try {
+    // public function getCategoria($indice)
+    // {
+    //     try {
 
-            $sql = "SELECT nombre FROM categorias WHERE id = :id LIMIT 1";
+    //         $sql = "SELECT nombre FROM categorias WHERE id = :id LIMIT 1";
 
-            $stmt = $this->pdo->prepare($sql);
+    //         $stmt = $this->pdo->prepare($sql);
 
-            $stmt->bindParam(':id', $indice, PDO::PARAM_INT);
+    //         $stmt->bindParam(':id', $indice, PDO::PARAM_INT);
 
-            $stmt->execute();
+    //         $stmt->execute();
 
-            $data = $stmt->fetch(PDO::FETCH_OBJ);
+    //         $data = $stmt->fetch(PDO::FETCH_OBJ);
 
-            if (!$data) {
-                throw new Exception('Curso No Encontrado');
-            }
+    //         if (!$data) {
+    //             throw new Exception('Categoría No Encontrado');
+    //         }
 
-            return $data;
+    //         return $data;
 
-        } catch (Exception $e) {
-            include('views/partials/errorDB.php');
-            exit();
-        }
+    //     } catch (Exception $e) {
+    //         include('views/partials/errorDB.php');
+    //         exit();
+    //     }
 
-    }
+    // }
 
 }
 

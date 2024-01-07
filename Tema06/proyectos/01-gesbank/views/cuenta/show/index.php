@@ -28,7 +28,7 @@
         <form>
 
             <!-- id oculto -->
-            <input type="number" class="form-control" name="id" value="<?= $this->cuenta->id?>" disabled>
+            <input type="number" class="form-control" name="id" value="<?=$this->cuenta->id?>" >
 
             <!-- Número de cuenta -->
             <div class="mb-3">

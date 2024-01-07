@@ -110,7 +110,7 @@ class Cuenta extends Controller
 
         $this->view->id = $id_mostrar;
 
-        $this->view->title = "Mostrar Cuenta - Panel de control Cuentas";
+        $this->view->title = "Mostrar Cuenta";
 
         $this->view->Cuenta = $this->model->read($id_mostrar);
 

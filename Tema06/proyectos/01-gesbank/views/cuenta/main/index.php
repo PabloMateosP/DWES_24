@@ -56,63 +56,57 @@
 
 						<!-- Objeto clase pdostatement en foreach -->
 						<?php foreach ($this->cuentas as $cuenta): ?>
-							<tr>
-								<!-- Formatos distintos para cada  columna -->
+								<tr>
+									<!-- Formatos distintos para cada  columna -->
 
-								<!-- Detalles de cuentas -->
-								<td>
-									<?= $cuenta->id ?>
-								</td>
-								<td>
-									<?= $cuenta->num_cuenta ?>
-								</td>
-								<td>
-									<?= $cuenta->nombre ?>
-								</td>
-								<td>
-									<?= $cuenta->apellidos?>
-								</td>
-								<td>
-									<?= $cuenta->fecha_alta?>
-								</td>
-								<td>
-									<?= $cuenta->fecha_ul_mov ?>
-								</td>
-								<td>
-									<?= $cuenta->num_movtos ?>
-								</td>
-								<td>
-									<?= $cuenta->saldo ?>
-								</td>
+									<!-- Detalles de cuentas -->
+									<td>
+										<?= $cuenta->id ?>
+									</td>
+									<td>
+										<?= $cuenta->num_cuenta ?>
+									</td>
+									<td>
+										<?= $cuenta->nombre ?>
+									</td>
+									<td>
+										<?= $cuenta->apellidos ?>
+									</td>
+									<td>
+										<?= $cuenta->fecha_alta ?>
+									</td>
+									<td>
+										<?= $cuenta->fecha_ul_mov ?>
+									</td>
+									<td>
+										<?= $cuenta->num_movtos ?>
+									</td>
+									<td>
+										<?= $cuenta->saldo ?>
+									</td>
 
-								<!-- botones de acción -->
-								<td>
-									<!-- botón  eliminar -->
-									<a href="<?= URL ?>cuenta/delete/<?= $cuenta->id ?>" title="Eliminar">
-										<i class="bi bi-trash-fill"></i></a>
+									<!-- botones de acción -->
+									<td>
+										<!-- botón  eliminar -->
+										<a href="<?= URL ?>cuenta/delete/<?= $cuenta->id ?>" title="Eliminar">
+											<i class="bi bi-trash-fill"></i></a>
 
-									<!-- botón  editar -->
-									<a href="<?= URL ?>cuenta/edit/<?= $cuenta->id ?>" title="Editar">
-										<i class="bi bi-pencil-square"></i></a>
+										<!-- botón  editar -->
+										<a href="<?= URL ?>cuenta/edit/<?= $cuenta->id ?>" title="Editar">
+											<i class="bi bi-pencil-square"></i></a>
 
-									<!-- botón  mostrar -->
-									<a href="<?= URL ?>cuenta/show/<?= $cuenta->id ?>" title="Mostrar">
-										<i class="bi bi-card-text"></i></a>
+										<!-- botón  mostrar -->
+										<a href="<?= URL ?>cuenta/show/<?= $cuenta->id ?>" title="Mostrar">
+											<i class="bi bi-card-text"></i></a>
 
-									<!-- botón  listar -->
-									<a href="<?= URL ?>cuenta/#/<?= $cuenta->id ?>" title="Listar">
-										<i class="bi bi-list-task"></i></i></a>
-
-								</td>
-							</tr>
-
+										<!-- botón  listar -->
+										<a href="<?= URL ?>cuenta/#/<?= $cuenta->id ?>" title="Listar">
+											<i class="bi bi-list-task"></i></i></a>
+									</td>
+								</tr>
 						<?php endforeach; ?>
-
-
 					</tbody>
-					
 				</table>
-
 			</div>
 			<div class="card-footer">
 				<small class="text-muted"> Nº cuentas: 

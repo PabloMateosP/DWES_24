@@ -124,19 +124,19 @@ class cuentaModel extends Model
     {
         try {
             $sql = "SELECT 
-            cuentas.id,
-            cuentas.num_cuenta,
-            CONCAT_WS(' ', clientes.apellidos, clientes.nombre) AS cliente,
-            cuentas.fecha_alta,
-            cuentas.fecha_ul_mov,
-            cuentas.num_movtos,
-            cuentas.saldo
-        FROM
-            cuentas
-                INNER JOIN
-            clientes ON cuentas.id_cliente = clientes.id
-        WHERE
-            clientes.id = :id_editar";
+                        cuentas.id,
+                        cuentas.num_cuenta,
+                        CONCAT_WS(' ', clientes.apellidos, clientes.nombre) AS cliente,
+                        cuentas.fecha_alta,
+                        cuentas.fecha_ul_mov,
+                        cuentas.num_movtos,
+                        cuentas.saldo
+                    FROM
+                        cuentas
+                            INNER JOIN
+                        clientes ON cuentas.id_cliente = clientes.id
+                    WHERE
+                        clientes.id = :id_editar";
 
             // Conexión
             $conexion = $this->db->connect();

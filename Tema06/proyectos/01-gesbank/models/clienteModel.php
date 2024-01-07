@@ -94,13 +94,19 @@ class clienteModel extends Model
         try {
 
             $sql = "SELECT 
-            id, apellidos, nombre, telefono, ciudad, dni, email
-        FROM
-            clientes
-        WHERE
-            id = :id_editar";
+                        id, 
+                        apellidos, 
+                        nombre, 
+                        telefono, 
+                        ciudad, 
+                        dni, 
+                        email
+                    FROM
+                        clientes
+                    WHERE
+                        id = :id_editar";
 
-            // conectamos 
+            // conexión
             $conexion = $this->db->connect();
 
             // prepare
@@ -176,13 +182,12 @@ class clienteModel extends Model
             WHERE
                 id = :id_eliminar";
 
-            // conectamos 
+            // conexión
             $conexion = $this->db->connect();
 
             // prepare
             $pdostmt = $conexion->prepare($sql);
 
-            // vinculamos el parametro neceserio
             $pdostmt->bindParam(':id_eliminar', $id_eliminar, PDO::PARAM_INT);
 
             // ejecutamos
@@ -196,37 +201,36 @@ class clienteModel extends Model
 
     }
 
-    // Método delete() -> Ordena los clientes mostrados medante un criterio de lista desplegable
+    // Método delete()
     public function order(int $criterio)
     {
         try {
-
-            # Comando sql
             $sql = "SELECT 
-            id, apellidos, nombre, telefono, ciudad, dni, email
-        FROM
-            clientes
-        ORDER BY :criterio";
+                        id, 
+                        apellidos, 
+                        nombre, 
+                        telefono, 
+                        ciudad, 
+                        dni, 
+                        email
+                    FROM
+                        clientes
+                    ORDER BY :criterio";
 
-            # Conectamos -> ejecuta el método connect() de db
+            # Conexión
             $conexion = $this->db->connect();
 
-            # Ejecutamos el prepare
-            $pdostmt = $conexion->prepare($sql); // resultado de la consulta = objeto pdostmt
+            # Prepare
+            $pdostmt = $conexion->prepare($sql);
 
-            # bindParam para el criterio
             $pdostmt->bindParam(':criterio', $criterio, PDO::PARAM_INT);
 
-
-            # Establecemos el tipo de fetch como objeto
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
             # Ejecutamos
             $pdostmt->execute();
 
-            # Retornamos
             return $pdostmt;
-
 
         } catch (PDOException $e) {
             include_once('template/partials/errorDB.php');
@@ -259,33 +263,22 @@ class clienteModel extends Model
             # Conectamos -> ejecuta el método connect() de db
             $conexion = $this->db->connect();
 
-            # Ejecutamos el prepare
-            $pdostmt = $conexion->prepare($sql); // resultado de la consulta = objeto pdostmt
+            # Prepare
+            $pdostmt = $conexion->prepare($sql);
 
-            # bindParam para el criterio
             $pdostmt->bindParam(':expresion', $expresion, PDO::PARAM_STR);
 
-
-            # Establecemos el tipo de fetch como objeto
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
             # Ejecutamos
             $pdostmt->execute();
 
-            # Retornamos
             return $pdostmt;
-
 
         } catch (PDOException $e) {
             include_once('template/partials/errorDB.php');
             exit();
         }
-
     }
-
-
 }
-/**
- * 
- */
 ?>

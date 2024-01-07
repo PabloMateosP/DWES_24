@@ -125,7 +125,7 @@ class Cliente extends Controller
 
         $this->view->id = $id_mostrar;
 
-        $this->view->title = "Mostrar Cliente - Panel de control Clientes";
+        $this->view->title = "Mostrar Cliente";
 
         $this->view->cliente = $this->model->read($id_mostrar);
 

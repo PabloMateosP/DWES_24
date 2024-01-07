@@ -17,7 +17,7 @@ class Cuenta extends Controller
      public function render()
     {
         
-        $this->view->title = "Home";
+        $this->view->title = "Home Cuentas";
         
         $this->view->cuentas = $this->model->get();
 

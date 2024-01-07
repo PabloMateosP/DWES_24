@@ -23,7 +23,7 @@ class Cliente extends Controller
     // Funcion render()
     public function render()
     {
-        $this->view->title = "Home - Panel Control Clientes";
+        $this->view->title = "Home Clientes";
 
         $this->view->clientes = $this->model->get();
 

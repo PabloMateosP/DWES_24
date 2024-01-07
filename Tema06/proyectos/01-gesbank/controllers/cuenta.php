@@ -112,7 +112,7 @@ class Cuenta extends Controller
 
         $this->view->title = "Mostrar Cuenta";
 
-        $this->view->Cuenta = $this->model->read($id_mostrar);
+        $this->view->cuenta = $this->model->read($id_mostrar);
 
         # Cargamos la vista
         $this->view->render('cuenta/show/index');

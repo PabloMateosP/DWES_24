@@ -22,7 +22,7 @@
 
         <legend>Formulario Mostrar Cliente</legend>
 
-        <!-- Formulario Mostrar Cliente -->
+        <!-- Mostrar Cliente -->
         <form>
 
             <!-- id oculto -->

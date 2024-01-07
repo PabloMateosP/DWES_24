@@ -28,7 +28,7 @@
         <form>
 
             <!-- id oculto -->
-            <input type="number" class="form-control" name="id" value="<?=$this->cuenta->id?>" >
+            <input type="number" class="form-control" name="id" value="<?=$this->cuenta->id?>" disabled>
 
             <!-- Número de cuenta -->
             <div class="mb-3">
@@ -50,19 +50,19 @@
 
             <!-- Fecha último movimiento -->
             <div class="mb-3">
-                <label for="dni" class="form-label">Dni</label>
-                <input type="text" class="form-control" name="dni" value="<?=$this->cuenta->fecha_last_move?>" disabled>
+                <label for="dni" class="form-label">Fecha último movimiento</label>
+                <input type="text" class="form-control" name="dni" value="<?=$this->cuenta->fecha_ul_mov?>" disabled>
             </div>
 
             <!-- Número Movimiento -->
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" value="<?=$this->cuenta->num_move?>" disabled>
+                <label for="email" class="form-label">Número Movimiento</label>
+                <input type="email" class="form-control" name="email" value="<?=$this->cuenta->num_movtos?>" disabled>
             </div>
 
             <!-- Saldo -->
             <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
+                <label for="telefono" class="form-label">Saldo</label>
                 <input type="tel" class="form-control" name="telefono" value="<?=$this->cuenta->saldo?>" disabled>
             </div>
 

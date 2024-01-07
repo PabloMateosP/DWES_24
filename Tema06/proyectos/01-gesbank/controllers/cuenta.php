@@ -17,7 +17,7 @@ class Cuenta extends Controller
      public function render()
     {
         
-        $this->view->title = "Home - Panel Control Cuentas";
+        $this->view->title = "Home";
         
         $this->view->cuentas = $this->model->get();
 
@@ -28,9 +28,10 @@ class Cuenta extends Controller
     public function new()
     {
         
-        $this->view->title = "Nuevo - Gestión Cuentas";
+        $this->view->title = "Nuevo";
 
-        $this->view->customers = $this->model->getCustomerName();
+
+        $this->view->customers = $this->model->getClient();
 
         $this->view->render('cuenta/new/index');
     }
@@ -48,6 +49,7 @@ class Cuenta extends Controller
 
         );
 
+        # Mediantee la función create, será usada para crear una nueva cuenta
         $this->model->create($data);
 
         header('location:' . URL . 'cuenta');
@@ -62,8 +64,9 @@ class Cuenta extends Controller
 
         $this->view->id = $id_editar;
 
-        $this->view->title = "Editar Cuenta - Panel de control Cuentas";
+        $this->view->title = "Editar Cuenta";
 
+        #Mediante la función read leeremos los datos de la cuenta 
         $this->view->cuenta = $this->model->read($id_editar);
 
         # Cargamos la vista
@@ -84,7 +87,7 @@ class Cuenta extends Controller
             $_POST['saldo'],
         );
 
-        // actualizamos el Cuenta
+        # Mediante la función update actualizaremos los datos de una cuenta
         $this->model->update($data, $id_editar);
 
         // Cargamos el controlador
@@ -95,6 +98,7 @@ class Cuenta extends Controller
     {
         $id_eliminar = $param[0];
 
+        # Mediante la función delete eliminaremos una cuenta mediante su id
         $this->model->delete($id_eliminar);
 
         // Cargamos el conrtrolador 
@@ -112,6 +116,7 @@ class Cuenta extends Controller
 
         $this->view->title = "Mostrar Cuenta";
 
+        # Mediante la función read extraeremos los datos de una cuenta  
         $this->view->cuenta = $this->model->read($id_mostrar);
 
         # Cargamos la vista
@@ -123,8 +128,9 @@ class Cuenta extends Controller
     {
         $criterio = $param[0];
 
-        $this->view->title = "Ordenar - Panel Control Cuentas";
+        $this->view->title = "Ordenar";
 
+        # Mediante la función order ordenaremos los datos según un criterio
         $this->view->Cuentas = $this->model->order($criterio);
 
         # Cargo la vista principal de Cuenta
@@ -135,8 +141,9 @@ class Cuenta extends Controller
     {
         $expresion = $_GET['expresion'];
 
-        $this->view->title = "Filtrar - Panel Control Cuentas";
+        $this->view->title = "Filtrar";
 
+        # Mediante la función filter filtrará las cuentas que contengan
         $this->view->Cuentas = $this->model->filter($expresion);
 
         # Cargo la vista principal

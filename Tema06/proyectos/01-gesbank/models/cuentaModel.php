@@ -46,8 +46,8 @@ class cuentaModel extends Model
         }
     }
 
-    // Método get()
-    public function getCustomerName()
+    // Método getClient()
+    public function getClient()
     {
         try {
             # Comando sql

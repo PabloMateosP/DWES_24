@@ -46,7 +46,7 @@
 							<th>Apellidos</th>
 							<th>Fecha alta</th>
 							<th>Fecha último movimiento</th>
-							<th>Núm movimientos</th>
+							<th>Números movimientos</th>
 							<th>Saldo</th>
 							<th>Acciones</th>
 						</tr>

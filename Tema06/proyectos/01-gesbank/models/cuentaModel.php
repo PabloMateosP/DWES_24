@@ -237,7 +237,12 @@ class cuentaModel extends Model
 
             # Comando sql
             $sql = "SELECT 
-            id, apellidos, nombre, telefono, ciudad, dni, email
+            id,
+            num_cuenta,
+            fecha_alta,
+            fecha_ul_mov,
+            num_movtos,
+            saldo 
         FROM
             cuentas
         ORDER BY :criterio";

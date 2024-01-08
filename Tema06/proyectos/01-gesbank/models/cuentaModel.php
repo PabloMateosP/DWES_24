@@ -237,15 +237,19 @@ class cuentaModel extends Model
 
             # Comando sql
             $sql = "SELECT 
-            id,
-            num_cuenta,
-            fecha_alta,
-            fecha_ul_mov,
-            num_movtos,
-            saldo 
-        FROM
-            cuentas
-        ORDER BY :criterio";
+                cuentas.id,
+                cuentas.num_cuenta,
+                clientes.nombre,
+                clientes.apellidos,
+                cuentas.fecha_alta,
+                cuentas.fecha_ul_mov,
+                cuentas.num_movtos,
+                cuentas.saldo
+            FROM
+                cuentas
+            INNER JOIN clientes 
+            ON id_cliente = clientes.id
+            ORDER BY :criterio";
 
             # Conexión
             $conexion = $this->db->connect();

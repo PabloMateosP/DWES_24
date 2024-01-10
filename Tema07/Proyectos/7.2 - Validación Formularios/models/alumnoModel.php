@@ -397,6 +397,35 @@ class alumnoModel extends Model
         }
     }
 
+    public function validarCurso ($curso) {
+        try {
+
+            $sql = "SELECT * FROM alumnos WHERE email = :email ";
+
+            # Conectar con la base de datos
+            $conexion = $this->db->connect();
+            $pdost = $conexion->prepare($sql);
+            $pdost->bindParam(':email', $email, PDO::PARAM_STR);
+
+            $pdost->execute();
+
+            // Si devuelve más de 0 valores quiere decir que el email no está validado
+            // y que se repite por lo que devolvería falso 
+            if ($pdost->rowCount() != 0) {
+                return false;
+            }
+
+            // Si el email no existe lo devuelve ya que está validado 
+            return true;
+
+        } catch (PDOException $e) {
+
+            include_once('template/partials/errorDB.php');
+            exit();
+
+        }
+    }
+
 
 }
 

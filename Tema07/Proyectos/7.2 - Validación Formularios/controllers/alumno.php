@@ -61,7 +61,7 @@ class Alumno extends Controller
             $email,
             $telefono,
             null,
-            $poblcion,
+            $poblacion,
             null,
             null,
             $dni,
@@ -110,7 +110,6 @@ class Alumno extends Controller
             $errores['dni'] = 'El formato introducido es incorrecto';
         } else if (!$this->model->validarUniqueDni($dni)) {
             $errores['dni'] = 'Dni ya registrado';
-
         }
 
         # Añadir registro a la tabla

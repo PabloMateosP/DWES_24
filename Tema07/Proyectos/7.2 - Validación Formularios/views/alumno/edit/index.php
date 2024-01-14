@@ -31,16 +31,19 @@
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" name="nombre" value="<?= $this->alumno->nombre ?>">
             </div>
+
             <!-- Apellidos -->
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos</label>
                 <input type="text" class="form-control" name="apellidos" value="<?= $this->alumno->apellidos ?>">
             </div>
+
             <!-- Fecha Nacimiento -->
             <div class="mb-3">
                 <label for="fechaNac" class="form-label">Fecha Nacimiento</label>
                 <input type="date" class="form-control" name="fechaNac" value="<?= $this->alumno->fechaNac ?>">
             </div>
+
             <!-- Dni -->
             <div class="mb-3">
                 <label for="dni" class="form-label">Dni</label>
@@ -52,31 +55,19 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" value="<?= $this->alumno->email ?>">
             </div>
+
             <!-- Telefono -->
             <div class="mb-3">
                 <label for="telefono" class="form-label">Teléfono</label>
                 <input type="tel" class="form-control" name="telefono" value="<?= $this->alumno->telefono ?>">
             </div>
-            <!-- Dirección -->
-            <!-- <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" name="direccion" value="<?= $this->alumno->direccion ?>">
-            </div> -->
+            
             <!-- Población -->
             <div class="mb-3">
                 <label for="poblacion" class="form-label">Población</label>
                 <input type="text" class="form-control" name="poblacion" value="<?= $this->alumno->poblacion ?>">
             </div>
-            <!-- Provincia -->
-            <!-- <div class="mb-3">
-                <label for="provincia" class="form-label">Provincia</label>
-                <input type="text" class="form-control" name="provincia">
-            </div> -->
-            <!-- Nacionalidad -->
-            <!-- <div class="mb-3">
-                <label for="nacionalidad" class="form-label">Nacionalidad</label>
-                <input type="text" class="form-control" name="nacionalidad">
-            </div> -->
+
             <!-- Curso Select -->
             <div class="mb-3">
                 <label for="id_curso" class="form-label">Curso</label>
@@ -102,9 +93,6 @@
         <br>
         <br>
 
-
-
-
         <!-- Pié del documento -->
         <?php include 'template/partials/footer.php' ?>
 
@@ -112,6 +100,7 @@
 
     <!-- javascript bootstrap 532 -->
     <?php include 'template/partials/javascript.php' ?>
+    
 </body>
 
 </html>

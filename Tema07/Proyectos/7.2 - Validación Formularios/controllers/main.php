@@ -3,10 +3,7 @@
     class Main Extends Controller {
 
         function __construct() {
-
             parent ::__construct();
-            
-            
         }
 
         function render() {

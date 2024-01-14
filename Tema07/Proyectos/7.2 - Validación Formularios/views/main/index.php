@@ -6,11 +6,12 @@
 
 <body>
     <?php require_once("template/partials/menu.php") ?>
+	<br><br><br><br>
     
     <!-- Page Content -->
     <div class="container">
-	<br><br><br><br>
 
+	<!-- Mensaje -->
 		<?php require_once("template/partials/notify.php") ?>
 		
 

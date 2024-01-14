@@ -1,12 +1,5 @@
 <?php
 
-    /*
-        Creamos una clase para cada tabla
-        las propiedades públicas y una propiedad para cada columna
-
-        No respetará la propiedad de encapsulamiento.
-    */
-
     class classAlumno {
 
         public $id;
@@ -51,6 +44,7 @@
 
         }
 
+        # Función para el calculo de la edad al recibir la fecha de nacimiento
         public function edad(){
             $fechaNacimiento = new DateTime($this->fechaNac);
             $hoy = new DateTime();
@@ -58,7 +52,6 @@
             return $edad;
         }
 
-        
     }
 
 ?>

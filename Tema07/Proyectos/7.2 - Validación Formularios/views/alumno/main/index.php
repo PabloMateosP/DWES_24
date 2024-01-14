@@ -60,9 +60,6 @@
 						<!-- Objeto clase pdostatement en foreach -->
 						<?php foreach ($this->alumnos as $alumno): ?>
 							<tr>
-								<!-- Formatos distintos para cada  columna -->
-
-								<!-- Detalles de alumnos -->
 								<td>
 									<?= $alumno->id ?>
 								</td>
@@ -104,14 +101,9 @@
 
 								</td>
 							</tr>
-
 						<?php endforeach; ?>
-
-
 					</tbody>
-					
 				</table>
-
 			</div>
 			<div class="card-footer">
 				<small class="text-muted"> Nº Alumnos: 
@@ -121,8 +113,6 @@
 		</div>
 	</div>
 	<br><br><br>
-
-	<!-- /.container -->
 
 	<?php require_once("template/partials/footer.php") ?>
 	<?php require_once("template/partials/javascript.php") ?>

@@ -1,32 +1,30 @@
 <?php
 
-/*
-    alumnoModel.php
-
-    Modelo del  controlador alumnos
-
-    Definir los métodos de acceso a la base de datos
-    
-    - insert
-    - update
-    - select
-    - delete
-    - etc..
-*/
-
-class alumnoModel extends Model
-{
-
     /*
-        Extrae los detalles  de los alumnos
+        alumnoModel.php
+
+        Modelo del  controlador alumnos
+
+        Definir los métodos de acceso a la base de datos
+        
+        - insert
+        - update
+        - select
+        - delete
+        - etc..
     */
-    public function get()
-    {
 
-        try {
+    class alumnoModel extends Model {
 
-            # comando sql
-            $sql = "
+        /*
+            Extrae los detalles  de los alumnos
+        */
+        public function get() {
+
+            try {
+
+                # comando sql
+                $sql = "
                 SELECT 
                     alumnos.id,
                     concat_ws(', ', alumnos.apellidos, alumnos.nombre) alumno,
@@ -46,39 +44,38 @@ class alumnoModel extends Model
                     id
                 ";
 
-            # conectamos con la base de datos
+                # conectamos con la base de datos
 
-            // $this->db es un objeto de la clase database
-            // ejecuto el método connect de esa clase
+                // $this->db es un objeto de la clase database
+                // ejecuto el método connect de esa clase
 
-            $conexion = $this->db->connect();
+                $conexion = $this->db->connect();
 
-            # ejecutamos mediante prepare
-            $pdost = $conexion->prepare($sql);
+                # ejecutamos mediante prepare
+                $pdost = $conexion->prepare($sql);
 
-            # establecemos  tipo fetch
-            $pdost->setFetchMode(PDO::FETCH_OBJ);
+                # establecemos  tipo fetch
+                $pdost->setFetchMode(PDO::FETCH_OBJ);
 
-            #  ejecutamos 
-            $pdost->execute();
+                #  ejecutamos 
+                $pdost->execute();
 
-            # devuelvo objeto pdostatement
-            return $pdost;
+                # devuelvo objeto pdostatement
+                return $pdost;
 
-        } catch (PDOException $e) {
+            } catch (PDOException $e) {
 
-            include_once('template/partials/errorDB.php');
-            exit();
+                include_once('template/partials/errorDB.php');
+                exit();
 
+            }
         }
-    }
 
-    public function getCursos()
-    {
+        public function getCursos() {
 
-        try {
-            # Plantilla
-            $sql = "
+            try {
+                # Plantilla
+                $sql = "
                 
                     SELECT 
                             id,
@@ -90,35 +87,34 @@ class alumnoModel extends Model
 
                 ";
 
-            # Conectar con la base de datos
-            $conexion = $this->db->connect();
+                # Conectar con la base de datos
+                $conexion = $this->db->connect();
 
-            # ejecutar PREPARE
-            $result = $conexion->prepare($sql);
+                # ejecutar PREPARE
+                $result = $conexion->prepare($sql);
 
-            # establezco com quiero que devuelva el resultado
-            $result->setFetchMode(PDO::FETCH_OBJ);
+                # establezco com quiero que devuelva el resultado
+                $result->setFetchMode(PDO::FETCH_OBJ);
 
-            # ejecuto
-            $result->execute();
+                # ejecuto
+                $result->execute();
 
-            return $result;
+                return $result;
 
 
-        } catch (PDOException $e) {
+            } catch (PDOException $e){
 
-            include_once('template/partials/errorDB.php');
-            exit();
+                include_once('template/partials/errorDB.php');
+                exit();
+                
+            }
+
 
         }
 
+        public function create(classAlumno $alumno) {
 
-    }
-
-    public function create(classAlumno $alumno)
-    {
-
-        try {
+            try {
             $sql = "
                     INSERT INTO Alumnos (
                         nombre,
@@ -141,34 +137,33 @@ class alumnoModel extends Model
                         :id_curso
                     )
             ";
-            # Conectar con la base de datos
-            $conexion = $this->db->connect();
+             # Conectar con la base de datos
+             $conexion = $this->db->connect();
 
-            $pdoSt = $conexion->prepare($sql);
+             $pdoSt = $conexion->prepare($sql);
+ 
+             $pdoSt->bindParam(':nombre', $alumno->nombre, PDO::PARAM_STR, 30);
+             $pdoSt->bindParam(':apellidos', $alumno->apellidos, PDO::PARAM_STR, 50);
+             $pdoSt->bindParam(':email', $alumno->email, PDO::PARAM_STR, 50);
+             $pdoSt->bindParam(':telefono', $alumno->telefono, PDO::PARAM_STR, 13);
+             $pdoSt->bindParam(':poblacion', $alumno->poblacion, PDO::PARAM_STR, 30);
+             $pdoSt->bindParam(':dni', $alumno->dni, PDO::PARAM_STR, 9);
+             $pdoSt->bindParam(':fechaNac', $alumno->fechaNac);
+             $pdoSt->bindParam(':id_curso', $alumno->id_curso, PDO::PARAM_INT);
+ 
+             $pdoSt->execute();
 
-            $pdoSt->bindParam(':nombre', $alumno->nombre, PDO::PARAM_STR, 30);
-            $pdoSt->bindParam(':apellidos', $alumno->apellidos, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(':email', $alumno->email, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(':telefono', $alumno->telefono, PDO::PARAM_STR, 13);
-            $pdoSt->bindParam(':poblacion', $alumno->poblacion, PDO::PARAM_STR, 30);
-            $pdoSt->bindParam(':dni', $alumno->dni, PDO::PARAM_STR, 9);
-            $pdoSt->bindParam(':fechaNac', $alumno->fechaNac);
-            $pdoSt->bindParam(':id_curso', $alumno->id_curso, PDO::PARAM_INT);
+         }  catch (PDOException $e) {
+             include_once('template/partials/errorDB.php');
+             exit();
+         }
 
-            $pdoSt->execute();
-
-        } catch (PDOException $e) {
-            include_once('template/partials/errorDB.php');
-            exit();
         }
 
-    }
+        public function read($id) {
 
-    public function read($id)
-    {
-
-        try {
-            $sql = "
+            try {
+                $sql ="
                         SELECT 
                                 id,
                                 nombre, 
@@ -185,31 +180,30 @@ class alumnoModel extends Model
                                 id = :id
                 ";
 
-            # Conectar con la base de datos
-            $conexion = $this->db->connect();
+                # Conectar con la base de datos
+                $conexion = $this->db->connect();
 
+    
+                $pdoSt = $conexion->prepare($sql);
+    
+                $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
+                $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+                $pdoSt->execute();
+                
+                return $pdoSt->fetch();
+    
+            } catch (PDOException $e) {
+                include_once('template/partials/errorDB.php');
+                exit();
+            }
 
-            $pdoSt = $conexion->prepare($sql);
-
-            $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
-            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
-            $pdoSt->execute();
-
-            return $pdoSt->fetch();
-
-        } catch (PDOException $e) {
-            include_once('template/partials/errorDB.php');
-            exit();
         }
 
-    }
+        public function update(classAlumno $alumno, $id) {
 
-    public function update(classAlumno $alumno, $id)
-    {
+            try {
 
-        try {
-
-            $sql = "
+                $sql = "
                 
                 UPDATE alumnos
                 SET
@@ -226,40 +220,40 @@ class alumnoModel extends Model
                 LIMIT 1
                 ";
 
-            $conexion = $this->db->connect();
+                $conexion = $this->db->connect();
+                
+                $pdoSt = $conexion->prepare($sql);
 
-            $pdoSt = $conexion->prepare($sql);
+                $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
 
-            $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
+                $pdoSt->bindParam(':nombre', $alumno->nombre, PDO::PARAM_STR, 30);
+                $pdoSt->bindParam(':apellidos', $alumno->apellidos, PDO::PARAM_STR, 50);
+                $pdoSt->bindParam(':email', $alumno->email, PDO::PARAM_STR, 50);
+                $pdoSt->bindParam(':telefono', $alumno->telefono, PDO::PARAM_STR, 9);
+                $pdoSt->bindParam(':poblacion', $alumno->poblacion, PDO::PARAM_STR, 30);
+                $pdoSt->bindParam(':dni', $alumno->dni, PDO::PARAM_STR, 9);
+                $pdoSt->bindParam(':fechaNac', $alumno->fechaNac);
+                $pdoSt->bindParam(':id_curso', $alumno->id_curso, PDO::PARAM_INT);
 
-            $pdoSt->bindParam(':nombre', $alumno->nombre, PDO::PARAM_STR, 30);
-            $pdoSt->bindParam(':apellidos', $alumno->apellidos, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(':email', $alumno->email, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(':telefono', $alumno->telefono, PDO::PARAM_STR, 9);
-            $pdoSt->bindParam(':poblacion', $alumno->poblacion, PDO::PARAM_STR, 30);
-            $pdoSt->bindParam(':dni', $alumno->dni, PDO::PARAM_STR, 9);
-            $pdoSt->bindParam(':fechaNac', $alumno->fechaNac);
-            $pdoSt->bindParam(':id_curso', $alumno->id_curso, PDO::PARAM_INT);
+                $pdoSt->execute();
 
-            $pdoSt->execute();
-
-        } catch (PDOException $e) {
+        }
+        catch(PDOException $e) {
             include_once('template/partials/errorDB.php');
             exit();
         }
 
-    }
+        }
 
-    /*
-       Extrae los detalles  de los alumnos
-   */
-    public function order(int $criterio)
-    {
+         /*
+            Extrae los detalles  de los alumnos
+        */
+        public function order(int $criterio) {
 
-        try {
+            try {
 
-            # comando sql
-            $sql = "
+                # comando sql
+                $sql = "
                 SELECT 
                     alumnos.id,
                     concat_ws(', ', alumnos.apellidos, alumnos.nombre) alumno,
@@ -279,39 +273,38 @@ class alumnoModel extends Model
                     :criterio
                 ";
 
-            # conectamos con la base de datos
+                # conectamos con la base de datos
 
-            // $this->db es un objeto de la clase database
-            // ejecuto el método connect de esa clase
+                // $this->db es un objeto de la clase database
+                // ejecuto el método connect de esa clase
 
-            $conexion = $this->db->connect();
+                $conexion = $this->db->connect();
 
-            # ejecutamos mediante prepare
-            $pdost = $conexion->prepare($sql);
+                # ejecutamos mediante prepare
+                $pdost = $conexion->prepare($sql);
 
-            $pdost->bindParam(':criterio', $criterio, PDO::PARAM_INT);
+                $pdost->bindParam(':criterio', $criterio, PDO::PARAM_INT);
 
-            # establecemos  tipo fetch
-            $pdost->setFetchMode(PDO::FETCH_OBJ);
+                # establecemos  tipo fetch
+                $pdost->setFetchMode(PDO::FETCH_OBJ);
 
-            #  ejecutamos 
-            $pdost->execute();
+                #  ejecutamos 
+                $pdost->execute();
 
-            # devuelvo objeto pdostatement
-            return $pdost;
+                # devuelvo objeto pdostatement
+                return $pdost;
 
-        } catch (PDOException $e) {
+            } catch (PDOException $e) {
 
-            include_once('template/partials/errorDB.php');
-            exit();
+                include_once('template/partials/errorDB.php');
+                exit();
 
+            }
         }
-    }
 
-    public function filter($expresion)
-    {
-        try {
-            $sql = "
+        public function filter($expresion) {
+            try {
+                $sql = "
 
                 SELECT 
                     alumnos.id,
@@ -349,35 +342,41 @@ class alumnoModel extends Model
                 
                 ";
 
-            # Conectar con la base de datos
+                # Conectar con la base de datos
+                $conexion = $this->db->connect();
+
+                $pdost = $conexion->prepare($sql);
+                
+                $pdost->bindValue(':expresion', '%'.$expresion.'%', PDO::PARAM_STR);
+                $pdost->setFetchMode(PDO::FETCH_OBJ);
+                $pdost->execute();
+                return $pdost;
+
+            } catch (PDOException $e){
+
+                include_once('template/partials/errorDB.php');
+                exit();
+                
+            }
+
+    } 
+
+    /**
+     * Funciones de validacion en la BBDD
+     */
+    public function validarEmail($email){
+        try{
+
+            $sql = "SELECT * FROM alumnos WHERE email = :email";
+
             $conexion = $this->db->connect();
 
+            # ejecutamos mediante prepare
             $pdost = $conexion->prepare($sql);
 
-            $pdost->bindValue(':expresion', '%' . $expresion . '%', PDO::PARAM_STR);
-            $pdost->setFetchMode(PDO::FETCH_OBJ);
-            $pdost->execute();
-            return $pdost;
-
-        } catch (PDOException $e) {
-
-            include_once('template/partials/errorDB.php');
-            exit();
-
-        }
-
-    }
-
-    public function validarEmailUnico ($email) {
-        try {
-
-            $sql = "SELECT * FROM alumnos WHERE email = :email ";
-
-            # Conectar con la base de datos
-            $conexion = $this->db->connect();
-            $pdost = $conexion->prepare($sql);
             $pdost->bindParam(':email', $email, PDO::PARAM_STR);
 
+            #  ejecutamos 
             $pdost->execute();
 
             // Si devuelve más de 0 valores quiere decir que el email no está validado
@@ -386,46 +385,82 @@ class alumnoModel extends Model
                 return false;
             }
 
-            // Si el email no existe lo devuelve ya que está validado 
+            // Si el email no existe lo devuelve ya que está validado
             return true;
 
-        } catch (PDOException $e) {
+        } catch (PDOException $e){
 
             include_once('template/partials/errorDB.php');
             exit();
-
+            
         }
-    }
 
-    public function validarCurso ($curso) {
-        try {
 
-            $sql = "SELECT * FROM alumnos WHERE email = :email ";
+    }  
 
-            # Conectar con la base de datos
+    public function validarDniUnico($dni){
+        try{
+
+            $sql = "SELECT * FROM alumnos WHERE dni = :dni";
+
             $conexion = $this->db->connect();
+
             $pdost = $conexion->prepare($sql);
-            $pdost->bindParam(':email', $email, PDO::PARAM_STR);
 
+            $pdost->bindParam(':dni', $dni, PDO::PARAM_STR);
+
+            #  ejecutamos 
             $pdost->execute();
-
-            // Si devuelve más de 0 valores quiere decir que el email no está validado
+            
+            // Si devuelve más de 0 valores quiere decir que el DNI no está validado
             // y que se repite por lo que devolvería falso 
             if ($pdost->rowCount() != 0) {
                 return false;
             }
 
-            // Si el email no existe lo devuelve ya que está validado 
-            return true;
+            // Si el email no existe lo devuelve ya que está validado
 
-        } catch (PDOException $e) {
+        } catch (PDOException $e){
 
             include_once('template/partials/errorDB.php');
             exit();
-
+            
         }
-    }
 
+
+    }  
+
+    public function validarCurso($id_curso){
+        try{
+
+            $sql = "SELECT * FROM cursos WHERE id = :id_curso";
+
+            $conexion = $this->db->connect();
+
+            # ejecutamos mediante prepare
+            $pdost = $conexion->prepare($sql);
+
+            $pdost->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
+
+            #  ejecutamos 
+            $pdost->execute();
+
+
+            if($pdost->rowCount() != 1){
+                return FALSE;
+            }
+
+            return TRUE;
+
+        } catch (PDOException $e){
+
+            include_once('template/partials/errorDB.php');
+            exit();
+            
+        }
+
+
+    }  
 
 }
 

@@ -172,7 +172,7 @@ class Alumno extends Controller
 
         if (isset($_SESSION['error'])) {
             #Mensaje de error 
-            $this->view->error($_SESSION['error']);
+            $this->view->error = ($_SESSION['error']);
 
             #Autorrellenar formulario con los detalles del alumno
             $this->view->alumno = unserialize($_SESSION['alumno']);

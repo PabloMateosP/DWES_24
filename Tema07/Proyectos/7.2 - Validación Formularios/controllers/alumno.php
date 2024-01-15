@@ -155,6 +155,8 @@ class Alumno extends Controller
 
     function edit($param = [])
     {
+        session_start();
+
         $id = $param[0];
 
         $this->view->id = $id;
@@ -167,6 +169,22 @@ class Alumno extends Controller
 
 
         $this->view->cursos = $this->model->getCursos();
+
+        if (isset($_SESSION['error'])) {
+            #Mensaje de error 
+            $this->view->error($_SESSION['error']);
+
+            #Autorrellenar formulario con los detalles del alumno
+            $this->view->alumno = unserialize($_SESSION['alumno']);
+
+            #Recupero
+            $this->view->errores = $_SESSION['errores'];
+
+            # Borramos datos de la variables a posterior de su uso
+            unset($_SESSION['error']);
+            unset($_SESSION['errores']);
+            unset($_SESSION['alumnos']);
+        }
 
 
         $this->view->render('alumno/edit/index');

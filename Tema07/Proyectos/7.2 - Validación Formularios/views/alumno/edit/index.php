@@ -20,7 +20,6 @@
 
         <legend>Formulario Editar Alumno</legend>
 
-        <!-- Formulario Nuevo Libro -->
         <form action="<?= URL ?>alumno/update/<?= $this->id ?>" method="POST">
 
             <!-- id oculto -->

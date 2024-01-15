@@ -107,7 +107,7 @@ class Alumno extends Controller
             $errores['email'] = 'El campo es obligatorio';
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errores['email'] = 'El formato no válido';
-        } else if (!$this->model->validarEmailUnico($email)) {
+        } else if (!$this->model->validarEmail($email)) {
             $errores['email'] = 'El email ya ha sido registrado';
         }
 
@@ -174,29 +174,113 @@ class Alumno extends Controller
 
     public function update($param = [])
     {
-        $id = $param[0];
+        session_start();
 
+        #1. Saneamos los datos del formulario 
+        $nombre = filter_var($_POST['nombre'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $apellidos = filter_var($_POST['apellidos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = filter_var($_POST['email'] ??= '', FILTER_SANITIZE_EMAIL);
+        $telefono = filter_var($_POST['telefono'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $poblacion = filter_var($_POST['poblacion'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $dni = filter_var($_POST['dni'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $fechaNac = filter_var($_POST['fechaNac'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id_curso = filter_var($_POST['id_curso'] ??= '', FILTER_SANITIZE_NUMBER_INT);
+
+        #2. Creamos el objeto alumno a partir de los datos saneados
         $alumno = new classAlumno(
-
             null,
-            $_POST['nombre'],
-            $_POST['apellidos'],
-            $_POST['email'],
-            $_POST['telefono'],
+            $nombre,
+            $apellidos,
+            $email,
+            $telefono,
             null,
-            $_POST['poblacion'],
+            $poblacion,
             null,
             null,
-            $_POST['dni'],
-            $_POST['fechaNac'],
-            $_POST['id_curso']
-
+            $dni,
+            $fechaNac,
+            $id_curso
         );
 
-        # Actualizamos base de datos 
-        $this->model->update($alumno, $id);
+        #Cargamos el id 
+        $id = $param[0];
 
-        header('location:' . URL . 'alumno');
+        #Obtengo los datos del alumno original
+        $alumnoOriginal = $this->model->read($id);
+
+        ## ---------------------------------------------------------- ##
+        #3. Validación (Sólo si fuese necesario)
+        $errores = [];
+
+        # Validar Nombre
+        if (strcmp($alumno->nombre, !$alumnoOriginal->nombre) !== 0) {
+            if (empty($nombre)) {
+                $errores['nombre'] = 'El campo nombre es obligatorio';
+            }
+        }
+
+        # Validar Apellido
+        if (strcmp($alumno->apellidos, !$alumnoOriginal->apellidos) !== 0) {
+            if (empty($apellidos)) {
+                $errores['apellidos'] = 'El campo apellidos es obligatorio';
+            }
+        }
+
+        # Validación Email
+        if (strcmp($alumno->email, !$alumnoOriginal->email) !== 0) {
+            if (empty($email)) {
+                $errores['email'] = 'El campo es obligatorio';
+            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errores['email'] = 'El formato no válido';
+            } else if (!$this->model->validarEmail($email)) {
+                $errores['email'] = 'El email ya ha sido registrado';
+            }
+        }
+
+        # -----------------------------------------------------------
+        #Validación dni
+        $options = [
+            'options' => [ # ESTOS PARÁMETROS DEBEN LLAMARSE ASÍ
+                'regexp' => '/^(\d{8})([a-zA-Z])$/'
+            ]
+        ];
+
+        if (strcmp($alumno->dni, !$alumnoOriginal->dni) !== 0) {
+            if (empty($dni)) {
+                $errores['dni'] = 'El campo es obligatorio';
+            } else if (!filter_var($dni, FILTER_VALIDATE_REGEXP, $options)) {
+                $errores['dni'] = 'El formato del dni no es válido';
+            } else if (!$this->model->validarDniUnico($dni)) {
+                $errores['dni'] = 'El dni ya ha sido registrado';
+            }
+        }
+        # ------------------------------------------------------------
+
+        # Validación id_curso
+        if (strcmp($alumno->id_curso, !$alumnoOriginal->id_curso) !== 0) {
+            if (empty($id_curso)) {
+                $errores['id_curso'] = 'Debe seleccionar un curso';
+            } else if (!filter_var($id_curso, FILTER_VALIDATE_INT)) {
+                $errores['id_curso'] = 'Curso no válido';
+            } else if (!$this->model->validarCurso($id_curso)) {
+                $errores['id_curso'] = 'Curso no existe';
+            }
+        }
+
+        #4. Comprobar validación
+        if (!empty($errores)) {
+            $_SESSION['alumno'] = serialize($alumno);
+            $_SESSION['error'] = 'Formulario no validado';
+            $_SESSION['errores'] = $errores;
+
+            header('location:' . URL . 'alumno/edit/' . $id);
+        } else {
+            $this->model->update($alumno, $id);
+
+            $_SESSION['mensaje'] = "Alumno actualizado correctamente";
+
+            header('location:' . URL . 'alumno');
+        }
     }
 
     public function order($param = [])

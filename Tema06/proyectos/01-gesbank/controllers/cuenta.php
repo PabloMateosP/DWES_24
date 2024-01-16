@@ -67,6 +67,8 @@ class Cuenta extends Controller
         $this->view->title = "Editar Cuenta";
 
         #Mediante la función read leeremos los datos de la cuenta 
+        $this->view->clientes = $this->model->getClient();
+
         $this->view->cuenta = $this->model->read($id_editar);
 
         # Cargamos la vista

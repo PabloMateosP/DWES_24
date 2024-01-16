@@ -53,9 +53,7 @@ class cuentaModel extends Model
             # Comando sql
             $sql = "SELECT 
             id,
-            CONCAT_WS(' ',
-            clientes.nombre,
-            clientes.apellidos) AS cliente
+            CONCAT_WS(' ', clientes.nombre, clientes.apellidos) AS cliente
         FROM
             clientes";
 

@@ -82,7 +82,6 @@ class clientesModel extends Model
     }
 
     # Método delete
-    # Permite ejecutar comando DELETE en la tabla clientes
     public function delete($id)
     {
         try {
@@ -104,7 +103,6 @@ class clientesModel extends Model
     }
 
     # Método getCliente
-    # Obtiene los detalles de un cliente a partir del id
     public function getCliente($id)
     {
         try {
@@ -136,7 +134,6 @@ class clientesModel extends Model
     }
 
     # Método update
-    # Actuliza los detalles de un cliente una vez editados en el formuliario
     public function update(classCliente $cliente, $id)
     {
         try {
@@ -176,8 +173,6 @@ class clientesModel extends Model
 
 
     # Método update
-    # Permite ordenar la tabla de cliente por cualquiera de las columnas del main
-    # El criterio de ordenación se establec mediante el número de la columna del select
     public function order(int $criterio)
     {
         try {
@@ -209,7 +204,6 @@ class clientesModel extends Model
     }
 
     # Método filter
-    # Permite filtar la tabla clientes a partir de una expresión de búsqueda
     public function filter($expresion)
     {
         try {
@@ -259,7 +253,6 @@ class clientesModel extends Model
 
     /**
      * validateUniqueDni($dni)
-     * Nos permite comprobar si un dni ya existe o no en la base de datos
      */
     public function validateUniqueDni($dni){
         try {
@@ -290,7 +283,6 @@ class clientesModel extends Model
 
     /**
      * validateUniqueEmail($email)
-     * Nos permite comprobar si un email ya existe o no en la base de datos
      */
     public function validateUniqueEmail($email){
         try {

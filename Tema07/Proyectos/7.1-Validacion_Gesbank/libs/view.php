@@ -4,7 +4,6 @@
 
         function __construct() {
    
-
         }
 
         function render($nombre) {

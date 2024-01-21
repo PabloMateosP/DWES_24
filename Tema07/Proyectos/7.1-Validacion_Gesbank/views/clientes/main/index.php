@@ -4,7 +4,7 @@
 <head>
     <!-- head -->
     <?php require_once("template/partials/head.php");  ?>
-    <title>Clientes - Gesbank</title>
+    <title>Home Clientes</title>
 </head>
 
 <body>
@@ -53,7 +53,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="8">Nº Registros: <?= $this->clientes->rowCount() ?> </td>
+                    <td colspan="8">Nº Clientes: <?= $this->clientes->rowCount() ?> </td>
                 </tr>
             </tfoot>
 

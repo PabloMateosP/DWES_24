@@ -86,8 +86,6 @@
                 Nº Registros:<?= $this->cuentas->rowCount() ?>
             </div>
         </div>
-
-
     </div>
 
     <!-- footer -->

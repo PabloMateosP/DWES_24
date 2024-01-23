@@ -21,14 +21,20 @@
                 <!-- ERROR -->
                 <?php require_once("template/partials/error.php") ?>
                 <div class="card">
-                    <div class="card-header">Modificar Perfil Usuario</div>
+                    <div class="card-header">Perfil: 
+                        <?= $_SESSION['name_user'] ?>
+                    </div>
+
+                    <div class="card-header">
+                        <?php require_once("views/perfil/partials/menu.php") ?>
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="<?= URL ?>perfil/valperfil">
 
                             <!-- Tipo perfil -->
                             <br>
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label text-end">Nombre Usuario</label>
+                                <label class="col-sm-3 col-form-label text-end">Perfil</label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control " name="name"
                                         value="<?= $_SESSION['name_rol']; ?>" disabled>
@@ -36,7 +42,6 @@
                             </div>
 
                             <!-- campo name -->
-                            <br>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">Nombre Usuario</label>
                                 <div class="col-sm-7">
@@ -45,8 +50,7 @@
                                 </div>
                             </div>
 
-                            <!-- campo email -->
-                            <br>
+                            <!-- campo email -->  
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">Email</label>
                                 <div class="col-sm-7">

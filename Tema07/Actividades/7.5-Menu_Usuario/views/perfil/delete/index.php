@@ -13,10 +13,17 @@
     <div class="row justify-content-center">
             
             <div class="col-md-8">
-            <?php require_once("template/partials/mensaje.php") ?>
+            <?php require_once("template/partials/notify.php") ?>
             <?php require_once("template/partials/error.php") ?>
                 <div class="card">
                     <div class="card-header">Eliminar Perfil Usuario</div>
+                    <div class="card-header">Perfil: 
+                        <?= $_SESSION['name_user'] ?>
+                    </div>
+
+                    <div class="card-header">
+                        <?php require_once("views/perfil/partials/menu.php") ?>
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="<?=URL?>perfil/delete ?>">
                             

@@ -1,22 +1,28 @@
-<?php 
-    class PerfilModel extends Model {
+<?php
+class PerfilModel extends Model
+{
 
     # Devuelve objeto user si lo encuentra
     # Si no lo encuentra devuelve FALSE
-    public function getUserId($id) {
+    public function getUserId($id)
+    {
         try {
 
-            $sql = "SELECT * FROM Users WHERE id= :id LIMIT 1";
-            $conexion = $this->db->connect();
-            $result = $conexion->prepare($sql);
-            $result->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,'user');
-            $result->bindParam(":id", $id, PDO::PARAM_INT);
-            $result->execute();
+            $sql = "SELECT * FROM users WHERE id= :id LIMIT 1";
             
+            $conexion = $this->db->connect();
+
+            $result = $conexion->prepare($sql);
+
+            $result->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'classUser');
+            $result->bindParam(":id", $id, PDO::PARAM_INT);
+            
+            $result->execute();
+
             return $result->fetch();
 
-        }  catch (PDOException $e) {
-            
+        } catch (PDOException $e) {
+
             include_once('template/partials/errorDB.php');
             exit();
 
@@ -25,26 +31,26 @@
     }
 
     # Actualizar password
-    public function updatePass (User $user) {
+    public function updatePass(classUser $user)
+    {
         try {
-             
+
             $password_encriptado = password_hash($user->password, CRYPT_BLOWFISH);
             $update = "
                         UPDATE users SET
                             password = :password
-                        WHERE id = :id      
-                        ";
+                        WHERE id = :id ";
 
             $conexion = $this->db->connect();
             $result = $conexion->prepare($update);
 
-            $result->bindParam(':password', $password_encriptado , PDO::PARAM_STR, 50);
-            $result->bindParam(':id', $user->id, PDO::PARAM_INT) ;
+            $result->bindParam(':password', $password_encriptado, PDO::PARAM_STR, 50);
+            $result->bindParam(':id', $user->id, PDO::PARAM_INT);
 
             $result->execute();
 
-        }  catch (PDOException $e) {
-            
+        } catch (PDOException $e) {
+
             include_once('template/partials/errorDB.php');
             exit();
 
@@ -52,7 +58,8 @@
     }
 
     # Valida nombre de usuario ha de ser único
-    public function validarName($name) {
+    public function validarName($name)
+    {
 
         try {
             $sql = "
@@ -62,56 +69,58 @@
 
             # Conectamos con la base de datos
             $conexion = $this->db->connect();
-    
-            # Ejecutamos mediante prepare la consulta SQL
-            $result= $conexion->prepare($sql);
-            $result->bindParam(':name', $name, PDO::PARAM_STR);
-            $result -> execute();
 
-           if ($result->rowCount() == 0) 
-                    return TRUE;
+            # Ejecutamos mediante prepare la consulta SQL
+            $result = $conexion->prepare($sql);
+            $result->bindParam(':name', $name, PDO::PARAM_STR);
+            $result->execute();
+
+            if ($result->rowCount() == 0)
+                return TRUE;
             return FALSE;
 
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             include_once('template/partials/errorDB.php');
             exit();
         }
-        
-    
+
+
     }
 
-   # Valida nombre de usuario ha de ser único
-   public function validarEmail($email) {
+    # Valida nombre de usuario ha de ser único
+    public function validarEmail($email)
+    {
 
-    try {
-        $sql = "
+        try {
+            $sql = "
                 SELECT * FROM users
                 WHERE email = :email
         ";
 
-        # Conectamos con la base de datos
-        $conexion = $this->db->connect();
+            # Conectamos con la base de datos
+            $conexion = $this->db->connect();
 
-        # Ejecutamos mediante prepare la consulta SQL
-        $result= $conexion->prepare($sql);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result -> execute();
+            # Ejecutamos mediante prepare la consulta SQL
+            $result = $conexion->prepare($sql);
+            $result->bindParam(':email', $email, PDO::PARAM_STR);
+            $result->execute();
 
-        if ($result->rowCount() == 0) 
-            return TRUE;
-        return FALSE;
+            if ($result->rowCount() == 0)
+                return TRUE;
+            return FALSE;
 
-    } catch(PDOException $e) {
-        include_once('template/partials/errorDB.php');
-        exit();
-    }
-    
+        } catch (PDOException $e) {
+            include_once('template/partials/errorDB.php');
+            exit();
+        }
+
     }
 
     # Actualizar perfil name y email
-    public function update (User $user) {
+    public function update(classUser $user)
+    {
         try {
-                     
+
             $update = "
                         UPDATE users SET
                             name = :name,
@@ -124,35 +133,35 @@
             $result = $conexion->prepare($update);
 
             $result->bindParam(':name', $user->name, PDO::PARAM_STR, 50);
-            $result->bindParam(':email', $user->email , PDO::PARAM_STR, 50);
-            $result->bindParam(':id', $user->id, PDO::PARAM_INT) ;
+            $result->bindParam(':email', $user->email, PDO::PARAM_STR, 50);
+            $result->bindParam(':id', $user->id, PDO::PARAM_INT);
 
             $result->execute();
 
-        }  catch (PDOException $e) {
-            
+        } catch (PDOException $e) {
+
             include_once('template/partials/errorDB.php');
             exit();
 
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
 
         try {
-                $delete = "
+            $delete = "
                     DELETE FROM users 
-                    WHERE id = :id      
-                ";
+                    WHERE id = :id ";
 
-                $conexion = $this->db->connect();
-                $result = $conexion->prepare($delete);
+            $conexion = $this->db->connect();
+            $result = $conexion->prepare($delete);
 
-                $result->bindParam(':id', $id, PDO::PARAM_INT) ;
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
 
-                $result->execute();
+            $result->execute();
 
-        }  catch (PDOException $e) {
+        } catch (PDOException $e) {
 
             include_once('template/partials/errorDB.php');
             exit();
@@ -162,4 +171,3 @@
     }
 
 }
-?>

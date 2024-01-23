@@ -2,12 +2,30 @@
 
     class Perfil Extends Controller {
 
+        # Muestra los detalles del perfil antes de eliminar
+        public function render() {
+
+            # Iniciamos o continuamos con la sesión
+            session_start();
+
+            # Capa autentificación
+            if (!isset($_SESSION['id'])) {
+                header("location:".URL. "login");
+            }
+
+            # Obtenemos objeto con los detalles del usuario
+            $this->view->user = $this->model->getUserId($_SESSION['id']);
+            $this->view->title = 'Perfil de Usuario - Gestión Alumnos FP';
+
+            $this->view->render('perfil/main/index');
+           
+        }
 
         # Editar los detalles name y email de usuario
         public function edit() {
 
             # Iniciamos o continuamos sesión
-            sec_session_start();
+            session_start();
 
             # Capa de autentificación
             if (!isset($_SESSION['id'])) { 
@@ -54,7 +72,7 @@
         public function valperfil() {
 
             # Iniciamos o continuamos con la sesión
-            sec_session_start();
+            session_start();
 
             # Capa autentificación
             if (!isset($_SESSION['id'])) {
@@ -95,7 +113,7 @@
             }
 
             # Crear objeto user
-            $user = new User(
+            $user = new classUser(
                 $user->id,
                 $name,
                 $email,
@@ -129,7 +147,7 @@
         public function pass() {
 
             # Iniciamos o continuamos sesión
-            sec_session_start();
+            session_start();
 
             # Capa de autentificación
             if (!isset($_SESSION['id'])) { 
@@ -170,7 +188,7 @@
         public function valpass() {
 
             # Iniciamos o continuamos con la sesión
-            sec_session_start();
+            session_start();
 
             # Capa autentificación
             if (!isset($_SESSION['id'])) {
@@ -215,7 +233,7 @@
             } else {
                 
                 # Crear objeto user
-                $user = new User(
+                $user = new classUser(
                     $user->id,
                     null,
                     null,
@@ -231,36 +249,13 @@
                 header("location:". URL. "alumnos");
             }
             
-    
-    
-        }
-
-        # Muestra los detalles del perfil antes de eliminar
-        public function show() {
-
-            # Iniciamos o continuamos con la sesión
-            sec_session_start();
-
-            # Capa autentificación
-            if (!isset($_SESSION['id'])) {
-
-                header("location:".URL. "login");
-            }
-
-
-            # Obtenemos objeto con los detalles del usuario
-            $this->view->user = $this->model->getUserId($_SESSION['id']);
-            $this->view->title = 'Eliminar Perfil Usuario';
-
-            $this->view->render('perfil/delete/index');
-           
         }
 
         # Elimina definitivamente el perfil
         public function delete() {
 
             # Iniciamos o continuamos con la sesión
-            sec_session_start();
+            session_start();
 
             # Capa autentificación
             if (!isset($_SESSION['id'])) {

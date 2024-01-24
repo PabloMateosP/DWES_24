@@ -316,4 +316,70 @@ class cuentasModel extends Model
             exit();
         }
     }
+
+    public function validateUniqueCuenta($num_cuenta)
+    {
+        try {
+            // Creamos la consulta
+            $sql = "SELECT * FROM cuentas  WHERE num_cuenta = :num_cuenta";
+
+            # Conectar con la base de datos
+            $conexion = $this->db->connect();
+            $pdost = $conexion->prepare($sql);
+
+            // Vinculamos la variable
+            $pdost->bindParam(':num_cuenta', $num_cuenta, PDO::PARAM_STR);
+
+            // Ejecutamos la sentencia
+            $pdost->execute();
+
+            if ($pdost->rowCount() != 0) {
+                return false;
+
+            }
+            return true;
+        } catch (PDOException $e) {
+
+            include_once('template/partials/errorDB.php');
+            exit();
+
+        }
+    }
+
+    public function read($id)
+    {
+
+        try {
+            $sql = " SELECT 
+                id,
+                num_cuenta,
+                id_cliente,
+                fecha_alta,
+                fecha_ul_mov,
+                num_movtos,
+                saldo
+                
+            FROM 
+                cuentas
+        WHERE id =  :id;
+                ";
+
+            # Conectar con la base de datos
+            $conexion = $this->db->connect();
+
+
+            $pdoSt = $conexion->prepare($sql);
+
+            $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
+            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+            $pdoSt->execute();
+
+            return $pdoSt->fetch();
+
+        } catch (PDOException $e) {
+            include_once('template/partials/errorDB.php');
+            exit();
+        }
+
+    }
 }

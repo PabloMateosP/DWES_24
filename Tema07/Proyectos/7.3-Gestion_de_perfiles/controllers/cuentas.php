@@ -8,33 +8,47 @@ class Cuentas extends Controller
     # Muestra los detalles de la tabla Cuentas
     function render($param = [])
     {
+        #inicio o continuo sesion
         session_start();
 
-        if (!isset($_SESSION['id'])) {
-            $_SESSION['notify'] = "Usuario sin autentificar";
-            header("location:" . URL . "login");
-        } else {
-
-            if (isset($_SESSION['mensaje'])) {
-                $this->view->mensaje = $_SESSION['mensaje'];
-                unset($_SESSION['mensaje']);
-            }
-
-            $this->view->title = "Tabla Cuentas";
-
-            $this->view->cuentas = $this->model->get();
-            
-            $this->view->render("cuentas/main/index");
+        #comprobar si existe mensaje
+        if (isset($_SESSION['mensaje'])) {
+            $this->view->mensaje = $_SESSION['mensaje'];
+            unset($_SESSION['mensaje']);
 
         }
-
-
+        $this->view->title = "Tabla Cuentas";
+        $this->view->cuentas = $this->model->get();
+        $this->view->render("cuentas/main/index");
     }
 
     # Método nuevo
     # Permite mostrar un formulario que permita añadir una nueva cuenta
     function nuevo($param = [])
     {
+        # Continuamos la sesion
+        session_start();
+        # Creamos un objeto vacio
+        $this->view->cuentas = new classCuenta();
+
+        # Comprobamos si hay errores -> esta variable se crea al lanzar un error de validacion
+        if (isset($_SESSION['error'])) {
+            // rescatemos el mensaje
+            $this->view->error = $_SESSION['error'];
+
+            // Autorellenamos el formulario
+            $this->view->cuenta = unserialize($_SESSION['cuenta']);
+
+            // Recupero array de errores específicos
+            $this->view->errores = $_SESSION['errores'];
+
+            // debemos liberar las variables de sesión ya que su cometido ha sido resuelto
+            unset($_SESSION['error']);
+            unset($_SESSION['errores']);
+            unset($_SESSION['cuenta']);
+            // Si estas variables existen cuando no hay errores, entraremos en los bloques de error en las condicionales
+        }
+
         $this->view->title = "Formulario añadir cuenta";
 
         // Para generar la lista select dinámica de clientes
@@ -47,25 +61,75 @@ class Cuentas extends Controller
     # Envía los detalles para crear una nueva cuenta
     function create($param = [])
     {
+        #Iniciar Sesión
+        session_start();
+
+        #1.Seguridad. Saneamos los datos del formulario
+        $num_cuenta = filter_var($_POST['num_cuenta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id_cliente = filter_var($_POST['id_cliente'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $fecha_alta = filter_var($_POST['fecha_alta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $fecha_ul_mov = filter_var($_POST['fecha_ul_mov'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $num_movtos = filter_var($_POST['num_movtos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $saldo = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_EMAIL);
+
+        #2. Creamos cliente con los datos saneados
         $cuenta = new classCuenta(
             null,
-            $_POST["num_cuenta"],
-            $_POST["id_cliente"],
-            $_POST["fecha_alta"],
-            date("d-m-Y H:i:s"),
-            0,
-            $_POST["saldo"],
+            $num_cuenta,
+            $id_cliente,
+            $fecha_alta,
+            $fecha_ul_mov,
+            $num_movtos,
+            $saldo,
             null,
             null
         );
-        $this->model->create($cuenta);
-        header("Location:" . URL . "cuentas");
+
+        #3.Validacion
+        $errores = [];
+
+        //Cuenta. Obligatorio, formato 20 dígitos numéricos, valor con restricción unique en la tabla cuentas
+
+        if (empty($num_cuenta)) {
+            $errores['num_cuenta'] = 'El campo cuenta es obligatorio';
+        } else if (strlen($num_cuenta) !== 20) {
+            $errores['num_cuenta'] = 'El campo cuenta es demasiado largo o demasiado corto';
+
+        } else if (!$this->model->validateUniqueCuenta($num_cuenta)) {
+            $errores['num_cuenta'] = 'La cuenta ya existe';
+        }
+
+        //Cliente. Obligatorio, valor numérico, ha de existir en la tabla clientes.
+        if (empty($id_cliente)) {
+            $errores['id_cliente'] = 'El campo cliente es obligatorio';
+        } else if (!filter_var($id_cliente, FILTER_VALIDATE_INT)) {
+            $errores['id_cliente'] = 'Cliente no valido';
+        }
+
+        if (!empty($errores)) {
+            //errores de validacion
+            $_SESSION['cuenta'] = serialize($cuenta);
+            $_SESSION['error'] = 'Formulario no validado';
+            $_SESSION['errores'] = $errores;
+
+            header('location:' . URL . 'cuentas/nuevo');
+
+        } else {
+            $this->model->create($cuenta);
+            #Mensaje
+            $_SESSION['mensaje'] = "Cuenta creada correctamente";
+            header("Location:" . URL . "cuentas");
+        }
+
+
     }
 
     # Método delete
     # Permite eliminar una cuenta de la tabla
     function delete($param = [])
     {
+        session_start();
+
         $id = $param[0];
         $this->model->delete($id);
         header("Location:" . URL . "cuentas");
@@ -76,12 +140,34 @@ class Cuentas extends Controller
     # Sólo se podrá modificar el titular o cliente de la cuenta
     function editar($param = [])
     {
+
+        session_start();
+
         $id = $param[0];
 
         $this->view->id = $id;
         $this->view->title = "Formulario editar cuenta";
         $this->view->clientes = $this->model->getClientes();
         $this->view->cuenta = $this->model->getCuenta($id);
+
+
+        # Comprobamos si hay errores -> esta variable se crea al lanzar un error de validacion
+        if (isset($_SESSION['error'])) {
+            // rescatemos el mensaje
+            $this->view->error = $_SESSION['error'];
+
+            // Autorellenamos el formulario
+            $this->view->cuenta = unserialize($_SESSION['cuenta']);
+
+            // Recupero array de errores específicos
+            $this->view->errores = $_SESSION['errores'];
+
+            // debemos liberar las variables de sesión ya que su cometido ha sido resuelto
+            unset($_SESSION['error']);
+            unset($_SESSION['errores']);
+            unset($_SESSION['cuentas']);
+            // Si estas variables existen cuando no hay errores, entraremos en los bloques de error en las condicionales
+        }
 
         $this->view->render("cuentas/editar/index");
     }
@@ -90,22 +176,73 @@ class Cuentas extends Controller
     # Envía los detalles modificados de una cuenta para su actualización en la tabla
     function update($param = [])
     {
-        $id = $param[0];
+        #Iniciar Sesión
+        session_start();
 
+        #1.Seguridad. Saneamos los datos del formulario
+        $num_cuenta = filter_var($_POST['num_cuenta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id_cliente = filter_var($_POST['id_cliente'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $fecha_alta = filter_var($_POST['fecha_alta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $fecha_ul_mov = filter_var($_POST['fecha_ul_mov'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $num_movtos = filter_var($_POST['num_movtos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $saldo = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_EMAIL);
+
+        #2. Creamos cliente con los datos saneados
         $cuenta = new classCuenta(
             null,
-            $_POST["num_cuenta"],
-            $_POST["id_cliente"],
-            $_POST["fecha_alta"],
-            $_POST["fecha_ul_mov"],
-            $_POST["num_movtos"],
-            $_POST["saldo"],
+            $num_cuenta,
+            $id_cliente,
+            $fecha_alta,
+            $fecha_ul_mov,
+            $num_movtos,
+            $saldo,
             null,
             null
         );
+        $id = $param[0];
 
-        $this->model->update($cuenta, $id);
-        header("Location:" . URL . "cuentas");
+        #Obtengo el objeto cliente original
+        $cuenta_orig = $this->model->read($id);
+
+        #3.Validacion
+        $errores = [];
+
+        //Cuenta. Obligatorio, formato 20 dígitos numéricos, valor con restricción unique en la tabla cuentas
+
+        if (strcmp($cuenta->num_cuenta, $cuenta_orig->num_cuenta) !== 0) {
+
+            if (empty($num_cuenta)) {
+                $errores['num_cuenta'] = 'El campo cuenta es obligatorio';
+            } else if (strlen($num_cuenta) !== 20) {
+                $errores['num_cuenta'] = 'El campo cuenta es demasiado largo o demasiado corto';
+
+            } else if (!$this->model->validateUniqueCuenta($num_cuenta)) {
+                $errores['num_cuenta'] = 'La cuenta ya existe';
+            }
+        }
+        //Cliente. Obligatorio, valor numérico, ha de existir en la tabla clientes.
+        if (strcmp($cuenta->id_cliente, $cuenta_orig->id_cliente) !== 0) {
+
+            if (empty($id_cliente)) {
+                $errores['id_cliente'] = 'El campo cliente es obligatorio';
+            } else if (!filter_var($id_cliente, FILTER_VALIDATE_INT)) {
+                $errores['id_cliente'] = 'Cliente no valido';
+            }
+        }
+        if (!empty($errores)) {
+            //errores de validacion
+            $_SESSION['cuenta'] = serialize($cuenta);
+            $_SESSION['error'] = 'Formulario no validado';
+            $_SESSION['errores'] = $errores;
+
+            header('location:' . URL . 'cuentas/editar');
+
+        } else {
+            $this->model->update($cuenta, $id);
+            #Mensaje
+            $_SESSION['mensaje'] = "Cuenta editada correctamente";
+            header("Location:" . URL . "cuentas");
+        }
     }
 
 
@@ -113,12 +250,15 @@ class Cuentas extends Controller
     # Muestra los detalles de una cuenta en un formulario no editable
     function mostrar($param = [])
     {
+        session_start();
+
         # id de la cuenta
         $id = $param[0];
 
         $this->view->title = "Formulario Cuenta Mostar";
         $this->view->cuenta = $this->model->getCuenta($id);
         $this->view->cliente = $this->model->getCliente($this->view->cuenta->id_cliente);
+
 
         $this->view->render("cuentas/mostrar/index");
     }
@@ -127,6 +267,8 @@ class Cuentas extends Controller
     # Permite ordenar la tabla cuenta a partir de alguna de las columnas de la tabla
     function ordenar($param = [])
     {
+        session_start();
+
         $criterio = $param[0];
         $this->view->title = "Tabla Cuentas";
         $this->view->cuentas = $this->model->order($criterio);

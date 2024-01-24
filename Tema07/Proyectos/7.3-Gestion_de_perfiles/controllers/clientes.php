@@ -293,6 +293,8 @@ class Clientes extends Controller
     # Muestra en un formulario de solo lectura los detalles de un cliente
     public function mostrar($param = [])
     {
+        session_start();
+
         $id = $param[0];
         $this->view->title = "Formulario Cliente Mostar";
         $this->view->cliente = $this->model->getCliente($id);

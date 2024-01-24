@@ -8,19 +8,35 @@ class Cuentas extends Controller
     # Muestra los detalles de la tabla Cuentas
     function render($param = [])
     {
-        $this->view->title = "Tabla Cuentas";
-        $this->view->cuentas = $this->model->get();
-        $this->view->render("cuentas/main/index");
+        session_start();
+
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['notify'] = "Usuario sin autentificar";
+            header("location:" . URL . "login");
+        } else {
+
+            if (isset($_SESSION['mensaje'])) {
+                $this->view->mensaje = $_SESSION['mensaje'];
+                unset($_SESSION['mensaje']);
+            }
+
+            $this->view->title = "Tabla Cuentas";
+
+            $this->view->cuentas = $this->model->get();
+
+            $this->view->render("cuentas/main/index");
+
+        }
     }
 
     # Método nuevo
     # Permite mostrar un formulario que permita añadir una nueva cuenta
     function nuevo($param = [])
-    { 
+    {
         $this->view->title = "Formulario añadir cuenta";
 
         // Para generar la lista select dinámica de clientes
-        $this->view->clientes= $this->model->getClientes();
+        $this->view->clientes = $this->model->getClientes();
 
         $this->view->render("cuentas/nuevo/index");
     }
@@ -48,7 +64,7 @@ class Cuentas extends Controller
     # Permite eliminar una cuenta de la tabla
     function delete($param = [])
     {
-        $id=$param[0];
+        $id = $param[0];
         $this->model->delete($id);
         header("Location:" . URL . "cuentas");
     }
@@ -90,7 +106,7 @@ class Cuentas extends Controller
         header("Location:" . URL . "cuentas");
     }
 
-    
+
     # Método mostrar
     # Muestra los detalles de una cuenta en un formulario no editable
     function mostrar($param = [])
@@ -107,22 +123,22 @@ class Cuentas extends Controller
 
     # Método ordenar
     # Permite ordenar la tabla cuenta a partir de alguna de las columnas de la tabla
-    function ordenar($param=[])
+    function ordenar($param = [])
     {
-        $criterio=$param[0];
+        $criterio = $param[0];
         $this->view->title = "Tabla Cuentas";
-        $this->view->cuentas=$this->model->order($criterio);
+        $this->view->cuentas = $this->model->order($criterio);
         $this->view->render("cuentas/main/index");
 
     }
 
     # Método buscar
     # Permite realizar una búsqueda en la tabla cuentas a partir de una expresión
-    function buscar($param=[])
+    function buscar($param = [])
     {
-        $expresion=$_GET["expresion"];
+        $expresion = $_GET["expresion"];
         $this->view->title = "Tabla Cuentas";
-        $this->view->cuentas= $this->model->filter($expresion);
+        $this->view->cuentas = $this->model->filter($expresion);
         $this->view->render("cuentas/main/index");
     }
 }

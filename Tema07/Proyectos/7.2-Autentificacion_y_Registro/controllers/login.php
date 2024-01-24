@@ -103,11 +103,9 @@ class Login extends Controller
 
             $_SESSION['mensaje'] = "Usuario " . $user->name . " ha iniciado sesión";
 
-            header("location:" . URL . "cliente");
+            header("location:" . URL . "clientes");
         }
 
 
     }
 }
-
-?>

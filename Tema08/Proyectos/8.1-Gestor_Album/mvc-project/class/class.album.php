@@ -18,7 +18,7 @@ class classAlbum
     public $fecha;
     public $lugar;
     public $categoria;
-    public $etiqueta;
+    public $etiquetas;
     public $num_fotos;
     public $num_visitas;
     public $carpeta;

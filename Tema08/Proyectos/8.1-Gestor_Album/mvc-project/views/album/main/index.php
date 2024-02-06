@@ -72,7 +72,7 @@
 								<td>
 									<?= $album->titulo ?>
 								</td>
-								<td class="text-end">
+								<td>
 									<?= $album->descripcion ?>
 								</td>
 								<td>

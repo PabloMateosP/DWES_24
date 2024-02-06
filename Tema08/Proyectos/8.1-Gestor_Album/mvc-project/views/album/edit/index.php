@@ -16,7 +16,7 @@
     <div class="container">
 
         <!-- header -->
-        <?php include 'views/alumno/partials/header.php' ?>
+        <?php include 'views/album/partials/header.php' ?>
 
         <!-- comprobamos si existe error -->
         <?php include 'template/partials/error.php' ?>
@@ -24,7 +24,7 @@
         <legend>Formulario Editar Alumno</legend>
 
         <!-- Formulario Editar Alumno -->
-        <form action="<?= URL ?>alumno/update/<?= $this->id ?>" method="POST">
+        <form action="<?= URL ?>album/update/<?= $this->id ?>" method="POST">
 
             <!-- id -->
             

@@ -229,8 +229,6 @@ class Album extends Controller
             # obtener objeto de la clase album
             $this->view->album = $this->model->read($id);
 
-            # obtener los cursos
-            $this->view->cursos = $this->model->getCursos();
 
             # Comprobar si el formulario viene de una no validación
             if (isset($_SESSION['error'])) {
@@ -525,6 +523,58 @@ class Album extends Controller
         $this->model->subirArchivo($_FILES['archivos'],$album->carpeta);
 
         header("location:" . URL . "album");
+
+    }
+
+    function show($param){
+
+        session_start();
+
+        if (isset($_SESSION['error'])){
+
+            $this->view->error = $_SESSION['error'];
+
+            unset($_SESSION['error']);
+
+        }
+
+        if (isset($_SESSION['mensaje'])){
+
+            $this->view->mensaje = $_SESSION['mensaje'];
+
+            unset($_SESSION['mensaje']);
+
+        }
+
+        // Capa autentificación
+        if(!isset($_SESSION['id'])){
+
+            header("location:" . URL . "login");
+
+            exit();
+
+        }else if(!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])){
+
+            $_SESSION['error'] = "Operacion sin privilegios";
+
+            header("location:" . URL . "index");
+
+            exit();
+
+        }
+
+        // Estraigo el id del album que voy a mostrar
+        $this->view->id = htmlspecialchars($param[0]);
+
+        // Actualizo el título de la página
+        $this->view->title = "Mostrar album - Albumes";
+
+        // Obtengo objeto de la clase album
+        $this->view->album = $this->model->read($this->view->id);
+
+        //Cargo la vista
+        $this->view->render('album/show/index');
+
 
     }
 }

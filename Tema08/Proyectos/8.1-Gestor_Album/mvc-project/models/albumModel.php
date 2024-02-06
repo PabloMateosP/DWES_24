@@ -407,9 +407,4 @@ class albumModel extends Model
         }
     }
 
-
-
-
 }
-
-?>

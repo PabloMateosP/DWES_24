@@ -32,7 +32,7 @@ class classAlbum
         $fecha = null,
         $lugar = null,
         $categoria = null,
-        $etiqueta = null,
+        $etiquetas = null,
         $num_fotos = null,
         $num_visitas = null,
         $carpeta = null,
@@ -46,7 +46,7 @@ class classAlbum
         $this->fecha = $fecha;
         $this->lugar = $lugar;
         $this->categoria = $categoria;
-        $this->etiqueta = $etiqueta;
+        $this->etiquetas = $etiquetas;
         $this->num_fotos = $num_fotos;
         $this->num_visitas = $num_visitas;
         $this->carpeta = $carpeta;

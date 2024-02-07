@@ -350,6 +350,11 @@ class Album extends Controller
                 $errores['carpeta'] = "Carpeta no puede estar vacio";
             }
 
+            #Validar etiquetas
+            if(empty($album->etiquetas)){
+                $errores['etiquetas'] = "Etiquetas no puede estar vacio";
+            }
+
             # 4. Comprobar  validación
 
             if (!empty($errores)) {
@@ -459,6 +464,20 @@ class Album extends Controller
 
             # eliminar album
             $this->model->delete($id);
+
+            #Creamos variable album para borrado carpeta
+            $album = $this->model->read($id);
+
+            # Iteramos eliminando las fotos de esa carpeta
+            foreach( glob("images/" . $album->carpeta . "/*") as $a){
+                
+                unlink($a);
+                // Consigo borrar las fotos pero no la carpeta
+
+            }
+
+            // No consigo que se borre la carpeta del todo 
+            rmdir("images/" . $album->carpeta);
 
             # generar mensaje
             $_SESSION['mensaje'] = 'album eliminado correctamente';

@@ -92,15 +92,15 @@
                 <input type="tel" class="form-control" name="categoria" value="<?= $this->album->categoria ?>">
             </div>
 
-            <!-- carpeta -->
+            <!-- etiquetas -->
             <div class="mb-3">
-                <label for="carpeta" class="form-label">carpeta</label>
-                <input type="text" class="form-control" name="carpeta" value="<?= $this->album->carpeta ?>">
+                <label for="etiquetas" class="form-label">Etiqueta</label>
+                <input type="text" class="form-control" name="etiquetas" value="<?= $this->album->etiquetas ?>">
             </div>
 
             <!-- carpeta -->
             <div class="mb-3">
-                <label for="carpeta" class="form-label">carpeta</label>
+                <label for="carpeta" class="form-label">Carpeta</label>
                 <input type="text" class="form-control" name="carpeta" value="<?= $this->album->carpeta ?>">
             </div>
 

@@ -195,19 +195,16 @@ class albumModel extends Model
             $sql = "
                 SELECT 
                     albumes.id,
-                    concat_ws(', ', albumes.descripcion, albumes.titulo) $album,
-                    albumes.autor,
-                    albumes.fecha,
+                    albumes.titulo,
                     albumes.lugar,
+                    albumes.fecha,
                     albumes.categoria,
-                    timestampdiff(YEAR,  albumes.etiquetas, NOW() ) edad,
-                    cursos.tituloCorto curso
+                    albumes.etiquetas,
+                    albumes.num_fotos,
+                    albumes.num_visitas,
+                    albumes.carpeta
                 FROM
                     albumes
-                INNER JOIN
-                    cursos
-                ON 
-                    albumes.carpeta = cursos.id
                 ORDER BY 
                     :criterio
                 ";
@@ -248,33 +245,29 @@ class albumModel extends Model
 
                 SELECT 
                     albumes.id,
-                    concat_ws(', ', albumes.descripcion, albumes.titulo) $album,
-                    albumes.autor,
-                    albumes.fecha,
+                    albumes.titulo,
                     albumes.lugar,
+                    albumes.fecha,
                     albumes.categoria,
-                    timestampdiff(YEAR,  albumes.etiquetas, NOW() ) edad,
-                    cursos.tituloCorto curso
+                    albumes.etiquetas,
+                    albumes.num_fotos,
+                    albumes.num_visitas,
+                    albumes.carpeta
                 FROM
                     albumes
-                INNER JOIN
-                    cursos
-                ON 
-                    albumes.carpeta = cursos.id
                 WHERE
 
-                    CONCAT_WS(  ', ', 
-                                albumes.id,
-                                albumes.titulo,
-                                albumes.descripcion,
-                                albumes.autor,
-                                albumes.fecha,
-                                albumes.lugar,
-                                albumes.categoria,
-                                TIMESTAMPDIFF(YEAR, albumes.etiquetas, now()),
-                                albumes.etiquetas,
-                                cursos.tituloCorto,
-                                cursos.titulo) 
+                CONCAT_WS(
+                    albumes.id,
+                    albumes.titulo,
+                    albumes.lugar,
+                    albumes.fecha,
+                    albumes.categoria,
+                    albumes.etiquetas,
+                    albumes.num_fotos,
+                    albumes.num_visitas,
+                    albumes.carpeta
+                    )
                     like :expresion
 
                 ORDER BY 
@@ -301,92 +294,91 @@ class albumModel extends Model
 
     }
 
-    # Validación autor único
-    public function validateUniqueautor($autor)
-    {
-        try {
+    // public function subirArchivo($archivos, $carpeta)
+    // {
 
-            $sql = " 
+    //     $num = count($archivos['tmp_name']);
 
-                SELECT * FROM albumes 
-                WHERE autor = :autor
-            
-            ";
+    //     $phpFileUploadErrors = array(
+    //         0 => 'There is no error, the file uploaded with success',
+    //         1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+    //         2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+    //         3 => 'The uploaded file was only partially uploaded',
+    //         4 => 'No file was uploaded',
+    //         6 => 'Missing a temporary folder',
+    //         7 => 'Failed to write file to disk.',
+    //         8 => 'A PHP extension stopped the file upload.',
+    //     );
 
-            # conectamos con la base de datos
-            $conexion = $this->db->connect();
-            $pdost = $conexion->prepare($sql);
-            $pdost->bindParam(':autor', $autor, PDO::PARAM_STR);
-            $pdost->execute();
+    //     $error = null;
 
-            if ($pdost->rowCount() != 0) {
-                return FALSE;
-            }
+    //     for ($i = 0; $i <= $num - 1 && is_null($error); $i++) {
+    //         if ($archivos['error'][$i] != UPLOAD_ERR_OK) {
+    //             $error = $phpFileUploadErrors[$archivos['error'][$i]];
+    //         } else {
+    //             //Validar tamaño máximo 4mb
+    //             $max_file = 4194304;
+    //             if ($archivos['size'][$i] > $max_file) {
 
-            return TRUE;
+    //                 //Errores de tipo error
+    //                 $error = "Archivo excede tamaño maximo 4MB";
 
+    //             }
+    //             $info = new SplFileInfo($archivos['name'][$i]);
+    //             $tipos_permitidos = ['JPEG', 'JPG', 'GIF', 'PNG'];
+    //             if (!in_array(strtoupper($info->getExtension()), $tipos_permitidos)) {
+    //                 $error = "Tipo archivo no permitido. Sólo JPG, JPEG, GIF o PNG";
+    //             }
+    //         }
+    //     }
 
-        } catch (PDOException $e) {
-
-            include_once('template/partials/errorDB.php');
-            exit();
-
-        }
-    }
+    //     //Sólo se procederá a la subida de archivos en caso de no ocurrir ningun error
+    //     if (is_null($error)) {
+    //         for ($i = 0; $i <= $num - 1; $i++) {
+    //             if (is_uploaded_file($archivos['tmp_name'][$i])) {
+    //                 move_uploaded_file($archivos['tmp_name'][$i], "images/" . $carpeta . "/" . $archivos['name'][$i]);
+    //             }
+    //         }
+    //         $_SESSION['mensaje'] = "Archivo/s subido/s con éxito";
+    //     } else {
+    //         $_SESSION['error'] = $error;
+    //     }
+    // }
 
     public function subirArchivo($archivos, $carpeta)
     {
-
         $num = count($archivos['tmp_name']);
 
-        //Comprobamos antes si ha ocurrido algún errorde archivo
-        $phpFileUploadErrors = array(
-            0 => 'There is no error, the file uploaded with success',
-            1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
-            2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
-            3 => 'The uploaded file was only partially uploaded',
-            4 => 'No file was uploaded',
-            6 => 'Missing a temporary folder',
-            7 => 'Failed to write file to disk.',
-            8 => 'A PHP extension stopped the file upload.',
-        );
+        for ($i = 0; $i < $num; $i++) {
+            if ($archivos['error'][$i] == UPLOAD_ERR_OK) {
+                // Validar tamaño máximo 4MB
+                $max_file_size = 4 * 1024 * 1024; // 4MB en bytes
+                if ($archivos['size'][$i] > $max_file_size) {
+                    $_SESSION['error'] = "El archivo excede el tamaño máximo de 4MB";
+                    return;
+                }
 
-        $error = null;
+                // Validar tipos de archivo permitidos (JPEG, JPG, GIF, PNG)
+                $allowed_types = ['jpeg', 'jpg', 'gif', 'png'];
+                $file_extension = pathinfo($archivos['name'][$i], PATHINFO_EXTENSION);
+                if (!in_array(strtolower($file_extension), $allowed_types)) {
+                    $_SESSION['error'] = "Tipo de archivo no permitido. Solo se permiten archivos JPG, JPEG, GIF o PNG";
+                    return;
+                }
 
-        for ($i = 0; $i <= $num - 1 && is_null($error); $i++) {
-            if ($archivos['error'][$i] != UPLOAD_ERR_OK) {
-                $error = $phpFileUploadErrors[$archivos['error'][$i]];
+                // Mover el archivo subido al directorio de destino
+                $destination = "images/" . $carpeta . "/" . $archivos['name'][$i];
+                move_uploaded_file($archivos['tmp_name'][$i], $destination);
             } else {
-                //Validar tamaño máximo 4mb
-                $max_file = 4194304;
-                if ($archivos['size'][$i] > $max_file) {
-
-                    //Errores de tipo error
-                    $error = "Archivo excede tamaño maximo 4MB";
-
-                }
-                $info = new SplFileInfo($archivos['name'][$i]);
-                $tipos_permitidos = ['JPEG', 'JPG', 'GIF', 'PNG'];
-                if (!in_array(strtoupper($info->getExtension()), $tipos_permitidos)) {
-                    $error = "Tipo archivo no permitido. Sólo JPG, JPEG, GIF o PNG";
-                }
+                // Manejar errores de carga
+                $_SESSION['error'] = "Error al subir archivo: " . $archivos['error'][$i];
+                return;
             }
         }
 
-        //Sólo se procederá a la subida de archivos en caso de no ocurrir ningun error
-        if (is_null($error)) {
-            for ($i = 0; $i <= $num - 1; $i++) {
-                if (is_uploaded_file($archivos['tmp_name'][$i])) {
-                    move_uploaded_file($archivos['tmp_name'][$i], "images/" . $carpeta . "/" . $archivos['name'][$i]);
-                }
-            }
-            $_SESSION['mensaje'] = "Archivo/s subido/s con éxito";
-        } else {
-            $_SESSION['error'] = $error;
-        }
-
-
+        $_SESSION['mensaje'] = "Archivo/s subido/s con éxito";
     }
+
 
 
     public function delete($id)

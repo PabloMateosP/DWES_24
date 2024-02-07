@@ -163,17 +163,12 @@ class Album extends Controller
             #Validar categoria
             if(empty($album->categoria)){
                 $errores['categoria'] = "Categoria no puede estar vacio";
-            }else if (strlen($album->categoria) > 50){
-                $errores['categoria'] = "Categoria no puede superar mas de 50 caracteres";
             }
 
             #Validar carpeta
             if(empty($album->carpeta)){
                 $errores['carpeta'] = "Carpeta no puede estar vacio";
-            }else if (strlen($album->carpeta) > 50){
-                $errores['carpeta'] = "Carpeta no puede superar mas de 50 caracteres";
             }
-
 
             if(!empty($errores)){
 
@@ -270,30 +265,30 @@ class Album extends Controller
             header('location:' . URL . 'album');
         } else {
 
-            # 1. Saneamos datos del formulario FILTER_SANITIZE
-            $nombre = filter_var($_POST['nombre'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $apellidos = filter_var($_POST['apellidos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $email = filter_var($_POST['email'] ??= '', FILTER_SANITIZE_EMAIL);
-            $telefono = filter_var($_POST['telefono'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $poblacion = filter_var($_POST['poblacion'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $dni = filter_var($_POST['dni'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $fechaNac = filter_var($_POST['fechaNac'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $id_curso = filter_var($_POST['id_curso'] ??= '', FILTER_SANITIZE_NUMBER_INT);
+            # 1. Seguridad. Saneamos los  datos del formulario
+            $titulo = filter_var($_POST['titulo'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $descripcion = filter_var($_POST['descripcion'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $autor = filter_var($_POST['autor'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $fecha = filter_var($_POST['fecha'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $lugar = filter_var($_POST['lugar'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $categoria = filter_var($_POST['categoria']  ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $etiquetas = filter_var($_POST['etiquetas'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $carpeta = filter_var($_POST['carpeta'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            # 2. Creamos el objeto album a partir de  los datos saneados del  formuario
+
+            # 2. Creamos album con los datos saneados
             $album = new classalbum(
                 null,
-                $nombre,
-                $apellidos,
-                $email,
-                $telefono,
-                null,
-                $poblacion,
-                null,
-                null,
-                $dni,
-                $fechaNac,
-                $id_curso
+                $titulo,
+                $descripcion,
+                $autor,
+                $fecha,
+                $lugar,
+                $categoria,
+                $etiquetas,
+                0,
+                0,
+                $carpeta
             );
 
             # Cargo id del album que voya a actualizar
@@ -308,58 +303,51 @@ class Album extends Controller
 
             $errores = [];
 
-            #Validar nombre
-            if (strcmp($nombre, $album_orig->nombre) !== 0) {
-                if (empty($nombre)) {
-                    $errores['nombre'] = 'El campo nombre es  obligatorio';
+            #Validar titulo
+            if (strcmp($titulo, $album_orig->titulo) !== 0) {
+                if (empty($titulo)) {
+                    $errores['titulo'] = 'El campo titulo es  obligatorio';
                 }
             }
 
-            #Validar apellidos
-            if (strcmp($apellidos, $album_orig->apellidos) !== 0) {
-                if (empty($apellidos)) {
-                    $errores['apellidos'] = 'El campo nombre es  obligatorio';
+            #Validar descripcion
+            if (strcmp($descripcion, $album_orig->descripcion) !== 0) {
+                if (empty($descripcion)) {
+                    $errores['descripcion'] = 'El campo descripcion es  obligatorio';
                 }
             }
 
-            # Email: obligatorio, formáto válido y clave secundaria
-            if (strcmp($email, $album_orig->email) !== 0) {
-                if (empty($email)) {
-                    $errores['email'] = 'El campo email es  obligatorio';
-                } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $errores['email'] = 'Formato email incorrecto';
-                } else if (!$this->model->validateUniqueEmail($email)) {
-                    $errores['email'] = 'Email existente';
+            # Validar autor  
+            if (strcmp($autor, $album_orig->autor) !== 0) {
+                if (empty($autor)) {
+                    $errores['autor'] = 'El campo autor es obligatorio';
                 }
             }
 
-            # Dni: obligatorio, formáto válido y clave secundaria
-            # Expresión regular
-            if (strcmp($dni, $album_orig->dni) !== 0) {
-                $options = [
-                    'options' => [
-                        'regexp' => '/^(\d{8})([A-Za-z])$/'
-                    ]
-                ];
-
-                if (empty($dni)) {
-                    $errores['dni'] = 'El campo dni es  obligatorio';
-                } else if (!filter_var($dni, FILTER_VALIDATE_REGEXP, $options)) {
-                    $errores['dni'] = 'Formato DNI incorrecto';
-                } else if (!$this->model->validateUniqueDNI($dni)) {
-                    $errores['dni'] = 'DNI existente';
+            # Validar fecha
+            if (strcmp($fecha, $album_orig->fecha) !== 0) {
+                if (empty($fecha)) {
+                    $errores['fecha'] = 'El campo fecha es obligatorio';
                 }
             }
 
-            # id_curso: obligatorio, entero, existente
-            if (strcmp($id_curso, $album_orig->id_curso) !== 0) {
-                if (empty($id_curso)) {
-                    $errores['id_curso'] = 'Debe seleccionar un curso';
-                } else if (!filter_var($id_curso, FILTER_VALIDATE_INT)) {
-                    $errores['id_curso'] = 'Curso no válido';
-                } else if (!$this->model->validateCurso($id_curso)) {
-                    $errores['id_curso'] = 'Curso no existente';
+            # Validar lugar
+            if (strcmp($lugar, $album_orig->lugar) !== 0) {
+                if (empty($lugar)) {
+                    $errores['lugar'] = 'El campo lugar es obligatorio';
                 }
+            }
+
+            # Validar categoria
+            if (strcmp($categoria, $album_orig->categoria) !== 0) {
+                if (empty($categoria)) {
+                    $errores['categoria'] = 'El campo categoria es obligatorio';
+                }
+            }
+
+            #Validar carpeta
+            if(empty($album->carpeta)){
+                $errores['carpeta'] = "Carpeta no puede estar vacio";
             }
 
             # 4. Comprobar  validación

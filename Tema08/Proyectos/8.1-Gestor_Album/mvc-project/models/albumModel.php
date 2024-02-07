@@ -1,7 +1,7 @@
 <?php
 
 /*
-    alumnoModel.php
+    $albumModel.php
 
     Modelo del  controlador albumes
 
@@ -137,7 +137,7 @@ class albumModel extends Model
 
     }
 
-    public function update(classAlumno $alumno, $id)
+    public function update(classAlbum $album, $id)
     {
 
         try {
@@ -146,14 +146,14 @@ class albumModel extends Model
                 
                 UPDATE albumes
                 SET
-                        nombre = :nombre,
-                        apellidos = :apellidos,
-                        email = :email,
-                        telefono = :telefono,
-                        poblacion = :poblacion,
-                        dni = :dni,
-                        fechaNac = :fechaNac,
-                        id_curso = :id_curso
+                        titulo = :titulo,
+                        descripcion = :descripcion,
+                        autor = :autor,
+                        fecha = :fecha,
+                        lugar = :lugar,
+                        categoria = :categoria,
+                        etiquetas = :etiquetas,
+                        carpeta = :carpeta
                 WHERE
                         id = :id
                 LIMIT 1
@@ -165,14 +165,14 @@ class albumModel extends Model
 
             $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
 
-            $pdoSt->bindParam(':nombre', $alumno->nombre, PDO::PARAM_STR, 30);
-            $pdoSt->bindParam(':apellidos', $alumno->apellidos, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(':email', $alumno->email, PDO::PARAM_STR, 50);
-            $pdoSt->bindParam(':telefono', $alumno->telefono, PDO::PARAM_STR, 9);
-            $pdoSt->bindParam(':poblacion', $alumno->poblacion, PDO::PARAM_STR, 30);
-            $pdoSt->bindParam(':dni', $alumno->dni, PDO::PARAM_STR, 9);
-            $pdoSt->bindParam(':fechaNac', $alumno->fechaNac);
-            $pdoSt->bindParam(':id_curso', $alumno->id_curso, PDO::PARAM_INT);
+            $pdoSt->bindParam(':titulo', $album->titulo, PDO::PARAM_STR, 30);
+            $pdoSt->bindParam(':descripcion', $album->descripcion, PDO::PARAM_STR, 50);
+            $pdoSt->bindParam(':autor', $album->autor, PDO::PARAM_STR, 50);
+            $pdoSt->bindParam(':fecha', $album->fecha, PDO::PARAM_STR, 9);
+            $pdoSt->bindParam(':lugar', $album->lugar, PDO::PARAM_STR, 30);
+            $pdoSt->bindParam(':categoria', $album->categoria, PDO::PARAM_STR, 9);
+            $pdoSt->bindParam(':etiquetas', $album->etiquetas, PDO::PARAM_STR);
+            $pdoSt->bindParam(':carpeta', $album->carpeta, PDO::PARAM_STR);
 
             $pdoSt->execute();
 
@@ -195,19 +195,19 @@ class albumModel extends Model
             $sql = "
                 SELECT 
                     albumes.id,
-                    concat_ws(', ', albumes.apellidos, albumes.nombre) alumno,
-                    albumes.email,
-                    albumes.telefono,
-                    albumes.poblacion,
-                    albumes.dni,
-                    timestampdiff(YEAR,  albumes.fechaNac, NOW() ) edad,
-                    cursos.nombreCorto curso
+                    concat_ws(', ', albumes.descripcion, albumes.titulo) $album,
+                    albumes.autor,
+                    albumes.fecha,
+                    albumes.lugar,
+                    albumes.categoria,
+                    timestampdiff(YEAR,  albumes.etiquetas, NOW() ) edad,
+                    cursos.tituloCorto curso
                 FROM
                     albumes
                 INNER JOIN
                     cursos
                 ON 
-                    albumes.id_curso = cursos.id
+                    albumes.carpeta = cursos.id
                 ORDER BY 
                     :criterio
                 ";
@@ -248,33 +248,33 @@ class albumModel extends Model
 
                 SELECT 
                     albumes.id,
-                    concat_ws(', ', albumes.apellidos, albumes.nombre) alumno,
-                    albumes.email,
-                    albumes.telefono,
-                    albumes.poblacion,
-                    albumes.dni,
-                    timestampdiff(YEAR,  albumes.fechaNac, NOW() ) edad,
-                    cursos.nombreCorto curso
+                    concat_ws(', ', albumes.descripcion, albumes.titulo) $album,
+                    albumes.autor,
+                    albumes.fecha,
+                    albumes.lugar,
+                    albumes.categoria,
+                    timestampdiff(YEAR,  albumes.etiquetas, NOW() ) edad,
+                    cursos.tituloCorto curso
                 FROM
                     albumes
                 INNER JOIN
                     cursos
                 ON 
-                    albumes.id_curso = cursos.id
+                    albumes.carpeta = cursos.id
                 WHERE
 
                     CONCAT_WS(  ', ', 
                                 albumes.id,
-                                albumes.nombre,
-                                albumes.apellidos,
-                                albumes.email,
-                                albumes.telefono,
-                                albumes.poblacion,
-                                albumes.dni,
-                                TIMESTAMPDIFF(YEAR, albumes.fechaNac, now()),
-                                albumes.fechaNac,
-                                cursos.nombreCorto,
-                                cursos.nombre) 
+                                albumes.titulo,
+                                albumes.descripcion,
+                                albumes.autor,
+                                albumes.fecha,
+                                albumes.lugar,
+                                albumes.categoria,
+                                TIMESTAMPDIFF(YEAR, albumes.etiquetas, now()),
+                                albumes.etiquetas,
+                                cursos.tituloCorto,
+                                cursos.titulo) 
                     like :expresion
 
                 ORDER BY 
@@ -301,22 +301,22 @@ class albumModel extends Model
 
     }
 
-    # Validación email único
-    public function validateUniqueEmail($email)
+    # Validación autor único
+    public function validateUniqueautor($autor)
     {
         try {
 
             $sql = " 
 
                 SELECT * FROM albumes 
-                WHERE email = :email
+                WHERE autor = :autor
             
             ";
 
             # conectamos con la base de datos
             $conexion = $this->db->connect();
             $pdost = $conexion->prepare($sql);
-            $pdost->bindParam(':email', $email, PDO::PARAM_STR);
+            $pdost->bindParam(':autor', $autor, PDO::PARAM_STR);
             $pdost->execute();
 
             if ($pdost->rowCount() != 0) {

@@ -294,8 +294,6 @@ class Clientes extends Controller
             $dni = filter_var($_POST['dni'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_var($_POST['email'] ??= '', FILTER_SANITIZE_EMAIL);
 
-
-
             $cliente = new classCliente(
                 null,
                 $apellidos,

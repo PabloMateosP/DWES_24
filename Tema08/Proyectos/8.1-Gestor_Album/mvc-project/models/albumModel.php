@@ -196,12 +196,12 @@ class albumModel extends Model
                 SELECT 
                     albumes.id,
                     albumes.titulo,
-                    albumes.lugar,
+                    albumes.descripcion,
+                    albumes.autor,
                     albumes.fecha,
+                    albumes.lugar,
                     albumes.categoria,
                     albumes.etiquetas,
-                    albumes.num_fotos,
-                    albumes.num_visitas,
                     albumes.carpeta
                 FROM
                     albumes
@@ -210,10 +210,6 @@ class albumModel extends Model
                 ";
 
             # conectamos con la base de datos
-
-            // $this->db es un objeto de la clase database
-            // ejecuto el método connect de esa clase
-
             $conexion = $this->db->connect();
 
             # ejecutamos mediante prepare
@@ -246,12 +242,12 @@ class albumModel extends Model
                 SELECT 
                     albumes.id,
                     albumes.titulo,
-                    albumes.lugar,
+                    albumes.descripcion,
+                    albumes.autor,
                     albumes.fecha,
+                    albumes.lugar,
                     albumes.categoria,
                     albumes.etiquetas,
-                    albumes.num_fotos,
-                    albumes.num_visitas,
                     albumes.carpeta
                 FROM
                     albumes
@@ -260,12 +256,12 @@ class albumModel extends Model
                 CONCAT_WS(
                     albumes.id,
                     albumes.titulo,
-                    albumes.lugar,
+                    albumes.descripcion,
+                    albumes.autor,
                     albumes.fecha,
+                    albumes.lugar,
                     albumes.categoria,
                     albumes.etiquetas,
-                    albumes.num_fotos,
-                    albumes.num_visitas,
                     albumes.carpeta
                     )
                     like :expresion
@@ -301,18 +297,18 @@ class albumModel extends Model
 
         for ($i = 0; $i < $num; $i++) {
             if ($archivos['error'][$i] == UPLOAD_ERR_OK) {
-                // Validar tamaño máximo 4MB
-                $max_file_size = 4 * 1024 * 1024; // 4MB en bytes
+                // Validar tamaño máximo 5MB
+                $max_file_size = 5 * 1024 * 1024; // 5MB en bytes
                 if ($archivos['size'][$i] > $max_file_size) {
-                    $_SESSION['error'] = "El archivo excede el tamaño máximo de 4MB";
+                    $_SESSION['error'] = "El archivo excede el tamaño máximo de 5MB";
                     return;
                 }
 
                 // Validar tipos de archivo permitidos (JPEG, JPG, GIF, PNG)
-                $allowed_types = ['jpeg', 'jpg', 'gif', 'png'];
+                $allowed_types = ['jpg', 'gif', 'png'];
                 $file_extension = pathinfo($archivos['name'][$i], PATHINFO_EXTENSION);
                 if (!in_array(strtolower($file_extension), $allowed_types)) {
-                    $_SESSION['error'] = "Tipo de archivo no permitido. Solo se permiten archivos JPG, JPEG, GIF o PNG";
+                    $_SESSION['error'] = "Tipo de archivo no permitido. Solo se permiten archivos JPG, GIF o PNG";
                     return;
                 }
 
@@ -326,7 +322,7 @@ class albumModel extends Model
             }
         }
 
-        $_SESSION['mensaje'] = "Archivo/s subido/s con éxito";
+        $_SESSION['mensaje'] = "Archivo subido con éxito";
     }
 
 

@@ -16,7 +16,12 @@
 		<?php require_once("template/partials/notify.php") ?>
 
 		<!-- Estilo card de bootstrap -->
+
 		<div class="card">
+			<!-- header -->
+			<div class="card-header">
+				<?php include 'views/album/partials/header.php' ?>
+			</div>
 			<div class="card-header">
 				INFORMACIÓN ALBÚM
 			</div>
@@ -69,12 +74,12 @@
 							<?php $contador = 0; ?>
 							<?php foreach (glob("images/" . $this->album->carpeta . "/*") as $imagen):
 								?>
-							<div class="col-3">
-								<div class="card shadow-sm">
-									<img width="100%" height="225" src="<?= URL . $imagen ?>">
-									<div class="card-body">
+								<div class="col-3">
+									<div class="card shadow-sm">
+										<img width="100%" height="225" src="<?= URL . $imagen ?>">
+										<div class="card-body">
+										</div>
 									</div>
-								</div>
 								<?php endforeach; ?>
 						</form>
 					</div>

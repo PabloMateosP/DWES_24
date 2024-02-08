@@ -107,14 +107,14 @@ class Album extends Controller
         } else {
 
             # 1. Seguridad. Saneamos los  datos del formulario
-            $titulo = filter_var($_POST['titulo'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $descripcion = filter_var($_POST['descripcion'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $autor = filter_var($_POST['autor'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $fecha = filter_var($_POST['fecha'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $lugar = filter_var($_POST['lugar'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $categoria = filter_var($_POST['categoria']  ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $etiquetas = filter_var($_POST['etiquetas'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $carpeta = filter_var($_POST['carpeta'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $titulo = filter_var($_POST['titulo'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $descripcion = filter_var($_POST['descripcion'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $autor = filter_var($_POST['autor'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $fecha = filter_var($_POST['fecha'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $lugar = filter_var($_POST['lugar'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $categoria = filter_var($_POST['categoria'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $etiquetas = filter_var($_POST['etiquetas'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $carpeta = filter_var($_POST['carpeta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
             # 2. Creamos album con los datos saneados
@@ -136,41 +136,41 @@ class Album extends Controller
             $errores = [];
 
 
-            if(empty($album->titulo)){
+            if (empty($album->titulo)) {
                 $errores['titulo'] = "Titulo no puede estar vacio";
             }
 
             #Validar descripción
-            if(empty($album->descripcion)){
+            if (empty($album->descripcion)) {
                 $errores['descripcion'] = "Descripción no puede estar vacio";
             }
 
             #Validar autor
-            if(empty($album->autor)){
+            if (empty($album->autor)) {
                 $errores['autor'] = "Autor no puede estar vacio";
             }
 
             #Validar fecha
-            if(empty($album->fecha)){
+            if (empty($album->fecha)) {
                 $errores['fecha'] = "Fecha no puede estar vacio";
             }
 
             #Validar lugar
-            if(empty($album->lugar)){
+            if (empty($album->lugar)) {
                 $errores['lugar'] = "Lugar no puede estar vacio";
             }
 
             #Validar categoria
-            if(empty($album->categoria)){
+            if (empty($album->categoria)) {
                 $errores['categoria'] = "Categoria no puede estar vacio";
             }
 
             #Validar carpeta
-            if(empty($album->carpeta)){
+            if (empty($album->carpeta)) {
                 $errores['carpeta'] = "Carpeta no puede estar vacio";
             }
 
-            if(!empty($errores)){
+            if (!empty($errores)) {
 
                 #Formulario no validado
                 $_SESSION['album'] = Serialize($album);
@@ -180,12 +180,12 @@ class Album extends Controller
                 #Redireccionamos a nuevo album
                 header('Location: ' . URL . 'album/nuevo');
 
-            }else{
+            } else {
 
                 $this->model->create($album);
 
                 mkdir("images/" . $album->carpeta);
-        
+
                 $_SESSION['mensaje'] = "Album añadido correctamente";
 
                 header('Location: ' . URL . 'album');
@@ -266,14 +266,14 @@ class Album extends Controller
         } else {
 
             # 1. Seguridad. Saneamos los  datos del formulario
-            $titulo = filter_var($_POST['titulo'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $descripcion = filter_var($_POST['descripcion'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $autor = filter_var($_POST['autor'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $fecha = filter_var($_POST['fecha'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $lugar = filter_var($_POST['lugar'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $categoria = filter_var($_POST['categoria']  ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $etiquetas = filter_var($_POST['etiquetas'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
-            $carpeta = filter_var($_POST['carpeta'] ??='', FILTER_SANITIZE_SPECIAL_CHARS);
+            $titulo = filter_var($_POST['titulo'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $descripcion = filter_var($_POST['descripcion'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $autor = filter_var($_POST['autor'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $fecha = filter_var($_POST['fecha'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $lugar = filter_var($_POST['lugar'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $categoria = filter_var($_POST['categoria'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $etiquetas = filter_var($_POST['etiquetas'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $carpeta = filter_var($_POST['carpeta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
             # 2. Creamos album con los datos saneados
@@ -346,12 +346,12 @@ class Album extends Controller
             }
 
             #Validar carpeta
-            if(empty($album->carpeta)){
+            if (empty($album->carpeta)) {
                 $errores['carpeta'] = "Carpeta no puede estar vacio";
             }
 
             #Validar etiquetas
-            if(empty($album->etiquetas)){
+            if (empty($album->etiquetas)) {
                 $errores['etiquetas'] = "Etiquetas no puede estar vacio";
             }
 
@@ -443,55 +443,97 @@ class Album extends Controller
         }
     }
 
+    // public function delete($param = [])
+    // {
+
+    //     # inicar sesión
+    //     session_start();
+
+    //     if (!isset($_SESSION['id'])) {
+    //         $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+    //         header("location:" . URL . "login");
+
+    //     } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete']))) {
+    //         $_SESSION['mensaje'] = "Operación sin privilegios";
+    //         header('location:' . URL . 'album');
+    //     } else {
+
+    //         # obtenemos id del  album
+    //         $id = $param[0];
+
+    //         # eliminar album
+    //         $this->model->delete($id);
+
+    //         #Creamos variable album para borrado carpeta
+    //         $album = $this->model->read($id);
+
+    //         # Iteramos eliminando las fotos de esa carpeta
+    //         foreach( glob("images/" . $album->carpeta . "/*") as $a){
+
+    //             unlink($a);
+    //             // Consigo borrar las fotos pero no la carpeta
+
+    //         }
+
+    //         // No consigo que se borre la carpeta del todo 
+    //         rmdir("images/" . $album->carpeta);
+
+    //         # generar mensaje
+    //         $_SESSION['mensaje'] = 'album eliminado correctamente';
+
+    //         # redirecciono al main de albumes
+    //         header('location:' . URL . 'album');
+    //     }
+    // }
+
     public function delete($param = [])
     {
-
-        # inicar sesión
         session_start();
 
         if (!isset($_SESSION['id'])) {
             $_SESSION['mensaje'] = "Usuario debe autentificarse";
-
             header("location:" . URL . "login");
+            return;
+        }
 
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete']))) {
+        if (!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete'])) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
             header('location:' . URL . 'album');
-        } else {
-
-            # obtenemos id del  album
-            $id = $param[0];
-
-            # eliminar album
-            $this->model->delete($id);
-
-            #Creamos variable album para borrado carpeta
-            $album = $this->model->read($id);
-
-            # Iteramos eliminando las fotos de esa carpeta
-            foreach( glob("images/" . $album->carpeta . "/*") as $a){
-                
-                unlink($a);
-                // Consigo borrar las fotos pero no la carpeta
-
-            }
-
-            // No consigo que se borre la carpeta del todo 
-            rmdir("images/" . $album->carpeta);
-
-            # generar mensaje
-            $_SESSION['mensaje'] = 'album eliminado correctamente';
-
-            # redirecciono al main de albumes
-            header('location:' . URL . 'album');
+            return;
         }
+
+        $id = $param[0];
+        
+        $album = $this->model->read($id);
+
+        $this->model->delete($id);
+
+        foreach (glob("images/" . $album->carpeta . "/*") as $a) {
+
+            unlink($a);
+            // Consigo borrar las fotos pero no la carpeta
+
+        }
+
+        if (is_dir("images/" . $album->carpeta)) {
+            rmdir("images/" . $album->carpeta);
+        }
+
+        // Set success message
+        $_SESSION['mensaje'] = 'Album eliminado correctamente';
+
+        // Redirect to the main album page
+        header('location:' . URL . 'album');
     }
 
-    function subir($param){
+
+    function subir($param)
+    {
 
         session_start();
 
-        if (isset($_SESSION['error'])){
+        if (isset($_SESSION['error'])) {
 
             $this->view->error = $_SESSION['error'];
 
@@ -499,7 +541,7 @@ class Album extends Controller
 
         }
 
-        if (isset($_SESSION['mensaje'])){
+        if (isset($_SESSION['mensaje'])) {
 
             $this->view->mensaje = $_SESSION['mensaje'];
 
@@ -507,14 +549,14 @@ class Album extends Controller
 
         }
 
-         // Capa autentificación
-         if(!isset($_SESSION['id'])){
+        // Capa autentificación
+        if (!isset($_SESSION['id'])) {
 
             header("location:" . URL . "login");
 
             exit();
 
-        }else if(!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])){
+        } else if (!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])) {
 
             $_SESSION['error'] = "Operacion sin privilegios";
 
@@ -527,17 +569,18 @@ class Album extends Controller
         // Obtengo objeto de la clase album
         $album = $this->model->read($param[0]);
 
-        $this->model->subirArchivo($_FILES['archivos'],$album->carpeta);
+        $this->model->subirArchivo($_FILES['archivos'], $album->carpeta);
 
         header("location:" . URL . "album");
 
     }
 
-    function show($param){
+    function show($param)
+    {
 
         session_start();
 
-        if (isset($_SESSION['error'])){
+        if (isset($_SESSION['error'])) {
 
             $this->view->error = $_SESSION['error'];
 
@@ -545,7 +588,7 @@ class Album extends Controller
 
         }
 
-        if (isset($_SESSION['mensaje'])){
+        if (isset($_SESSION['mensaje'])) {
 
             $this->view->mensaje = $_SESSION['mensaje'];
 
@@ -554,13 +597,13 @@ class Album extends Controller
         }
 
         // Capa autentificación
-        if(!isset($_SESSION['id'])){
+        if (!isset($_SESSION['id'])) {
 
             header("location:" . URL . "login");
 
             exit();
 
-        }else if(!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])){
+        } else if (!in_array($_SESSION['id_rol'], $GLOBALS['album']['show'])) {
 
             $_SESSION['error'] = "Operacion sin privilegios";
 

@@ -1,0 +1,1 @@
+Para conseguir borrar las carpetas de las fotos introducidas, siempre debe de haber otra carpeta más, de lo contrario no conseguirá borrar la fotos y la carpeta. 

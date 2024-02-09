@@ -290,7 +290,6 @@ class albumModel extends Model
 
     }
 
-
     public function subirArchivo($archivos, $carpeta)
     {
         $num = count($archivos['tmp_name']);
@@ -304,7 +303,6 @@ class albumModel extends Model
                     return;
                 }
 
-                // Validar tipos de archivo permitidos (JPEG, JPG, GIF, PNG)
                 $allowed_types = ['jpg', 'gif', 'png'];
                 $file_extension = pathinfo($archivos['name'][$i], PATHINFO_EXTENSION);
                 if (!in_array(strtolower($file_extension), $allowed_types)) {
@@ -324,8 +322,6 @@ class albumModel extends Model
 
         $_SESSION['mensaje'] = "Archivo subido con éxito";
     }
-
-
 
     public function delete($id)
     {

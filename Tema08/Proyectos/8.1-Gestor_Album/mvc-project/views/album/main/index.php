@@ -61,7 +61,9 @@
 
 							<!-- Objeto clase pdostatement en foreach -->
 							<?php foreach ($this->albumes as $album): ?>
-								<?php require('template/partials/addFile.php'); ?>
+								<!-- Modal ------------------------------------ -->
+								<?php require('template/partials/modal.php'); ?>
+								<!-- ------------------------------------------ -->
 							<tr>
 								<!-- Formatos distintos para cada  columna -->
 

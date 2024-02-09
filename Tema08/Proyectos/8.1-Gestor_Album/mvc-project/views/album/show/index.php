@@ -2,6 +2,26 @@
 <html lang="es">
 
 <?php require_once("template/partials/head.php") ?>
+<header>
+	<style>
+		.col-3 {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 15px;
+
+		}
+
+		.card {
+			box-sizing: border-box;
+		}
+
+		.card img {
+			width: 100%;
+			height: 225px;
+			object-fit: cover;
+		}
+	</style>
+</header>
 
 <body>
 	<?php require_once("template/partials/menuAut.php") ?>
@@ -71,7 +91,7 @@
 								<input type="text" class="form-control" name="carpeta" pattern="[A-Za-z0-9]{1,50}"
 									value="<?= $this->album->carpeta ?>" readonly>
 							</div>
-							<?php $contador = 0; ?>
+
 							<?php foreach (glob("images/" . $this->album->carpeta . "/*") as $imagen):
 								?>
 								<div class="col-3">

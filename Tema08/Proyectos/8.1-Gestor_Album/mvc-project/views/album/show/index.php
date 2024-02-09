@@ -4,6 +4,7 @@
 <?php require_once("template/partials/head.php") ?>
 <header>
 	<style>
+
 		.col-3 {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -20,6 +21,8 @@
 			height: 225px;
 			object-fit: cover;
 		}
+
+
 	</style>
 </header>
 

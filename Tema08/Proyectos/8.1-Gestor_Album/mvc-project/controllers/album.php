@@ -569,7 +569,7 @@ class Album extends Controller
         // Obtengo objeto de la clase album
         $album = $this->model->read($param[0]);
 
-        $this->model->subirArchivo($_FILES['archivos'], $album->carpeta);
+        $this->model->subirImagen($_FILES['archivos'], $album->carpeta);
 
         header("location:" . URL . "album");
 

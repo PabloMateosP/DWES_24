@@ -116,7 +116,7 @@
 
 									<a href="#" title="Subir " data-bs-toggle="modal"
 										data-bs-target="#subir<?= $album->id ?>" class="btn btn-secondary <?=(!in_array($_SESSION['id_rol'],
-										$GLOBALS['album']['addFile'])) ? 'disabled' : null ?>"
+										$GLOBALS['album']['modal'])) ? 'disabled' : null ?>"
 										><i class="bi bi-cloud-upload-fill"></i>
 									</a>
 								</td>

@@ -4,9 +4,28 @@
 <head>
     <?php require_once("template/partials/head.php") ?>
     <title><?= $this->title ?></title>
+    
+	<style>
+		.col-3 {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 15px;
+		}
+
+		.card {
+			box-sizing: border-box;
+		}
+
+		.card img {
+			width: 100%;
+			height: 225px;
+			object-fit: cover;
+		}
+	</style>
 </head>
 
 <body>
+    
     <?php require_once("template/partials/menuAut.php") ?>
     <br><br><br>
 

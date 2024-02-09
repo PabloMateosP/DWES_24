@@ -290,7 +290,7 @@ class albumModel extends Model
 
     }
 
-    public function subirArchivo($archivos, $carpeta)
+    public function subirImagen($archivos, $carpeta)
     {
         $num = count($archivos['tmp_name']);
 

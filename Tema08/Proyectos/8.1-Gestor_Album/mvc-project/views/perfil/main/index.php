@@ -21,7 +21,7 @@
             <!-- error -->
             <?php require_once("template/partials/error.php") ?>
                 <div class="card">
-                    <div class="card-header">Pefil <?= $_SESSION['name_user'] ?></div>
+                    <div class="card-header">Pefil: <?= $_SESSION['name_user'] ?></div>
                     <div class="card-header">
                         <?php require_once("views/perfil/partials/menu.php") ?>
                     </div>

@@ -18,6 +18,7 @@
         <?php require_once "views/cuentas/partials/menu.php" ?>
         <!-- Mensaje -->
         <?php require_once "template/partials/mensaje.php" ?>
+        <?php require('template/partials/modal.php'); ?>
         <table class="table">
             <thead>
                 <tr>

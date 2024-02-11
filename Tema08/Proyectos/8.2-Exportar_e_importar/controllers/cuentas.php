@@ -69,7 +69,7 @@ class Cuentas extends Controller
 
             $this->view->title = "Formulario añadir cuenta";
 
-            // Para generar la lista select dinámica de clientes
+            // Para generar la lista select dinámica de cuentas
             $this->view->cuentas = $this->model->getClientes();
 
             $this->view->render("cuentas/nuevo/index");
@@ -88,7 +88,7 @@ class Cuentas extends Controller
 
             header("location:" . URL . "login");
 
-        } else if(!in_array($_SESSION['id_rol'],$GLOBALS['cuentas']['new'])){
+        } else if (!in_array($_SESSION['id_rol'], $GLOBALS['cuentas']['new'])) {
 
             $_SESSION['mensaje'] = "Operación sin privilegio";
             header("location:" . URL . "cuentas");
@@ -100,7 +100,7 @@ class Cuentas extends Controller
             $fecha_alta = filter_var($_POST['fecha_alta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
             $fecha_ul_mov = filter_var($_POST['fecha_ul_mov'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
             $num_movtos = filter_var($_POST['num_movtos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $saldo = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_EMAIL);
+            $saldo = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_NUMBER_INT);
 
             #2. Creamos cliente con los datos saneados
             $cuenta = new classCuenta(
@@ -129,7 +129,7 @@ class Cuentas extends Controller
                 $errores['num_cuenta'] = 'La cuenta ya existe';
             }
 
-            //Cliente. Obligatorio, valor numérico, ha de existir en la tabla clientes.
+            //Cliente. Obligatorio, valor numérico, ha de existir en la tabla cuentas.
             if (empty($id_cliente)) {
                 $errores['id_cliente'] = 'El campo cliente es obligatorio';
             } else if (!filter_var($id_cliente, FILTER_VALIDATE_INT)) {
@@ -197,7 +197,7 @@ class Cuentas extends Controller
 
             $this->view->id = $id;
             $this->view->title = "Formulario editar cuenta";
-            $this->view->clientes = $this->model->getClientes();
+            $this->view->cuentas = $this->model->getcuentas();
             $this->view->cuenta = $this->model->getCuenta($id);
 
             // // formateamos la fecha
@@ -242,7 +242,7 @@ class Cuentas extends Controller
 
             header("location:" . URL . "login");
 
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['edit']))) {
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['cuentas']['edit']))) {
             $_SESSION['mensaje'] = "Operación sin privilegio";
             header("location:" . URL . "cuentas");
         } else {
@@ -288,7 +288,7 @@ class Cuentas extends Controller
                     $errores['num_cuenta'] = 'La cuenta ya existe';
                 }
             }
-            //Cliente. Obligatorio, valor numérico, ha de existir en la tabla clientes.
+            //Cliente. Obligatorio, valor numérico, ha de existir en la tabla cuentas.
             if (strcmp($cuenta->id_cliente, $cuenta_orig->id_cliente) !== 0) {
 
                 if (empty($id_cliente)) {
@@ -390,4 +390,150 @@ class Cuentas extends Controller
             $this->view->render("cuentas/main/index");
         }
     }
+
+    public function exportar($param = [])
+    {
+        // Obtener datos de cuentas
+        $cuentas = $this->model->get()->fetchAll(PDO::FETCH_ASSOC);
+
+        // Nombre del archivo CSV
+        $csvExportado = 'export_cuentas.csv';
+
+        // Establecer las cabeceras para la descarga del archivo
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $csvExportado . '"');
+
+        // Abrir el puntero al archivo de salida
+        $archivo = fopen('php://output', 'w');
+
+        // Escribir la primera fila con los encabezados
+        fputcsv($archivo, ['id', 'num_cuenta', 'id_cliente', 'fecha_alta', 'fecha_ul_mov', 'num_movtos', 'saldo', 'create_at', 'update_at'], ';');
+
+        // Iterar sobre los cuentas y escribir cada fila en el archivo
+        //Escribimos los datos al archivo CSV
+        foreach ($cuentas as $cuenta) {
+            //Reordenar los campos de la cuenta
+            $cuenta = array(
+                'id' => $cuenta['id'],
+                'num_cuenta' => $cuenta['num_cuenta'],
+                'id_cliente' => $cuenta['id_cliente'],
+                'fecha_alta' => $cuenta['fecha_alta'],
+                'fecha_ul_mov' => $cuenta['fecha_ul_mov'],
+                'num_movtos' => $cuenta['num_movtos'],
+                'saldo' => $cuenta['saldo'],
+                'create_at' => date('Y-m-d H:i:s'),
+                'update_at' => null
+            );
+
+            //Escribimos la información de la cuenta al archivo CSV
+            fputcsv($archivo, $cuenta, ';');
+        }
+
+        // Cerramos el archivo
+        fclose($archivo);
+
+        // Enviar el contenido del archivo al navegador
+        readfile('php://output');
+    }
+
+    public function importar($param = [])
+    {
+        // Validar la sesión del usuario
+        session_start();
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+            header("location:" . URL . "login");
+            exit();
+        } elseif (!in_array($_SESSION['id_rol'], $GLOBALS['cuentas']['import'])) {
+            $_SESSION['mensaje'] = "Operación sin privilegio";
+            header("location:" . URL . "cuentas");
+            exit();
+        }
+
+
+        // Validar si se ha subido un archivo
+        if (!isset($_FILES['archivos']) || $_FILES['archivos']['error'] != UPLOAD_ERR_OK) {
+            $_SESSION['mensaje'] = "Error al subir el archivo CSV. ";
+            header("location:" . URL . "cuentas");
+            exit();
+        }
+
+        // Obtener el nombre del archivo temporal
+        $archivo_temporal = $_FILES['archivos']['tmp_name'];
+
+        // Abrir el archivo temporal
+        $archivo = fopen($archivo_temporal, 'r');
+
+        // Validar que se pudo abrir el archivo
+        if (!$archivo) {
+            $_SESSION['mensaje'] = "Error al abrir el archivo CSV.";
+            header("location:" . URL . "cuentas");
+            exit();
+        }
+
+
+        // Iterar sobre las filas del archivo CSV
+        while (($fila = fgetcsv($archivo, 0, ';')) !== false) {
+            // Crear un array asociativo con los datos de la fila
+            $cuenta = new classCuenta();
+
+            // $fila[1] = filter_var($_POST['num_cuenta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[2] = filter_var($_POST['id_cliente'] ??= '', FILTER_SANITIZE_NUMBER_INT);
+            // $fila[3] = filter_var($_POST['fecha_alta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[4] = filter_var($_POST['fecha_ul_mov'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[5] = filter_var($_POST['num_movtos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[6] = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_NUMBER_INT);
+            // $fila[7] = filter_var($_POST['create_at'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $cuenta->num_cuenta = $fila[1];
+            $cuenta->id_cliente = $fila[2];
+            $cuenta->fecha_alta = $fila[3];
+            $cuenta->fecha_ul_mov = $fila[4];
+            $cuenta->num_movtos = $fila[5];
+            $cuenta->saldo = $fila[6];
+            $cuenta->create_at = $fila[7];
+            $cuenta->update_at = null;
+
+            // #3.Validacion
+            // $errores = [];
+
+            // if (empty($fila[1])) {
+            //     $errores['num_cuenta'] = 'El campo cuenta es obligatorio';
+            // } else if (strlen($fila[1]) !== 20) {
+            //     $errores['num_cuenta'] = 'El campo cuenta es demasiado largo o demasiado corto';
+
+            // } else if (!$this->model->validateUniqueCuenta($fila[1])) {
+            //     $errores['num_cuenta'] = 'La cuenta ya existe';
+            // }
+
+            // //Cliente. Obligatorio, valor numérico, ha de existir en la tabla cuentas.
+            // if (empty($fila[2])) {
+            //     $errores['id_cliente'] = 'El campo cliente es obligatorio';
+            // } else if (!filter_var($fila[2], FILTER_VALIDATE_INT)) {
+            //     $errores['id_cliente'] = 'Cliente no valido';
+            // }
+
+            // if (!empty($errores)) {
+            //     //errores de validacion
+            //     $_SESSION['cuenta'] = serialize($cuenta);
+            //     $_SESSION['error'] = 'Formulario no validado';
+            //     $_SESSION['errores'] = $errores;
+
+            //     header('location:' . URL . 'cuentas/nuevo');
+
+            // } else {
+                $this->model->create($cuenta);
+            
+        }
+
+        // Cerrar el archivo
+        fclose($archivo);
+
+        // Redirigir después de importar
+        $_SESSION['mensaje'] = "Datos importados correctamente.";
+        header("location:" . URL . "cuentas");
+        exit();
+    }
+
+
 }

@@ -495,27 +495,39 @@ class Clientes extends Controller
 
     public function exportar($param = [])
     {
+        // Validar la sesión del usuario
+        session_start();
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+            header("location:" . URL . "login");
+            exit();  // Terminar la ejecución para evitar procesar la exportación sin autenticación
+        } elseif (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['export'])) {
+            $_SESSION['mensaje'] = "Operación sin privilegio";
+            header("location:" . URL . "clientes");
+            exit();  // Terminar la ejecución para evitar procesar la exportación sin privilegios
+        }
+
         // Obtener datos de clientes
         $clientes = $this->model->get()->fetchAll(PDO::FETCH_ASSOC);
-    
+
         // Nombre del archivo CSV
         $csvExportado = 'export_clientes.csv';
-    
+
         // Establecer las cabeceras para la descarga del archivo
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $csvExportado . '"');
-    
+
         // Abrir el puntero al archivo de salida
         $archivo = fopen('php://output', 'w');
-    
+
         // Escribir la primera fila con los encabezados
         fputcsv($archivo, ['apellidos', 'nombre', 'telefono', 'ciudad', 'dni', 'email', 'create_at', 'update_at'], ';');
-    
+
         // Iterar sobre los clientes y escribir cada fila en el archivo
         foreach ($clientes as $cliente) {
             // Separar el campo "cliente" en "apellidos" y "nombre"
             list($apellidos, $nombre) = explode(', ', $cliente['cliente']);
-    
+
             // Construir el array del cliente con los datos necesarios
             $clienteData = [
                 'apellidos' => $apellidos,
@@ -527,16 +539,113 @@ class Clientes extends Controller
                 'create_at' => date('Y-m-d H:i:s'),
                 'update_at' => null
             ];
-    
+
             // Escribir la fila en el archivo
             fputcsv($archivo, $clienteData, ';');
         }
-    
+
         // Cerramos el archivo
         fclose($archivo);
-    
+
         // Enviar el contenido del archivo al navegador
         readfile('php://output');
     }
-    
+
+    public function importar($param = [])
+    {
+        // Validar la sesión del usuario
+        session_start();
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+            header("location:" . URL . "login");
+            exit();
+        } elseif (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['import'])) {
+            $_SESSION['mensaje'] = "Operación sin privilegio";
+            header("location:" . URL . "clientes");
+            exit();
+        }
+
+
+        // Validar si se ha subido un archivo
+        if (!isset($_FILES['archivos']) || $_FILES['archivos']['error'] != UPLOAD_ERR_OK) {
+            $_SESSION['mensaje'] = "Error al subir el archivo CSV. ";
+            header("location:" . URL . "clientes");
+            exit();
+        }
+
+        // Obtener el nombre del archivo temporal
+        $archivo_temporal = $_FILES['archivos']['tmp_name'];
+
+        // Abrir el archivo temporal
+        $archivo = fopen($archivo_temporal, 'r');
+
+        // Validar que se pudo abrir el archivo
+        if (!$archivo) {
+            $_SESSION['mensaje'] = "Error al abrir el archivo CSV.";
+            header("location:" . URL . "clientes");
+            exit();
+        }
+
+        // Iterar sobre las filas del archivo CSV
+        while (($fila = fgetcsv($archivo, 0, ';')) !== false) {
+            // Crear un array asociativo con los datos de la fila
+            $cliente = new classCliente();
+
+            // $fila[1] = filter_var($_POST['num_cuenta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[2] = filter_var($_POST['id_cliente'] ??= '', FILTER_SANITIZE_NUMBER_INT);
+            // $fila[3] = filter_var($_POST['fecha_alta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[4] = filter_var($_POST['fecha_ul_mov'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[5] = filter_var($_POST['num_movtos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            // $fila[6] = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_NUMBER_INT);
+            // $fila[7] = filter_var($_POST['create_at'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $cliente->apellidos = $fila[1];
+            $cliente->nombre = $fila[2];
+            $cliente->telefono = $fila[3];
+            $cliente->ciudad = $fila[4];
+            $cliente->dni = $fila[5];
+            $cliente->email = $fila[6];
+            $cliente->create_at = null;
+            $cliente->update_at = null;
+
+            // #3.Validacion
+            // $errores = [];
+
+            // if (empty($fila[1])) {
+            //     $errores['num_cuenta'] = 'El campo cliente es obligatorio';
+            // } else if (strlen($fila[1]) !== 20) {
+            //     $errores['num_cuenta'] = 'El campo cliente es demasiado largo o demasiado corto';
+
+            // } else if (!$this->model->validateUniqueCuenta($fila[1])) {
+            //     $errores['num_cuenta'] = 'La cliente ya existe';
+            // }
+
+            // //Cliente. Obligatorio, valor numérico, ha de existir en la tabla clientes.
+            // if (empty($fila[2])) {
+            //     $errores['id_cliente'] = 'El campo cliente es obligatorio';
+            // } else if (!filter_var($fila[2], FILTER_VALIDATE_INT)) {
+            //     $errores['id_cliente'] = 'Cliente no valido';
+            // }
+
+            // if (!empty($errores)) {
+            //     //errores de validacion
+            //     $_SESSION['cliente'] = serialize($cliente);
+            //     $_SESSION['error'] = 'Formulario no validado';
+            //     $_SESSION['errores'] = $errores;
+
+            //     header('location:' . URL . 'clientes/nuevo');
+
+            // } else {
+                $this->model->create($cliente);
+            
+        }
+
+        // Cerrar el archivo
+        fclose($archivo);
+
+        // Redirigir después de importar
+        $_SESSION['mensaje'] = "Datos importados correctamente.";
+        header("location:" . URL . "clientes");
+        exit();
+    }
 }

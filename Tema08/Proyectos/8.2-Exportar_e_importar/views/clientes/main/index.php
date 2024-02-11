@@ -17,6 +17,7 @@
         <?php require_once "views/clientes/partials/menu.php" ?>
         <!-- Mensaje -->
         <?php require_once "template/partials/mensaje.php" ?>
+        <?php require('template/partials/modalClientes.php'); ?>
         <!-- tabla clientes -->
         <table class="table">
             <thead>

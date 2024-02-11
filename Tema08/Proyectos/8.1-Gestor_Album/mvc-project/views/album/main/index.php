@@ -53,6 +53,8 @@
 								<th>Fecha</th>
 								<th>Categoria</th>
 								<th>Etiquetas</th>
+								<th>Num Visitas</th>
+								<th>Num Fotos</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -88,6 +90,12 @@
 								</td>
 								<td>
 									<?= $album->etiquetas ?>
+								</td>
+								<td>
+									<?= $album->num_visitas ?>
+								</td>
+								<td>
+									<?= $album->num_fotos ?>
 								</td>
 
 								<!-- botones de acción -->

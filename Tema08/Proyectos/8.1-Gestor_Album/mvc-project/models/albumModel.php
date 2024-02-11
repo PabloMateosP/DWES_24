@@ -323,6 +323,54 @@ class albumModel extends Model
         $_SESSION['mensaje'] = "Archivo subido con éxito";
     }
 
+    public function contImages($id, $contador)
+    {
+        try {
+
+            $sql = "UPDATE albumes 
+                    SET
+                            num_fotos = :num_fotos 
+                    WHERE id = :id
+                    LIMIT 1";
+
+            $conexion = $this->db->connect();
+
+            $pdoSt = $conexion->prepare($sql);
+            $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
+            $pdoSt->bindParam(':num_fotos', $contador, PDO::PARAM_INT);
+            $pdoSt->execute();
+
+        } catch (PDOException $e) {
+
+            include "template/partials/errordb.php";
+            exit();
+
+        }
+    }
+
+    public function contVisits($id)
+    {
+        try {
+            $sql = "UPDATE 
+                        albumes 
+                    SET
+                        num_visitas = num_visitas + 1
+                    WHERE id = :id
+                    LIMIT 1";
+
+            $conexion = $this->db->connect();
+            $pdoSt = $conexion->prepare($sql);
+            $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
+            $pdoSt->execute();
+
+        } catch (PDOException $e) {
+
+            include "template/partials/errordb.php";
+            exit();
+
+        }
+    }
+
     public function delete($id)
     {
         try {

@@ -443,50 +443,6 @@ class Album extends Controller
         }
     }
 
-    // public function delete($param = [])
-    // {
-
-    //     # inicar sesión
-    //     session_start();
-
-    //     if (!isset($_SESSION['id'])) {
-    //         $_SESSION['mensaje'] = "Usuario debe autentificarse";
-
-    //         header("location:" . URL . "login");
-
-    //     } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['album']['delete']))) {
-    //         $_SESSION['mensaje'] = "Operación sin privilegios";
-    //         header('location:' . URL . 'album');
-    //     } else {
-
-    //         # obtenemos id del  album
-    //         $id = $param[0];
-
-    //         # eliminar album
-    //         $this->model->delete($id);
-
-    //         #Creamos variable album para borrado carpeta
-    //         $album = $this->model->read($id);
-
-    //         # Iteramos eliminando las fotos de esa carpeta
-    //         foreach( glob("images/" . $album->carpeta . "/*") as $a){
-
-    //             unlink($a);
-    //             // Consigo borrar las fotos pero no la carpeta
-
-    //         }
-
-    //         // No consigo que se borre la carpeta del todo 
-    //         rmdir("images/" . $album->carpeta);
-
-    //         # generar mensaje
-    //         $_SESSION['mensaje'] = 'album eliminado correctamente';
-
-    //         # redirecciono al main de albumes
-    //         header('location:' . URL . 'album');
-    //     }
-    // }
-
     public function delete($param = [])
     {
         session_start();
@@ -571,6 +527,10 @@ class Album extends Controller
 
         $this->model->subirImagen($_FILES['archivos'], $album->carpeta);
 
+        $numeroFotos = count(glob("images/" . $album->carpeta . "/*"));
+            
+        $this->model->contImages($album->id, $numeroFotos);
+
         header("location:" . URL . "album");
 
     }
@@ -621,6 +581,8 @@ class Album extends Controller
 
         // Obtengo objeto de la clase album
         $this->view->album = $this->model->read($this->view->id);
+
+        $this->model->contVisits($this->view->id);
 
         //Cargo la vista
         $this->view->render('album/show/index');

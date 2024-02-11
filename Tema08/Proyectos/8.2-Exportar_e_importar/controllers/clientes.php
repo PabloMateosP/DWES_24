@@ -85,7 +85,7 @@ class Clientes extends Controller
 
             header("location:" . URL . "login");
 
-        } else if(!in_array($_SESSION['id_rol'],$GLOBALS['clientes']['new'])){
+        } else if (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['new'])) {
 
             $_SESSION['mensaje'] = "Operación sin privilegio";
             header("location:" . URL . "clientes");
@@ -237,10 +237,10 @@ class Clientes extends Controller
 
             header("location:" . URL . "login");
 
-        } else if(!in_array($_SESSION['id_rol'],$GLOBALS['clientes']['edit'])){
+        } else if (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['edit'])) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
 
-            header('location:'.URL.'clientes');
+            header('location:' . URL . 'clientes');
 
         } else {
 
@@ -492,4 +492,51 @@ class Clientes extends Controller
             $this->view->render("clientes/main/index");
         }
     }
+
+    public function exportar($param = [])
+    {
+        // Obtener datos de clientes
+        $clientes = $this->model->get()->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Nombre del archivo CSV
+        $csvExportado = 'export_clientes.csv';
+    
+        // Establecer las cabeceras para la descarga del archivo
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $csvExportado . '"');
+    
+        // Abrir el puntero al archivo de salida
+        $archivo = fopen('php://output', 'w');
+    
+        // Escribir la primera fila con los encabezados
+        fputcsv($archivo, ['apellidos', 'nombre', 'telefono', 'ciudad', 'dni', 'email', 'create_at', 'update_at'], ';');
+    
+        // Iterar sobre los clientes y escribir cada fila en el archivo
+        foreach ($clientes as $cliente) {
+            // Separar el campo "cliente" en "apellidos" y "nombre"
+            list($apellidos, $nombre) = explode(', ', $cliente['cliente']);
+    
+            // Construir el array del cliente con los datos necesarios
+            $clienteData = [
+                'apellidos' => $apellidos,
+                'nombre' => $nombre,
+                'telefono' => $cliente['telefono'],
+                'ciudad' => $cliente['ciudad'],
+                'dni' => $cliente['dni'],
+                'email' => $cliente['email'],
+                'create_at' => date('Y-m-d H:i:s'),
+                'update_at' => null
+            ];
+    
+            // Escribir la fila en el archivo
+            fputcsv($archivo, $clienteData, ';');
+        }
+    
+        // Cerramos el archivo
+        fclose($archivo);
+    
+        // Enviar el contenido del archivo al navegador
+        readfile('php://output');
+    }
+    
 }

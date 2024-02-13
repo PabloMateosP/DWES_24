@@ -587,7 +587,7 @@ class Clientes extends Controller
         }
 
         // Iterar sobre las filas del archivo CSV
-        while (($fila = fgetcsv($archivo, 0, ';')) !== false) {
+        while (($fila = fgetcsv($archivo, 150, ';')) !== false) {
             // Crear un array asociativo con los datos de la fila
             $cliente = new classCliente();
 

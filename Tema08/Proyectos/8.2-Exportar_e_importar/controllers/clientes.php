@@ -591,53 +591,15 @@ class Clientes extends Controller
             // Crear un array asociativo con los datos de la fila
             $cliente = new classCliente();
 
-            // $fila[1] = filter_var($_POST['num_cuenta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            // $fila[2] = filter_var($_POST['id_cliente'] ??= '', FILTER_SANITIZE_NUMBER_INT);
-            // $fila[3] = filter_var($_POST['fecha_alta'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            // $fila[4] = filter_var($_POST['fecha_ul_mov'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            // $fila[5] = filter_var($_POST['num_movtos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
-            // $fila[6] = filter_var($_POST['saldo'] ??= '', FILTER_SANITIZE_NUMBER_INT);
-            // $fila[7] = filter_var($_POST['create_at'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $cliente->nombre = $fila[1];
+            $cliente->apellidos = $fila[0];
+            $cliente->email = $fila[5];
+            $cliente->telefono = $fila[2];
+            $cliente->ciudad = $fila[3];
+            $cliente->dni = $fila[4];
 
-            $cliente->apellidos = $fila[1];
-            $cliente->nombre = $fila[2];
-            $cliente->telefono = $fila[3];
-            $cliente->ciudad = $fila[4];
-            $cliente->dni = $fila[5];
-            $cliente->email = $fila[6];
-            $cliente->create_at = null;
-            $cliente->update_at = null;
+            $this->model->create($cliente);
 
-            // #3.Validacion
-            // $errores = [];
-
-            // if (empty($fila[1])) {
-            //     $errores['num_cuenta'] = 'El campo cliente es obligatorio';
-            // } else if (strlen($fila[1]) !== 20) {
-            //     $errores['num_cuenta'] = 'El campo cliente es demasiado largo o demasiado corto';
-
-            // } else if (!$this->model->validateUniqueCuenta($fila[1])) {
-            //     $errores['num_cuenta'] = 'La cliente ya existe';
-            // }
-
-            // //Cliente. Obligatorio, valor numérico, ha de existir en la tabla clientes.
-            // if (empty($fila[2])) {
-            //     $errores['id_cliente'] = 'El campo cliente es obligatorio';
-            // } else if (!filter_var($fila[2], FILTER_VALIDATE_INT)) {
-            //     $errores['id_cliente'] = 'Cliente no valido';
-            // }
-
-            // if (!empty($errores)) {
-            //     //errores de validacion
-            //     $_SESSION['cliente'] = serialize($cliente);
-            //     $_SESSION['error'] = 'Formulario no validado';
-            //     $_SESSION['errores'] = $errores;
-
-            //     header('location:' . URL . 'clientes/nuevo');
-
-            // } else {
-                $this->model->create($cliente);
-            
         }
 
         // Cerrar el archivo

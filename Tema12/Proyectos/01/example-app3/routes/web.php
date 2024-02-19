@@ -17,27 +17,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/clients', function () {
-    return 'Hola Clientes!!';
+Route::get('/client', function () {
+    return 'Clientes';
 });
 
-Route::get('/clients/delete', function () {
+Route::get('/client/delete', function () {
     return 'Eliminar clientes';
 });
 
-Route::get('/clients/edit/{id}', function ($id) {
+Route::get('/client/edit/{id}', function ($id) {
     return "Editar detalles del cliente {$id}";
 });
 
-Route::get('/clients/show/{id}', function ($id) {
+Route::get('/client/show/{id}', function ($id) {
     return "Detalles del cliente {$id}";
 });
 
-Route::get('/clients/new', function () {
+Route::get('/client/new', function () {
     return 'Nuevo cliente';
 });
 
-Route::get('/clients/delete/{id1}/{id2?}', function ($id1, $id2 = null) {
+Route::get('/client/delete/{id1}/{id2?}', function ($id1, $id2 = null) {
     if ($id2) {
         return "Eliminar clientes: {$id1} hasta el  {$id2}";
     } else {

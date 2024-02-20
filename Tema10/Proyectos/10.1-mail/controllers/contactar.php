@@ -1,6 +1,6 @@
 <?php
 
-class contactar extends Controller
+class Contactar extends Controller
 {
     # Método principal. Muestra todos los clientes
     public function render($param = [])
@@ -12,7 +12,6 @@ class contactar extends Controller
         if (isset($_SESSION['mensaje'])) {
             $this->view->mensaje = $_SESSION['mensaje'];
             unset($_SESSION['mensaje']);
-
         }
 
         $this->view->title = "Contactar";
@@ -28,13 +27,15 @@ class contactar extends Controller
 
             if (!empty($errores)) {
                 // Mostrar errores y volver al formulario
-                include('views/formulario_contacto.php');
+                $this->view->errores = $errores;
+                $this->view->render("contactar/index"); // Ajusta el nombre del archivo según la estructura de tus vistas
             } else {
                 // Enviar correo electrónico
                 $this->enviarCorreo($_POST);
 
                 // Mostrar mensaje de éxito
-                include('views/mensaje_enviado.php');
+                $this->view->mensaje = '¡Correo enviado con éxito!';
+                $this->view->render("contactar/index"); // Ajusta el nombre del archivo según la estructura de tus vistas
             }
         } else {
             // Redirigir a la página de inicio si se accede directamente a este método
@@ -70,8 +71,8 @@ class contactar extends Controller
     {
         // Configurar el envío de correo usando SMTP (debes proporcionar tus propios detalles)
         $smtpHost = 'smtp.gmail.com';
-        $smtpUsername = 'tucorreo@gmail.com'; // Coloca tu cuenta de correo personal
-        $smtpPassword = 'tucontrasena';
+        $smtpUsername = 'partypat1301@gmail.com'; // Coloca tu cuenta de correo personal
+        $smtpPassword = 'mlsb jdfk vyti bimd';
         $smtpPort = 587;
 
         // Destinatario del correo (correo de la empresa)

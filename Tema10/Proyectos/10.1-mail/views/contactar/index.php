@@ -20,7 +20,7 @@
                 <h5 class="card-title">Formulario de Contacto</h5>
             </div>
             <div class="card-body">
-                <form method="post" action="contactar.php?accion=validar">
+                <form action="<?= URL ?>contactar/validar/" method="POST">
 
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>

@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 class Contactar extends Controller
 {
     # Método principal. Muestra todos los clientes
@@ -67,27 +74,87 @@ class Contactar extends Controller
         return $errores;
     }
 
+    // private function enviarCorreo($datos)
+    // {
+    //     session_start();
+
+    //     ini_set('SMTP', 'smtp.gmail.com');
+    //     ini_set('smtp_port', 587);
+
+    //     $smtpUsername = 'partypat1301@gmail.com'; 
+    //     $smtpPassword = 'mlsb jdfk vyti bimd';
+
+    //     $destinatario = "{$datos['email']}";
+
+    //     $message = "Nombre: {$datos['nombre']}\n";
+    //     $asunto = "Asunto: {$datos['asunto']}\n";
+    //     $message .= "Mensaje: {$datos['mensaje']}";
+
+    //     $cabeceras = "From: {$datos['email']}";
+
+    //     // Enviar el correo
+    //     if (mail($destinatario, $asunto, $message)) {
+    //         $_SESSION['mensaje'] = "Mensaje enviado";
+    //     } else {
+    //         $_SESSION['error'] = "Error de envío";
+    //     }
+    //     ;
+    // }
+
     private function enviarCorreo($datos)
     {
-        // Configurar el envío de correo usando SMTP (debes proporcionar tus propios detalles)
-        $smtpHost = 'smtp.gmail.com';
-        $smtpUsername = 'partypat1301@gmail.com'; // Coloca tu cuenta de correo personal
-        $smtpPassword = 'mlsb jdfk vyti bimd';
-        $smtpPort = 587;
+        session_start();
 
-        // Destinatario del correo (correo de la empresa)
-        $destinatario = 'correodeempresa@example.com';
+        
 
-        // Configurar el mensaje
-        $mensaje = "Nombre: {$datos['nombre']}\n";
-        $mensaje .= "Email: {$datos['email']}\n";
-        $mensaje .= "Asunto: {$datos['asunto']}\n";
-        $mensaje .= "Mensaje: {$datos['mensaje']}";
+        // Incluimos las clases de PHPMailer
+        // require 'PHPMailer/src/Exception.php';
+        // require 'PHPMailer/src/PHPMailer.php';
+        // require 'PHPMailer/src/SMTP.php';
 
-        // Configurar la cabecera del correo
-        $cabeceras = "From: {$datos['email']}";
+        // Creamos un objeto de la clase PHPMailer
+        $mail = new PHPMailer(true);
 
-        // Enviar el correo
-        mail($destinatario, $datos['asunto'], $mensaje, $cabeceras);
+        // Configuración de PHPMailer
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "quoted-printable";
+        $mail->Username = 'partypat1301@gmail.com';
+        $mail->Password = 'mlsb jdfk vyti bimd';
+
+        // Configuración del servidor SMTP de Gmail
+        $mail->SMTPDebug = 2;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // tls Habilita el cifrado TLS implícito
+        $mail->Port = 587;
+
+
+        $destinatario = "{$datos['email']}";
+        $remitente = 'partypat1301@gmail.com';
+        $asunto = "{$datos['asunto']}";
+        $mensaje = "
+        <h1>{$datos['nombre']}</h1>
+        <p>{$datos['mensaje']}</p>
+        ";
+
+        // Configuración del correo con PHPMailer
+        $mail->setFrom($remitente, 'Paco');
+        $mail->addAddress($destinatario, "{$datos['nombre']}");
+        $mail->addReplyTo($remitente, 'Paco Fiestas');
+
+        // Configuración del contenido del correo
+        $mail->isHTML(true);
+        $mail->Subject = $asunto;
+        $mail->Body = $mensaje;
+
+        try {
+            // Enviamos el correo
+            $mail->send();
+            $_SESSION['mensaje'] = "Mensaje enviado";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error de envío: {$mail->ErrorInfo}";
+        }
     }
+
 }

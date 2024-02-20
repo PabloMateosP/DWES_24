@@ -31,15 +31,15 @@ class rutaTest extends TestCase
     }
     public function test_example_view_idDouble(): void
     {
-        $response = $this->get('/user/count/1');
+        $response = $this->get('/user/view/1');
         $response->assertStatus(200);
-        $response->assertSee('Mostrando detalle del usuario con id 1.');
+        $response->assertSee('Ningún usuario elegido');
     }
     public function test_example_view_id(): void
     {
-        $response = $this->get('/user/count/1/2');
+        $response = $this->get('/user/count/1');
         $response->assertStatus(200);
-        $response->assertSee('Clientes: 1 hasta el 2 elegidos');
+        $response->assertSee('Cliente: 1 elegido');
     }
     
 }

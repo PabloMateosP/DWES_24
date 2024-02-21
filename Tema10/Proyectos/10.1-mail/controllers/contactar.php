@@ -134,7 +134,7 @@ class Contactar extends Controller
         $remitente = 'partypat1301@gmail.com';
         $asunto = "{$datos['asunto']}";
         $mensaje = "
-        <h1>{$datos['nombre']}</h1>
+        <h1>Hola!! {$datos['nombre']}</h1>
         <p>{$datos['mensaje']}</p>
         ";
 

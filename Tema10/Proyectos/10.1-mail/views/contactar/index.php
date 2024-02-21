@@ -10,7 +10,7 @@
 </head>
 
 <?php require_once("template/partials/head.php") ?>
-
+<?php require_once "template/partials/mensaje.php" ?>
 <body>
     <?php require_once("template/partials/menuBar.php") ?>
     <br>

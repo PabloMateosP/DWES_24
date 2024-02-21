@@ -35,14 +35,14 @@ class Contactar extends Controller
             if (!empty($errores)) {
                 // Mostrar errores y volver al formulario
                 $this->view->errores = $errores;
-                $this->view->render("contactar/index"); // Ajusta el nombre del archivo según la estructura de tus vistas
+                $this->view->render("contactar/index"); 
             } else {
                 // Enviar correo electrónico
                 $this->enviarCorreo($_POST);
 
                 // Mostrar mensaje de éxito
-                $this->view->mensaje = '¡Correo enviado con éxito!';
-                $this->view->render("contactar/index"); // Ajusta el nombre del archivo según la estructura de tus vistas
+                $_SESSION['mensaje'] = '¡Correo enviado con éxito!';
+                $this->view->render("contactar/index"); 
             }
         } else {
             // Redirigir a la página de inicio si se accede directamente a este método
@@ -74,43 +74,10 @@ class Contactar extends Controller
         return $errores;
     }
 
-    // private function enviarCorreo($datos)
-    // {
-    //     session_start();
-
-    //     ini_set('SMTP', 'smtp.gmail.com');
-    //     ini_set('smtp_port', 587);
-
-    //     $smtpUsername = 'partypat1301@gmail.com'; 
-    //     $smtpPassword = 'mlsb jdfk vyti bimd';
-
-    //     $destinatario = "{$datos['email']}";
-
-    //     $message = "Nombre: {$datos['nombre']}\n";
-    //     $asunto = "Asunto: {$datos['asunto']}\n";
-    //     $message .= "Mensaje: {$datos['mensaje']}";
-
-    //     $cabeceras = "From: {$datos['email']}";
-
-    //     // Enviar el correo
-    //     if (mail($destinatario, $asunto, $message)) {
-    //         $_SESSION['mensaje'] = "Mensaje enviado";
-    //     } else {
-    //         $_SESSION['error'] = "Error de envío";
-    //     }
-    //     ;
-    // }
 
     private function enviarCorreo($datos)
     {
         session_start();
-
-        
-
-        // Incluimos las clases de PHPMailer
-        // require 'PHPMailer/src/Exception.php';
-        // require 'PHPMailer/src/PHPMailer.php';
-        // require 'PHPMailer/src/SMTP.php';
 
         // Creamos un objeto de la clase PHPMailer
         $mail = new PHPMailer(true);
@@ -122,13 +89,11 @@ class Contactar extends Controller
         $mail->Password = 'mlsb jdfk vyti bimd';
 
         // Configuración del servidor SMTP de Gmail
-        $mail->SMTPDebug = 2;
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // tls Habilita el cifrado TLS implícito
         $mail->Port = 587;
-
 
         $destinatario = "{$datos['email']}";
         $remitente = 'partypat1301@gmail.com';
@@ -148,13 +113,10 @@ class Contactar extends Controller
         $mail->Subject = $asunto;
         $mail->Body = $mensaje;
 
-        try {
-            // Enviamos el correo
-            $mail->send();
-            $_SESSION['mensaje'] = "Mensaje enviado";
-        } catch (Exception $e) {
-            $_SESSION['error'] = "Error de envío: {$mail->ErrorInfo}";
-        }
-    }
+        // Esta línea la he tenido que añadir para mi pc en casa porque me daba fallo el certificado SSL
+        $mail->SMTPOptions = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true)); 
+        $mail->send();
+
+    } 
 
 }

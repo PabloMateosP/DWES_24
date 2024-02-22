@@ -10,9 +10,10 @@
 </head>
 
 <?php require_once("template/partials/head.php") ?>
-<?php require_once "template/partials/mensaje.php" ?>
+
 <body>
     <?php require_once("template/partials/menuBar.php") ?>
+    <?php require_once("template/partials/mensaje.php") ?>
     <br>
     <div class="container mt-5">
         <div class="card">

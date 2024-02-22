@@ -377,6 +377,54 @@ class Perfil extends Controller
 
         } else {
 
+            # Obtenemos objeto con los detalles del usuario
+            $user1 = $this->model->getUserId($_SESSION['id']);
+
+            // Código para enviar el correo de registro ---------------------------------------------
+            // Creamos un objeto de la clase PHPMailer
+            $mail = new PHPMailer(true);
+
+            // Configuración de PHPMailer
+            $mail->CharSet = "UTF-8";
+            $mail->Encoding = "quoted-printable";
+            $mail->Username = 'partypat1301@gmail.com';
+            $mail->Password = 'mlsb jdfk vyti bimd';
+
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // tls Habilita el cifrado TLS implícito
+            $mail->Port = 587;
+
+            $destinatario = $user1->email;
+            $remitente = 'partypat1301@gmail.com';
+            $asunto = "Usuario Eliminado";
+            $mensaje = "
+            <p>Estimado <?php echo $user1->name; ?>,</p>
+
+            <p>Lamentamos saber que has decidido cerrar tu cuenta en GesBank. Agradecemos tu tiempo y confianza en nuestro servicio. Si hay alguna razón específica por la que has tomado esta decisión, nos encantaría recibir tus comentarios para mejorar nuestros servicios. Estamos comprometidos en brindar la mejor experiencia a nuestros usuarios.</p>
+            <p>Recuerda que siempre serás bienvenido/a de vuelta en caso de que cambies de opinión en el futuro. ¡Te deseamos mucho éxito en tus futuros proyectos! Si necesitas asistencia o tienes alguna pregunta, no dudes en ponerte en contacto con nuestro equipo de soporte.</p>
+            <p>Gracias nuevamente y esperamos que tengas un excelente día.</p>
+
+            <p>Atentamente,<br>
+            El equipo de GesBank</p>";
+
+            // Configuración del correo con PHPMailer
+            $mail->setFrom($remitente, 'Paco');
+            $mail->addAddress($destinatario, $user1->name);
+            $mail->addReplyTo($remitente, 'Paco Fiestas');
+
+            // Configuración del contenido del correo
+            $mail->isHTML(true);
+            $mail->Subject = $asunto;
+            $mail->Body = $mensaje;
+
+            // Esta línea la he tenido que añadir para mi pc en casa porque me daba fallo el certificado SSL
+            $mail->SMTPOptions = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true));
+            $mail->send();
+
+            // -------------------------------------------------------------------------------
+
             # Elimino perfil de usuario
             $this->model->delete($_SESSION['id']);
 

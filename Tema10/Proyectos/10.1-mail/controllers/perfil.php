@@ -268,14 +268,14 @@ class Perfil extends Controller
         $password_confirm = filter_var($_POST['password_confirm'] ??= null, FILTER_SANITIZE_SPECIAL_CHARS);
 
         # Obtenemos objeto con los detalles del usuario
-        $user = $this->model->getUserId($_SESSION['id']);
+        $user1 = $this->model->getUserId($_SESSION['id']);
 
         # Validaciones
 
         $errores = array();
 
         # Validar password actual
-        if (!password_verify($password_actual, $user->password)) {
+        if (!password_verify($password_actual, $user1->password)) {
             $errores['password_actual'] = "Password actual no es correcto";
         }
 
@@ -300,7 +300,7 @@ class Perfil extends Controller
 
             # Crear objeto user
             $user = new classUser(
-                $user->id,
+                $user1->id,
                 null,
                 null,
                 $password
@@ -326,11 +326,11 @@ class Perfil extends Controller
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // tls Habilita el cifrado TLS implícito
             $mail->Port = 587;
 
-            $destinatario = $user->email;
+            $destinatario = $user1->email;
             $remitente = 'partypat1301@gmail.com';
             $asunto = "Contraseña Modificada";
             $mensaje = "
-            <h1>Hola!! $user->name</h1>
+            <h1>Hola!! $user1->name</h1>
             <p>Contraseña Modificada con éxito</p>
             <p>Datos: </p>
             <ul>

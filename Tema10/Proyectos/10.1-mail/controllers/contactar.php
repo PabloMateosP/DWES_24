@@ -3,6 +3,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require 'auth.php';
+
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
@@ -85,8 +87,8 @@ class Contactar extends Controller
         // Configuración de PHPMailer
         $mail->CharSet = "UTF-8";
         $mail->Encoding = "quoted-printable";
-        $mail->Username = 'partypat1301@gmail.com';
-        $mail->Password = 'mlsb jdfk vyti bimd';
+        $mail->Username = GMAIL;
+        $mail->Password = PASSWORD;
 
         // Configuración del servidor SMTP de Gmail
         $mail->isSMTP();
@@ -96,7 +98,7 @@ class Contactar extends Controller
         $mail->Port = 587;
 
         $destinatario = "{$datos['email']}";
-        $remitente = 'partypat1301@gmail.com';
+        $remitente = GMAIL;
         $asunto = "{$datos['asunto']}";
         $mensaje = "
         <h1>Hola!! {$datos['nombre']}</h1>
@@ -104,9 +106,9 @@ class Contactar extends Controller
         ";
 
         // Configuración del correo con PHPMailer
-        $mail->setFrom($remitente, 'Paco');
+        $mail->setFrom($remitente, 'Pablo');
         $mail->addAddress($destinatario, "{$datos['nombre']}");
-        $mail->addReplyTo($remitente, 'Paco Fiestas');
+        $mail->addReplyTo($remitente, 'Pablo Mateos');
 
         // Configuración del contenido del correo
         $mail->isHTML(true);
@@ -116,6 +118,8 @@ class Contactar extends Controller
         // Esta línea la he tenido que añadir para mi pc en casa porque me daba fallo el certificado SSL
         $mail->SMTPOptions = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true)); 
         $mail->send();
+
+        $_SESSION['mensaje'] = "Mensaje enviado correctamente.";
 
     } 
 

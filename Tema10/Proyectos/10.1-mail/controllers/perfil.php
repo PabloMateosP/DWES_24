@@ -3,6 +3,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require 'auth.php';
+
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
@@ -161,8 +163,8 @@ class Perfil extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = 'partypat1301@gmail.com';
-            $mail->Password = 'mlsb jdfk vyti bimd';
+            $mail->Username = GMAIL;
+            $mail->Password = PASSWORD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -171,7 +173,7 @@ class Perfil extends Controller
             $mail->Port = 587;
 
             $destinatario = $email;
-            $remitente = 'partypat1301@gmail.com';
+            $remitente = GMAIL;
             $asunto = "Perfil editado correctamente";
             $mensaje = "
             <h1>Hola!! $name</h1>
@@ -183,9 +185,9 @@ class Perfil extends Controller
             </ul>";
 
             // Configuración del correo con PHPMailer
-            $mail->setFrom($remitente, 'Paco');
+            $mail->setFrom($remitente, 'Pablo');
             $mail->addAddress($destinatario, $name);
-            $mail->addReplyTo($remitente, 'Paco Fiestas');
+            $mail->addReplyTo($remitente, 'Pablo Mateos');
 
             // Configuración del contenido del correo
             $mail->isHTML(true);
@@ -199,7 +201,7 @@ class Perfil extends Controller
             // -------------------------------------------------------------------------------
 
             $_SESSION['name_user'] = $name;
-            $_SESSION['mensaje'] = 'Usuario modificado correctamente';
+            $_SESSION['mensaje'] = 'Usuario modificado correctamente y notificación enviada';
 
             header('location:' . URL . 'perfil');
 
@@ -317,8 +319,8 @@ class Perfil extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = 'partypat1301@gmail.com';
-            $mail->Password = 'mlsb jdfk vyti bimd';
+            $mail->Username = GMAIL;
+            $mail->Password = PASSWORD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -327,7 +329,7 @@ class Perfil extends Controller
             $mail->Port = 587;
 
             $destinatario = $user1->email;
-            $remitente = 'partypat1301@gmail.com';
+            $remitente = GMAIL;
             $asunto = "Contraseña Modificada";
             $mensaje = "
             <h1>Hola!! $user1->name</h1>
@@ -338,9 +340,9 @@ class Perfil extends Controller
             </ul>";
 
             // Configuración del correo con PHPMailer
-            $mail->setFrom($remitente, 'Paco');
+            $mail->setFrom($remitente, 'Pablo');
             $mail->addAddress($destinatario, $user->name);
-            $mail->addReplyTo($remitente, 'Paco Fiestas');
+            $mail->addReplyTo($remitente, 'Pablo Mateos');
 
             // Configuración del contenido del correo
             $mail->isHTML(true);
@@ -351,9 +353,10 @@ class Perfil extends Controller
             $mail->SMTPOptions = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true));
             $mail->send();
 
+
             // -------------------------------------------------------------------------------
 
-            $_SESSION['mensaje'] = "Password modificado correctamente";
+            $_SESSION['mensaje'] = "Password modificado correctamente y notificación enviada";
 
             #Vuelve corredores
             header("location:" . URL . "clientes");
@@ -387,8 +390,8 @@ class Perfil extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = 'partypat1301@gmail.com';
-            $mail->Password = 'mlsb jdfk vyti bimd';
+            $mail->Username = GMAIL;
+            $mail->Password = PASSWORD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -397,7 +400,7 @@ class Perfil extends Controller
             $mail->Port = 587;
 
             $destinatario = $user1->email;
-            $remitente = 'partypat1301@gmail.com';
+            $remitente = GMAIL;
             $asunto = "Usuario Eliminado";
             $mensaje = "
             <p>Estimado <?php echo $user1->name; ?>,</p>
@@ -410,9 +413,9 @@ class Perfil extends Controller
             El equipo de GesBank</p>";
 
             // Configuración del correo con PHPMailer
-            $mail->setFrom($remitente, 'Paco');
+            $mail->setFrom($remitente, 'Pablo');
             $mail->addAddress($destinatario, $user1->name);
-            $mail->addReplyTo($remitente, 'Paco Fiestas');
+            $mail->addReplyTo($remitente, 'Pablo Mateos');
 
             // Configuración del contenido del correo
             $mail->isHTML(true);
@@ -422,6 +425,8 @@ class Perfil extends Controller
             // Esta línea la he tenido que añadir para mi pc en casa porque me daba fallo el certificado SSL
             $mail->SMTPOptions = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true));
             $mail->send();
+
+            $_SESSION['mensaje'] = "Mensaje enviado correctamente.";
 
             // -------------------------------------------------------------------------------
 
@@ -436,9 +441,6 @@ class Perfil extends Controller
         }
 
     }
-
-
-
 }
 
 ?>

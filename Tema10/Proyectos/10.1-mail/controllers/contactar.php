@@ -3,11 +3,12 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'auth.php';
+
 
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+require 'auth.php';
 
 class Contactar extends Controller
 {
@@ -87,8 +88,8 @@ class Contactar extends Controller
         // Configuración de PHPMailer
         $mail->CharSet = "UTF-8";
         $mail->Encoding = "quoted-printable";
-        $mail->Username = GMAIL;
-        $mail->Password = PASSWORD;
+        $mail->Username = USERNAME;
+        $mail->Password = PASSWD;
 
         // Configuración del servidor SMTP de Gmail
         $mail->isSMTP();
@@ -98,7 +99,7 @@ class Contactar extends Controller
         $mail->Port = 587;
 
         $destinatario = "{$datos['email']}";
-        $remitente = GMAIL;
+        $remitente = USERNAME;
         $asunto = "{$datos['asunto']}";
         $mensaje = "
         <h1>Hola!! {$datos['nombre']}</h1>

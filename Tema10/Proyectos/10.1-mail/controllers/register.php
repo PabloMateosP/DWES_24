@@ -3,9 +3,12 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
+
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+require 'auth.php';
 
 class Register extends Controller
 {
@@ -117,8 +120,8 @@ class Register extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = 'partypat1301@gmail.com';
-            $mail->Password = 'mlsb jdfk vyti bimd';
+            $mail->Username = USERNAME;
+            $mail->Password = PASSWD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -127,7 +130,7 @@ class Register extends Controller
             $mail->Port = 587;
 
             $destinatario = $email;
-            $remitente = 'partypat1301@gmail.com';
+            $remitente = USERNAME;
             $asunto = "Registro Exitoso";
             $mensaje = "
             <h1>Hola!! $name</h1>
@@ -140,9 +143,9 @@ class Register extends Controller
             </ul>";
 
             // Configuración del correo con PHPMailer
-            $mail->setFrom($remitente, 'Paco');
+            $mail->setFrom($remitente, 'Pablo');
             $mail->addAddress($destinatario, $name);
-            $mail->addReplyTo($remitente, 'Paco Fiestas');
+            $mail->addReplyTo($remitente, 'Pablo Mateos');
 
             // Configuración del contenido del correo
             $mail->isHTML(true);

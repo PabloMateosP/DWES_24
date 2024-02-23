@@ -163,8 +163,8 @@ class Perfil extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = GMAIL;
-            $mail->Password = PASSWORD;
+            $mail->Username = USERNAME;
+            $mail->Password = PASSWD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -173,7 +173,7 @@ class Perfil extends Controller
             $mail->Port = 587;
 
             $destinatario = $email;
-            $remitente = GMAIL;
+            $remitente = USERNAME;
             $asunto = "Perfil editado correctamente";
             $mensaje = "
             <h1>Hola!! $name</h1>
@@ -319,8 +319,8 @@ class Perfil extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = GMAIL;
-            $mail->Password = PASSWORD;
+            $mail->Username = USERNAME;
+            $mail->Password = PASSWD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -329,7 +329,7 @@ class Perfil extends Controller
             $mail->Port = 587;
 
             $destinatario = $user1->email;
-            $remitente = GMAIL;
+            $remitente = USERNAME;
             $asunto = "Contraseña Modificada";
             $mensaje = "
             <h1>Hola!! $user1->name</h1>
@@ -390,8 +390,8 @@ class Perfil extends Controller
             // Configuración de PHPMailer
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "quoted-printable";
-            $mail->Username = GMAIL;
-            $mail->Password = PASSWORD;
+            $mail->Username = USERNAME;
+            $mail->Password = PASSWD;
 
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -400,7 +400,7 @@ class Perfil extends Controller
             $mail->Port = 587;
 
             $destinatario = $user1->email;
-            $remitente = GMAIL;
+            $remitente = USERNAME;
             $asunto = "Usuario Eliminado";
             $mensaje = "
             <p>Estimado <?php echo $user1->name; ?>,</p>

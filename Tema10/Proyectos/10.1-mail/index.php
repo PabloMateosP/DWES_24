@@ -12,8 +12,9 @@ require_once 'class/class.cuenta.php';
 // require 'PHPMailer/src/PHPMailer.php';
 // require 'PHPMailer/src/SMTP.php';
 
+require_once 'fpdf/fpdf.php';
 require_once 'class/class.pdfCuentas.php';
-// require_once 'class/class.pdfClientes.php';
+require_once 'class/class.pdfClientes.php';
 require_once 'class/class.movimiento.php';
 require_once 'class/class.user.php';
 require_once "libs/lib.php";

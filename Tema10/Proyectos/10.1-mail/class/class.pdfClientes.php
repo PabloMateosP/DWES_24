@@ -1,5 +1,5 @@
 <?php 
-require('fpdf/fpdf.php');
+
 
 class PDFClientes extends FPDF
 {

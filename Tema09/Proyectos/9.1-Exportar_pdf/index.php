@@ -6,9 +6,9 @@ require_once 'libs/model.php';
 require_once 'libs/view.php';
 require_once 'class/class.cliente.php';
 require_once 'class/class.cuenta.php';
-
+require_once 'fpdf/fpdf.php';
 require_once 'class/class.pdfCuentas.php';
-// require_once 'class/class.pdfClientes.php';
+require_once 'class/class.pdfClientes.php';
 require_once 'class/class.movimiento.php';
 require_once 'class/class.user.php';
 require_once "libs/lib.php";

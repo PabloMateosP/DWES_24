@@ -635,7 +635,7 @@ class Clientes extends Controller
             ['header' => 'Email', 'field' => 'email', 'width' => 40],
         ];
 
-        $pdf = new PDFCuentas();
+        $pdf = new PDFClientes();
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->TituloInforme();

@@ -1,5 +1,5 @@
 <?php 
-require('fpdf/fpdf.php');
+require_once('fpdf/fpdf.php');
 
 class PDFCuentas extends FPDF
 {

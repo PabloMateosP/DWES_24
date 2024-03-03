@@ -1,5 +1,5 @@
 <?php 
-require('fpdf/fpdf.php');
+require_once ('fpdf/fpdf.php');
 
 class PDFClientes extends FPDF
 {
@@ -7,9 +7,9 @@ class PDFClientes extends FPDF
     function Header()
     {
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(0, 10, 'GESBANK 1.0', 0, 0, 'L');
-        $this->Cell(0, 10, 'Pablo Mateos Palas', 0, 0, 'C');
-        $this->Cell(0, 10, '2DAW 23/24', 0, 1, 'R');
+        $this->Cell(60, 10, 'GESBANK 1.0', 0, 0, 'L');
+        $this->Cell(70, 10, 'Pablo Mateos Palas', 0, 0, 'C');
+        $this->Cell(60, 10, '2DAW 23/24', 0, 1, 'R');
         $this->Cell(0, 0, '', 'T', 1, 'L'); // Borde inferior
     }
 

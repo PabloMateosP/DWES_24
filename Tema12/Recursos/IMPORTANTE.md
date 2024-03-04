@@ -1,0 +1,1 @@
+En el archivo database de la carpeta confi, debemos de escribir en database la base de datos la cual usaremos así como el usuario (root) y contraseña (suele ir vacía)

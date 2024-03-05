@@ -51,6 +51,8 @@
 									'disabled' : null ?>"> <i class="bi bi-pencil"></i> </a>
                             <a href="<?= URL ?>cuentas/mostrar/<?= $cuenta->id ?>" title="Mostrar" class="btn btn-warning<?= (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['show'])) ?
                                     'disabled' : null ?>"> <i class="bi bi-eye"></i> </a>
+                            <a href="<?= URL ?>cuentas/movimientos/<?= $cuenta->id ?>" title="Movimientos" class="btn btn-success<?= (!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['show'])) ?
+                                    'disabled' : null ?>"> <i class="bi bi-cash-coin"></i> </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

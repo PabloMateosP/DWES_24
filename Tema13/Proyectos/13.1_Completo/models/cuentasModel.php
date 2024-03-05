@@ -235,7 +235,6 @@ class cuentasModel extends Model
         }
     }
 
-
     # Método filter
     # Permite filtrar la tabla cuentas a partir de una expresión de búsqueda o filtrado
     public function filter($expresion)
@@ -380,5 +379,39 @@ class cuentasModel extends Model
             exit();
         }
 
+    }
+
+    public function getMovCuentas($idCuenta)
+    {
+        try {
+            $sql = " 
+            SELECT 
+                movimientos.id,
+                movimientos.id_cuenta,
+                movimientos.fecha_hora,
+                movimientos.concepto,
+                movimientos.tipo,
+                movimientos.cantidad,
+                movimientos.saldo,
+                cuentas.num_cuenta
+            FROM 
+                movimientos inner join cuentas on movimientos.id_cuenta=cuentas.id 
+            WHERE
+                cuentas.id=:id;";
+
+            $conexion = $this->db->connect();
+
+            $result = $conexion->prepare($sql);
+
+            $result->bindParam(':id', $idCuenta);
+            $result->setFetchMode(PDO::FETCH_OBJ);
+
+            $result->execute();
+            return $result;
+
+        } catch (PDOException $e) {
+            require_once("template/partials/errorDB.php");
+            exit();
+        }
     }
 }

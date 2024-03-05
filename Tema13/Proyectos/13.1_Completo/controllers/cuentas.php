@@ -584,4 +584,30 @@ class Cuentas extends Controller
         $pdf->ContenidoListado($data, $columnas);
         $pdf->Output();
     }
+
+    function movimientos($param = []){
+        #inicio o continuo sesion
+        session_start();
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['notify'] = "Usuario sin autentificar";
+
+            header("location:" . URL . "login");
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['clientes']['main']))) {
+            $_SESSION['mensaje'] = "Usuario sin autentificar";
+            header("location:" . URL . "index");
+
+        } else {
+            #comprobar si existe mensaje
+            if (isset($_SESSION['mensaje'])) {
+                $this->view->mensaje = $_SESSION['mensaje'];
+                unset($_SESSION['mensaje']);
+            }
+
+            $id = $param[0];
+
+            $this->view->title = "Tabla Movimientos";
+            $this->view->movimientos = $this->model->getMovCuentas($id);
+            $this->view->render("cuentas/movimientos/main/index");
+        }
+    }
 }

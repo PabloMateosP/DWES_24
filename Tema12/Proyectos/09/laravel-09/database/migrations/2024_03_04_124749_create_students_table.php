@@ -10,22 +10,22 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('alumnos', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 35);
-            $table->string('apellidoos', 45);
-            $table->date('fecha_nacimiento');
-            $table->char('telefono', 13)->nullable(false);
-            $table->string('poblacion', 20);
-            $table->char('dni', 9)->unique()->comment('DNI del alumno')->nullable(false);
+            $table->string('name', 35);
+            $table->string('last_name', 45);
+            $table->date('birth_date');
+            $table->char('phone', 13)->nullable(false);
+            $table->string('city', 20);
+            $table->char('dni', 9)->unique()->nullable(false);
             $table->string('email', 35)->unique()->comment('Email del alumno');
-            $table->unsignedBigInteger('curso_id'); // Curso_id es una convención 
+            $table->unsignedBigInteger('course_id'); // Curso_id es una convención 
             $table->timestamps();
 
             // restricciones
-            $table->foreign('curso_id')
+            $table->foreign('course_id')
                 ->references('id')
-                ->on('cursos')
+                ->on('courses')
                 ->restrictOnDelete()
                 ->restrictOnUpdate();
         });
@@ -36,6 +36,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('alumnos');
+        Schema::dropIfExists('students');
     }
 };

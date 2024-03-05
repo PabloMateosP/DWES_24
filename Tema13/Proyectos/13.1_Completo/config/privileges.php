@@ -26,3 +26,13 @@ $GLOBALS['cuentas']['filter'] = [1, 2, 3];
 $GLOBALS['cuentas']['order'] = [1, 2, 3];
 $GLOBALS['cuentas']['export'] = [1];
 $GLOBALS['cuentas']['import'] = [1];
+
+$GLOBALS['movimientos']['main'] = [1, 2, 3];
+$GLOBALS['movimientos']['new'] = [1, 2];
+$GLOBALS['movimientos']['edit'] = [1, 2];
+$GLOBALS['movimientos']['delete'] = [1];
+$GLOBALS['movimientos']['show'] = [1, 2, 3];
+$GLOBALS['movimientos']['filter'] = [1, 2, 3];
+$GLOBALS['movimientos']['order'] = [1, 2, 3];
+$GLOBALS['movimientos']['export'] = [1];
+$GLOBALS['movimientos']['import'] = [1];

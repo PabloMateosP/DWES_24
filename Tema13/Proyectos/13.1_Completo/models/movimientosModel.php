@@ -41,9 +41,6 @@ class movimientosModel extends Model
     public function getMovCuenta($idCuenta)
     {
         try {
-            // plantilla
-            // id, id_cuenta, fecha_hora, concepto, tipo, cantidad, saldo
-
             $sql = " 
             SELECT 
                 m.id,

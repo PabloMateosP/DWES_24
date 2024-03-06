@@ -140,6 +140,12 @@ class Movimientos extends Controller
             } else {
                 // Si no hay errores, procedemos a crear el movimiento
                 $this->view->title = "Tabla Movimientos";
+
+                
+                var_dump($mov);
+                exit();
+
+
                 $this->model->create($mov, $id_cuenta);
                 $_SESSION["mensaje"] = "Movimiento creado correctamente";
                 header("Location:" . URL . "movimientos");

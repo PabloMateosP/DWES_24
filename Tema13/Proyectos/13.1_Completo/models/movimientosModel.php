@@ -96,31 +96,12 @@ class movimientosModel extends Model
         try {
             $conexion = $this->db->connect();
 
-            // Iniciar la transacción
-            $conexion->beginTransaction();
-
-            // Obtener el ID de la cuenta usando el número de cuenta
-            $sqlGetAccountId = "SELECT id FROM cuentas WHERE num_cuenta = :num_cuenta";
-            $pdoStGetAccountId = $conexion->prepare($sqlGetAccountId);
-            $pdoStGetAccountId->bindParam(":num_cuenta", $mov->id_cuenta, PDO::PARAM_STR); // Changed to $mov->id_cuenta
-            $pdoStGetAccountId->execute();
-
-            $result = $pdoStGetAccountId->fetch(PDO::FETCH_ASSOC);
-
-            if (!$result) {
-                // La cuenta no existe, maneja el error o muestra un mensaje al usuario
-                throw new Exception("La cuenta con el número de cuenta {$mov->num_cuenta} no existe.");
-            }
-
-            // Asignar el ID de la cuenta obtenido
-            $id_cuenta = $result['id'];
-
             // Insertar en la tabla movimientos
             $sqlMovimientos = "INSERT INTO movimientos (id_cuenta, fecha_hora, concepto, tipo, cantidad) 
                             VALUES (:id_cuenta, :fecha_hora, :concepto, :tipo, :cantidad)";
             $pdoStMovimientos = $conexion->prepare($sqlMovimientos);
 
-            $pdoStMovimientos->bindParam(":id_cuenta", $id_cuenta, PDO::PARAM_INT);
+            $pdoStMovimientos->bindParam(":id_cuenta", $mov->id_cuenta, PDO::PARAM_INT);
             $pdoStMovimientos->bindParam(":fecha_hora", $mov->fecha_hora);
             $pdoStMovimientos->bindParam(":concepto", $mov->concepto, PDO::PARAM_STR);
             $pdoStMovimientos->bindParam(":tipo", $mov->tipo, PDO::PARAM_STR);
@@ -141,23 +122,10 @@ class movimientosModel extends Model
             $pdoStUpdateCuenta = $conexion->prepare($sqlUpdateCuenta);
 
             $pdoStUpdateCuenta->bindParam(":cantidad", $mov->cantidad, PDO::PARAM_INT);
-            $pdoStUpdateCuenta->bindParam(":id", $id_cuenta, PDO::PARAM_INT); // Changed to $id_cuenta
+            $pdoStUpdateCuenta->bindParam(":id", $mov->id_cuenta, PDO::PARAM_INT); 
 
             $pdoStUpdateCuenta->execute();
 
-            // // Actualizar el saldo en la tabla movimientos
-            // $sqlUpdateSaldoMovimientos = "UPDATE movimientos 
-            //                           SET saldo = (SELECT saldo FROM cuentas WHERE id = :id_cuenta) 
-            //                           WHERE id = :lastInsertId";
-            // $pdoStUpdateSaldoMovimientos = $conexion->prepare($sqlUpdateSaldoMovimientos);
-
-            // $pdoStUpdateSaldoMovimientos->bindParam(":id_cuenta", $id_cuenta, PDO::PARAM_INT);
-            // $pdoStUpdateSaldoMovimientos->bindParam(":lastInsertId", $lastInsertId, PDO::PARAM_INT);
-
-            // $pdoStUpdateSaldoMovimientos->execute();
-
-            // Confirmar la transacción
-            $conexion->commit();
         } catch (PDOException $e) {
             // Deshacer la transacción en caso de error
             $conexion->rollBack();

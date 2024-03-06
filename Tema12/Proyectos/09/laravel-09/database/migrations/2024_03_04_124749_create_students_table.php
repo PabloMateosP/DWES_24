@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string('name', 35);
             $table->string('last_name', 45);
             $table->date('birth_date');
-            $table->char('phone', 13)->nullable(false);
-            $table->string('city', 20);
+            $table->char('phone', 20)->nullable(false);
+            $table->string('city', 40);
             $table->char('dni', 9)->unique()->nullable(false);
             $table->string('email', 35)->unique()->comment('Email del alumno');
             $table->unsignedBigInteger('course_id'); // Curso_id es una convención 

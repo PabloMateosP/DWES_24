@@ -17,7 +17,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?= URL ?>movimientos/">Movimientos</a>
         </li>
-        
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?= URL ?>users/" <?= (!in_array($_SESSION['id_rol'], $GLOBALS['admin'])) ? 'disabled' : null ?>>Usuarios</a>
+        </li>
       </ul>
       <div class="d-flex">
       </div>

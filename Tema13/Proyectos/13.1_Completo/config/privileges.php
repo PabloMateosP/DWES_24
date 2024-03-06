@@ -36,3 +36,5 @@ $GLOBALS['movimientos']['filter'] = [1, 2, 3];
 $GLOBALS['movimientos']['order'] = [1, 2, 3];
 $GLOBALS['movimientos']['export'] = [1];
 $GLOBALS['movimientos']['import'] = [1];
+
+$GLOBALS['admin'] = [1];

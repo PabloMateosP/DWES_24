@@ -96,6 +96,16 @@ class movimientosModel extends Model
         try {
             $conexion = $this->db->connect();
 
+            // Obtener el saldo actual de la cuenta
+            $sqlSaldoActual = "SELECT saldo FROM cuentas WHERE num_cuenta = :num_cuenta";
+            $pdoStSaldoActual = $conexion->prepare($sqlSaldoActual);
+            $pdoStSaldoActual->bindParam(":num_cuenta", $mov->num_cuenta, PDO::PARAM_INT);
+            $pdoStSaldoActual->execute();
+            $saldoActual = $pdoStSaldoActual->fetchColumn();
+
+            // Calcular el nuevo saldo
+            $nuevoSaldo = $saldoActual + $mov->cantidad;
+
             // Insertar en la tabla movimientos
             $sqlMovimientos = "INSERT INTO movimientos (id_cuenta, fecha_hora, concepto, tipo, cantidad) 
                             VALUES (:id_cuenta, :fecha_hora, :concepto, :tipo, :cantidad)";
@@ -109,8 +119,15 @@ class movimientosModel extends Model
 
             $pdoStMovimientos->execute();
 
-            // Obtener el ID del último movimiento insertado
-            $lastInsertId = $conexion->lastInsertId(); // Use lastInsertId directly
+            $sqlUpdateMovimientos = "UPDATE movimientos 
+                                 SET saldo = :nuevo_saldo
+                                 WHERE id_cuenta = :id_cuenta";
+            $pdoStUpdateMovimientos = $conexion->prepare($sqlUpdateMovimientos);
+
+            $pdoStUpdateMovimientos->bindParam(":nuevo_saldo", $nuevoSaldo, PDO::PARAM_INT);
+            $pdoStUpdateMovimientos->bindParam(":id_cuenta", $mov->id_cuenta, PDO::PARAM_INT);
+
+            $pdoStUpdateMovimientos->execute();
 
             // Actualizar la cuenta
             $sqlUpdateCuenta = "UPDATE cuentas 
@@ -122,17 +139,14 @@ class movimientosModel extends Model
             $pdoStUpdateCuenta = $conexion->prepare($sqlUpdateCuenta);
 
             $pdoStUpdateCuenta->bindParam(":cantidad", $mov->cantidad, PDO::PARAM_INT);
-            $pdoStUpdateCuenta->bindParam(":id", $mov->id_cuenta, PDO::PARAM_INT); 
+            $pdoStUpdateCuenta->bindParam(":id", $mov->id_cuenta, PDO::PARAM_INT);
 
             $pdoStUpdateCuenta->execute();
 
         } catch (PDOException $e) {
-            // Deshacer la transacción en caso de error
-            $conexion->rollBack();
             require_once("template/partials/errorDB.php");
             exit();
         } catch (Exception $e) {
-            // Manejar la excepción específica, mostrar mensaje o redirigir al usuario
             echo $e->getMessage();
         }
     }

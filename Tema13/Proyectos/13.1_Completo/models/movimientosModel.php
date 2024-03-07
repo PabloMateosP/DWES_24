@@ -97,9 +97,9 @@ class movimientosModel extends Model
             $conexion = $this->db->connect();
 
             // Obtener el saldo actual de la cuenta
-            $sqlSaldoActual = "SELECT saldo FROM cuentas WHERE num_cuenta = :num_cuenta";
+            $sqlSaldoActual = "SELECT saldo FROM cuentas WHERE id = :id_cuenta";
             $pdoStSaldoActual = $conexion->prepare($sqlSaldoActual);
-            $pdoStSaldoActual->bindParam(":num_cuenta", $mov->num_cuenta, PDO::PARAM_INT);
+            $pdoStSaldoActual->bindParam(":id_cuenta", $mov->id_cuenta, PDO::PARAM_INT);
             $pdoStSaldoActual->execute();
             $saldoActual = $pdoStSaldoActual->fetchColumn();
 
@@ -122,7 +122,7 @@ class movimientosModel extends Model
 
             $sqlUpdateMovimientos = "UPDATE movimientos 
                                  SET saldo = :nuevo_saldo
-                                 WHERE id_cuenta = :id_cuenta";
+                                 WHERE id_cuenta = :id_cuenta order by id desc limit 1";
             $pdoStUpdateMovimientos = $conexion->prepare($sqlUpdateMovimientos);
 
             $pdoStUpdateMovimientos->bindParam(":nuevo_saldo", $nuevoSaldo, PDO::PARAM_INT);
@@ -130,9 +130,6 @@ class movimientosModel extends Model
 
             $pdoStUpdateMovimientos->execute();
 
-            // FALTA COGER EL ID DEL ÚLTIMO MOVIMIENTO Y SOLO ACTUALIZAR EL SALDO DE ESE ÚLTIMO MOVIMIENTO 
-            // YA QUE SE ACTUALIZAN TODOS LOS DEMÁS DE ESA CUENTA.
-            
             // Actualizar la cuenta
             $sqlUpdateCuenta = "UPDATE cuentas 
                             SET saldo = saldo + :cantidad,

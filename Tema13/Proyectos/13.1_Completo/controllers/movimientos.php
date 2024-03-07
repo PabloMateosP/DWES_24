@@ -84,6 +84,10 @@ class Movimientos extends Controller
             $cantidad = filter_input(INPUT_POST, 'cantidad', FILTER_SANITIZE_SPECIAL_CHARS);
             $cantidad = floatval($cantidad);
 
+            if($tipo == 'R') {
+                $cantidad = -$cantidad;
+            } 
+
             $mov = new Movimiento(
                 null,
                 $id_cuenta,
@@ -148,5 +152,46 @@ class Movimientos extends Controller
         }
     }
 
+    public function ordenar($param = [])
+    {
+        session_start();
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            header("location:" . URL . "login");
+
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['movimientos']['order']))) {
+            $_SESSION['mensaje'] = "Operación sin privilegio";
+            header("location:" . URL . "movimientos");
+        } else {
+            $criterio = $param[0];
+            $this->view->title = "Tabla Movimientos";
+            $this->view->movimientos = $this->model->order($criterio);
+            $this->view->render("movimientos/main/index");
+        }
+
+    }
+
+    # Método buscar
+    # Permite buscar los registros de movimientos que cumplan con el patrón especificado en la expresión
+    # de búsqueda
+    public function buscar($param = [])
+    {
+        session_start();
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario debe autentificarse";
+
+            header("location:" . URL . "login");
+
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['movimientos']['filter']))) {
+            $_SESSION['mensaje'] = "Operación sin privilegio";
+            header("location:" . URL . "clientes");
+        } else {
+            $expresion = $_GET["expresion"];
+            $this->view->title = "Tabla Movimientos";
+            $this->view->movimientos = $this->model->filter($expresion);
+            $this->view->render("movimientos/main/index");
+        }
+    }
 
 }

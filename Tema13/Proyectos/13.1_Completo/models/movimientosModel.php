@@ -106,6 +106,13 @@ class movimientosModel extends Model
             // Calcular el nuevo saldo
             $nuevoSaldo = $saldoActual + $mov->cantidad;
 
+            // HACER QUE NO SE PUEDA SACAR MÁS DINERO DEL QUE HAY EN LA CUENTA
+            if ($mov->cantidad < 0 && $saldoActual < -$mov->cantidad) {
+                $mensajeError = "Cantidad a retirar mayor a la del saldo";
+                
+                header('Location: ' . URL . 'movimientos/nuevo/' . $mov->id_cuenta);
+            }
+
             // Insertar en la tabla movimientos
             $sqlMovimientos = "INSERT INTO movimientos (id_cuenta, fecha_hora, concepto, tipo, cantidad) 
                             VALUES (:id_cuenta, :fecha_hora, :concepto, :tipo, :cantidad)";
@@ -118,7 +125,7 @@ class movimientosModel extends Model
             $pdoStMovimientos->bindParam(":cantidad", $mov->cantidad, PDO::PARAM_INT);
 
             $pdoStMovimientos->execute();
-            
+
 
             $sqlUpdateMovimientos = "UPDATE movimientos 
                                  SET saldo = :nuevo_saldo
@@ -152,5 +159,84 @@ class movimientosModel extends Model
         }
     }
 
+    # Método order
+    # Permite ordenar la tabla por cualquiera de las columnas de la tabla
+    public function order(int $criterio)
+    {
+        try {
+
+            $sql = " 
+                SELECT 
+                    id,
+                    id_cuenta,
+                    fecha_hora,
+                    concepto,
+                    tipo,
+                    cantidad,
+                    saldo
+                FROM 
+                    movimientos
+                ORDER BY
+                    :criterio ";
+
+            $conexion = $this->db->connect();
+            $pdoSt = $conexion->prepare($sql);
+            $pdoSt->bindParam(':criterio', $criterio, PDO::PARAM_INT);
+            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+            $pdoSt->execute();
+            return $pdoSt;
+
+        } catch (PDOException $e) {
+            require_once("template/partials/errorDB.php");
+            exit();
+        }
+    }
+
+    # Método filter
+    # Permite filtrar la tabla movimientos a partir de una expresión de búsqueda o filtrado
+    public function filter($expresion)
+    {
+        try {
+
+            $sql = "
+                    SELECT 
+                        id,
+                        id_cuenta,
+                        fecha_hora,
+                        concepto,
+                        tipo,
+                        cantidad,
+                        saldo
+                    FROM 
+                        movimientos
+                    WHERE 
+                        concat_ws(  ' ',
+                                    id,
+                                    id_cuenta,
+                                    fecha_hora,
+                                    concepto,
+                                    tipo,
+                                    cantidad,
+                                    saldo
+                                )
+                    LIKE
+                        :expresion ";
+
+
+            $conexion = $this->db->connect();
+
+            $expresion = "%" . $expresion . "%";
+            $pdoSt = $conexion->prepare($sql);
+
+            $pdoSt->bindValue(':expresion', $expresion, PDO::PARAM_STR);
+            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+            $pdoSt->execute();
+
+            return $pdoSt;
+        } catch (PDOException $e) {
+            require_once("template/partials/errorDB.php");
+            exit();
+        }
+    }
 
 }

@@ -118,6 +118,7 @@ class movimientosModel extends Model
             $pdoStMovimientos->bindParam(":cantidad", $mov->cantidad, PDO::PARAM_INT);
 
             $pdoStMovimientos->execute();
+            
 
             $sqlUpdateMovimientos = "UPDATE movimientos 
                                  SET saldo = :nuevo_saldo
@@ -129,6 +130,9 @@ class movimientosModel extends Model
 
             $pdoStUpdateMovimientos->execute();
 
+            // FALTA COGER EL ID DEL ÚLTIMO MOVIMIENTO Y SOLO ACTUALIZAR EL SALDO DE ESE ÚLTIMO MOVIMIENTO 
+            // YA QUE SE ACTUALIZAN TODOS LOS DEMÁS DE ESA CUENTA.
+            
             // Actualizar la cuenta
             $sqlUpdateCuenta = "UPDATE cuentas 
                             SET saldo = saldo + :cantidad,

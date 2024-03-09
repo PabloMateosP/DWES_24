@@ -24,6 +24,7 @@
                     <th>Nombre Cliente</th>
                     <th>Email</th>
                     <th>Fecha Creación</th>
+                    <th>Fecha Actualización</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -41,6 +42,9 @@
                         </td>
                         <td>
                             <?= $user->created_at ?>
+                        </td>
+                        <td>
+                            <?= $user->update_at ?>
                         </td>
                         <td>
                             <!-- botones de acción -->

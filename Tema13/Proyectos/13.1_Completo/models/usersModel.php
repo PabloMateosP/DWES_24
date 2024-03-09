@@ -14,7 +14,8 @@ class usersModel extends Model
                     id,
                     name, 
                     email, 
-                    created_at
+                    created_at,
+                    update_at
                 FROM 
                     users
                 ORDER BY id";
@@ -54,12 +55,10 @@ class usersModel extends Model
 
     # Método update 
     # Actualiza los detalles del usuario 
-    public function update(classUser $user, $id, $password)
+    public function update(classUser $user, $id)
     {
 
         try {
-
-            $password_encriptado = password_hash($password, CRYPT_BLOWFISH);
 
             $sql = "
                 UPDATE users 
@@ -78,7 +77,7 @@ class usersModel extends Model
             // Vinculamos los parámetros
             $pdoSt->bindParam(":name", $user->name, PDO::PARAM_STR, 30);
             $pdoSt->bindParam(":email", $user->email, PDO::PARAM_INT);
-            $pdoSt->bindValue(":password", $password_encriptado);
+            $pdoSt->bindValue(":password", $user->password, PDO::PARAM_STR);
             $pdoSt->bindParam(":id", $id, PDO::PARAM_INT);
 
             // Ejecutamos la consulta

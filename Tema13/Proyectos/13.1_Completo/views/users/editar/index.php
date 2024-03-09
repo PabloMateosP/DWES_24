@@ -43,7 +43,7 @@
             <!-- password -->
             <div class="mb-3">
                 <label for="" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" name="contraseña" placeholder="Añada una nueva contraseña"">
+                <input type="password" class="form-control" name="password" placeholder="Añada una nueva contraseña"">
                 <?php if (isset($this->errores['password'])): ?>
                     <span class="form-text text-danger" role="alert">
                         <?= $this->errores['password'] ?>

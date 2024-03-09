@@ -122,11 +122,13 @@ class Users extends Controller {
             $name = filter_var($_POST['name'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_var($_POST['email'] ??= '', FILTER_SANITIZE_EMAIL);
 
+            $password_encriptado = password_hash($password, PASSWORD_BCRYPT);
+
             $user = new classUser(
                 null,
                 $name,
                 $email,
-                $password,
+                $password_encriptado,
                 null,
                 null
             );
@@ -174,7 +176,7 @@ class Users extends Controller {
             } else {
                 //crear alumno
                 # Añadir registro a la tabla
-                $this->model->update($user, $id, $password);
+                $this->model->update($user, $id);
 
                 #Mensaje
                 $_SESSION['mensaje'] = "Usuario actualizado correctamente";

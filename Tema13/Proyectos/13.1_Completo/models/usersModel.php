@@ -32,6 +32,40 @@ class usersModel extends Model
         }
     }
 
+    # Método getUserRole
+    # Consulta SELECT para recoger el rol de un usuario
+    public function getUserRole($id)
+    {
+        try {
+            $sql = "SELECT 
+                        roles.id, 
+                        roles.name
+                    FROM 
+                        roles
+                    INNER JOIN 
+                        roles_users 
+                    ON roles.id = roles_users.role_id
+                    INNER JOIN 
+                        users 
+                    ON roles_users.user_id = users.id
+                    WHERE users.id = :id";
+
+            $pdo = $this->db->connect();
+            $pdoSt = $pdo->prepare($sql);
+            $pdoSt->bindParam(':id', $id, PDO::PARAM_INT);
+            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+            $pdoSt->execute();
+
+            return $pdoSt->fetch();
+
+        } catch (PDOException $e) {
+
+            require_once("template/partials/errorDB.php");
+            exit();
+
+        }
+    }
+
     # Método create
     # Insertamos un nuevo registro 
     public function create($nombre, $email, $password, $id_rol)
@@ -109,7 +143,7 @@ class usersModel extends Model
 
     # Método update 
     # Actualiza los detalles del usuario 
-    public function update(classUser $user, $id)
+    public function update(classUser $user, $id, $id_Rol)
     {
 
         try {
@@ -137,6 +171,23 @@ class usersModel extends Model
             // Ejecutamos la consulta
             $pdoSt->execute();
 
+            // Actualizamos el rol del usuario
+            $sql = "UPDATE 
+                        roles_users 
+                    SET
+                        role_id = :role_id,
+                        update_at = NOW()
+                    WHERE
+                        user_id = :user_id";
+
+            $pdoSt = $conexion->prepare($sql);
+
+            // Vinculamos los parámetros
+            $pdoSt->bindParam(":role_id", $id_Rol, PDO::PARAM_INT);
+            $pdoSt->bindParam(":user_id", $id, PDO::PARAM_INT);
+
+            $pdoSt->execute();
+
         } catch (PDOException $error) {
             require_once("template/partials/errorDB.php");
             exit();
@@ -145,7 +196,7 @@ class usersModel extends Model
     }
 
     # Método getUser
-    # Obtiene los detalles de un cliente a partir del id
+    # Obtenemos los detalles de un cliente a partir del id
     public function getUser($id)
     {
         try {
@@ -244,7 +295,8 @@ class usersModel extends Model
                         id,
                         name,
                         email,
-                        created_at
+                        created_at,
+                        update_at
                     FROM 
                         users
                     ORDER BY
@@ -275,7 +327,8 @@ class usersModel extends Model
                         id,
                         name,
                         email,
-                        created_at
+                        created_at,
+                        update_at
                     FROM 
                         users
                     WHERE 
@@ -284,7 +337,8 @@ class usersModel extends Model
                                     id,
                                     name,
                                     email,
-                                    created_at
+                                    created_at,
+                                    update_at
                                 )
                         LIKE 
                                 :expresion

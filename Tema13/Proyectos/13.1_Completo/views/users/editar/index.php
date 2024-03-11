@@ -40,6 +40,18 @@
                 <?php endif; ?>
             </div>
 
+            <!-- role -->
+            <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <select class="form-select" name="rol">
+                    <?php foreach ($this->roles as $rol): ?>
+                        <option value="<?= $rol->id ?>" <?= ($rol) ? 'selected' : '' ?>>
+                            <?= $rol->name ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <!-- password -->
             <div class="mb-3">
                 <label for="" class="form-label">Contraseña</label>
@@ -54,7 +66,7 @@
             
             <!-- botones de acción -->
             <div class="mb-3">
-                <a name="" id="" class="btn btn-secondary" href="<?= URL ?>clientes" role="button">Cancelar</a>
+                <a name="" id="" class="btn btn-secondary" href="<?= URL ?>users" role="button">Cancelar</a>
                 <button type="button" class="btn btn-danger">Borrar</button>
                 <button type="submit" class="btn btn-primary">Actualizar</button>
             </div>

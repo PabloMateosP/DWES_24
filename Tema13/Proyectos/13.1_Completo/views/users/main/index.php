@@ -48,6 +48,8 @@
                         </td>
                         <td>
                             <!-- botones de acción -->
+                            <a href="<?= URL ?>users/mostrar/<?= $user->id ?>" title="Mostrar" class="btn btn-warning<?= (!in_array($_SESSION['id_rol'], $GLOBALS['admin']['mostrar'])) ?
+                                    'disabled' : null ?>"> <i class="bi bi-eye"></i> </a>
                             <a href="<?= URL ?>users/delete/<?= $user->id ?>" title="Eliminar"
                                 onclick="return confirm('¿Quieres Borrar?')" class="btn btn-danger" <?= (!in_array($_SESSION['id_rol'], $GLOBALS['admin']['delete'])) ?
                                     'disabled' : null ?>> 

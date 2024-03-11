@@ -1,9 +1,11 @@
-<?php 
+<?php
 
-class Users extends Controller {
+class Users extends Controller
+{
 
     # Método principal. Muestra todos los users registrados
-    public function render() {
+    public function render()
+    {
 
         # Inicio sesión o continuo sesión
         session_start();
@@ -30,6 +32,35 @@ class Users extends Controller {
         }
     }
 
+    # Método mostrar
+    # Mostramos los detalles de un usuario seleccionado
+    function mostrar($param = [])
+    {
+
+        //Iniciar o continuar sesión
+        session_start();
+
+        # id del usuario
+        $id = $param[0];
+
+        //Comprobar si el usuario está identificado
+        if (!isset($_SESSION['id'])) {
+            $_SESSION['mensaje'] = "Usuario No Autentificado";
+
+            header("location:" . URL . "login");
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['admin']['mostrar']))) {
+            $_SESSION['mensaje'] = "Operación sin privilegios";
+            header('location:' . URL . 'users');
+        } else {
+
+            $this->view->title = "Formulario Mostrar Usuario";
+            $this->view->user = $this->model->getUser($id);
+            $this->view->rol = $this->model->getUserRole($id);
+
+            $this->view->render("users/mostrar/index");
+        }
+    }
+
     # Método nuevo
     # Cargamos formulario nuevo usuario
     function nuevo($param = [])
@@ -38,24 +69,20 @@ class Users extends Controller {
         session_start();
 
         //Comprobar si el usuario está identificado
-        if (!isset($_SESSION['id']))
-        {
+        if (!isset($_SESSION['id'])) {
             $_SESSION['mensaje'] = "Usuario No Autentificado";
 
             header("location:" . URL . "login");
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['admin']['nuevo'])))
-        {
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['admin']['nuevo']))) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
             header('location:' . URL . 'users');
-        } else
-        {
+        } else {
 
             # Creamos un objeto vacío
             $this->view->usuario = new classUser();
 
             # Comprobamos si existen errores
-            if (isset($_SESSION['error']))
-            {
+            if (isset($_SESSION['error'])) {
                 //Añadimos a la vista el mensaje de error
                 $this->view->error = $_SESSION['error'];
 
@@ -93,17 +120,14 @@ class Users extends Controller {
         session_start();
 
         //Comprobar si el usuario está identificado
-        if (!isset($_SESSION['id']))
-        {
+        if (!isset($_SESSION['id'])) {
             $_SESSION['mensaje'] = "Usuario No Autentificado";
 
             header("location:" . URL . "login");
-        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['admin']['nuevo'])))
-        {
+        } else if ((!in_array($_SESSION['id_rol'], $GLOBALS['admin']['nuevo']))) {
             $_SESSION['mensaje'] = "Operación sin privilegios";
             header('location:' . URL . 'users');
-        } else
-        {
+        } else {
 
             //1. Seguridad. Saneamos los datos del formulario
 
@@ -128,44 +152,35 @@ class Users extends Controller {
             $errores = [];
 
             //Nombre: Obligatorio
-            if (empty($nombre))
-            {
+            if (empty($nombre)) {
                 $errores['nombre'] = 'El campo nombre es obligatorio';
             }
 
             //Email: Obligatorio, debe ser un email	, debe ser único	
-            if (empty($email))
-            {
+            if (empty($email)) {
                 $errores['email'] = 'El campo email es obligatorio';
-            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-            {
+            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errores['email'] = 'El formato del email no es correcto';
-            } else if (!$this->model->validateUniqueEmail($email))
-            {
+            } else if (!$this->model->validateUniqueEmail($email)) {
                 $errores['email'] = 'El email ya existe';
             }
 
             //Contraseña: Obligatorio
-            if (empty($contraseña))
-            {
+            if (empty($contraseña)) {
                 $errores['contraseña'] = 'El campo contraseña es obligatorio';
-            } else if ($contraseña != $confirmarContraseña)
-            {
+            } else if ($contraseña != $confirmarContraseña) {
                 $errores['contraseña'] = 'Las contraseñas no coinciden';
             }
 
             //confirmarContraseña: Obligatorio, tiene que coincidir con el campo contraseña
-            if (empty($confirmarContraseña))
-            {
+            if (empty($confirmarContraseña)) {
                 $errores['confirmarContraseña'] = 'El campo confirmar contraseña es obligatorio';
-            } else if ($contraseña != $confirmarContraseña)
-            {
+            } else if ($contraseña != $confirmarContraseña) {
                 $errores['confirmarContraseña'] = 'Las contraseñas no coinciden';
             }
 
             # 4. Comprobar validación
-            if (!empty($errores))
-            {
+            if (!empty($errores)) {
                 //Errores de validación
                 $_SESSION['usuario'] = serialize($usuario);
                 $_SESSION['error'] = 'Formulario no validado';
@@ -174,8 +189,7 @@ class Users extends Controller {
 
                 //Redireccionamos de nuevo al formulario
                 header('location:' . URL . 'users/nuevo/index');
-            } else
-            {
+            } else {
                 # Añadimos el registro a la tabla
                 $this->model->create($nombre, $email, $contraseña, $roles);
 
@@ -209,7 +223,8 @@ class Users extends Controller {
         }
     }
 
-    public function editar($param = []){
+    public function editar($param = [])
+    {
         session_start();
 
         if (!isset($_SESSION['id'])) {
@@ -224,6 +239,8 @@ class Users extends Controller {
 
         } else {
 
+            $this->view->roles = $this->model->getRoles();
+
             # obtengo el id del usuario que voy a editar
             $id = $param[0];
 
@@ -233,6 +250,7 @@ class Users extends Controller {
 
             $this->view->user = $this->model->getUser($this->view->id);
 
+            $this->view->rol = $this->model->getUserRole($this->view->id);
 
             # Comprobamos si hay errores -> esta variable se crea al lanzar un error de validacion
             if (isset($_SESSION['error'])) {
@@ -320,6 +338,9 @@ class Users extends Controller {
                 }
             }
 
+            # Obtenemos el id del rol del usuario
+            $idRol = filter_input(INPUT_POST, 'rol', FILTER_SANITIZE_NUMBER_INT);
+
             #4. Comprobar validacion
 
             if (!empty($errores)) {
@@ -333,7 +354,7 @@ class Users extends Controller {
             } else {
                 //crear alumno
                 # Añadir registro a la tabla
-                $this->model->update($user, $id);
+                $this->model->update($user, $id, $idRol);
 
                 #Mensaje
                 $_SESSION['mensaje'] = "Usuario actualizado correctamente";

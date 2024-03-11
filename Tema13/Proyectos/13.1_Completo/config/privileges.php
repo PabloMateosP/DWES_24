@@ -40,6 +40,7 @@ $GLOBALS['movimientos']['import'] = [1];
 // Variables para Modificación y Borrado de usuarios
 $GLOBALS['admin'] = [1];
 $GLOBALS['admin']['mostrar'] = [1];
+$GLOBALS['admin']['nuevo'] = [1];
 $GLOBALS['admin']['editar'] = [1];
 $GLOBALS['admin']['delete'] = [1];
 $GLOBALS['admin']['order'] = [1];

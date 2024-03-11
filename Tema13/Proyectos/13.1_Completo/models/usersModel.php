@@ -32,6 +32,60 @@ class usersModel extends Model
         }
     }
 
+    # Método create
+    # Insertamos un nuevo registro 
+    public function create($nombre, $email, $password, $id_rol)
+    {
+        try {
+
+            //Encriptamos la contraseña del usuario 
+            $password = password_hash($password, PASSWORD_BCRYPT);
+
+            $sql = "INSERT INTO 
+                        users 
+                    VALUES (
+                        null,
+                        :nombre,
+                        :email,
+                        :pass,
+                        default,
+                        now())";
+
+            $pdo = $this->db->connect();
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':pass', $password, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            //Guardamos en una variable el valor id de este último registro insertado
+            $id_usuario = $pdo->lastInsertId();
+
+            // Asignamos rol
+            $sql = "INSERT INTO 
+                        roles_users 
+                    VALUES (
+                        null,
+                        :user_id,
+                        :role_id,
+                        default,
+                        default)";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':user_id', $id_usuario, PDO::PARAM_INT);
+            $stmt->bindParam(':role_id', $id_rol, PDO::PARAM_INT);
+            $stmt->execute();
+
+        } catch (PDOException $e) {
+
+            require_once("template/partials/errorDB.php");
+            exit();
+            
+        }
+    }
+
     # Método delete
     # Permite ejecutar comando DELETE de un usuario
     public function delete($id)
@@ -251,6 +305,26 @@ class usersModel extends Model
         } catch (PDOException $e) {
             require_once("template/partials/errorDB.php");
             exit();
+        }
+    }
+
+    # Hacemos un select de los roles de un usuario 
+    public function getRoles()
+    {
+        try {
+            $sql = "SELECT * from roles";
+
+            $conexion = $this->db->connect();
+            $pdoSt = $conexion->prepare($sql);
+            $pdoSt->setFetchMode(PDO::FETCH_OBJ);
+            $pdoSt->execute();
+            return $pdoSt;
+
+        } catch (PDOException $e) {
+
+            require_once("template/partials/errorDB.php");
+            exit();
+
         }
     }
 

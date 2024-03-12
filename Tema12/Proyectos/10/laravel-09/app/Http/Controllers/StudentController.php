@@ -70,8 +70,7 @@ class StudentController extends Controller
         $alumno->save();
 
         // Redireccionamos 
-        return redirect()->route('alumnos.index')
-            ->with('success', 'Alumno agregado correctamente');
+        return redirect()->route('alumnos.index')->with('success', 'Alumno agregado correctamente');
 
     }
 

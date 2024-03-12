@@ -7,9 +7,10 @@
         <div class="card-header">
             Formulario Nuevo Alumno
         </div>
+        @include('student.partials.alerts')
         <div class="card-body">
             <!-- Formulario  -->
-            @include('student.partials.alerts')
+            
 
             <form action={{ route('alumnos.store') }} method="POST">
                 @csrf

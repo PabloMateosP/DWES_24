@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Course;
 
 use Illuminate\Http\Request;
 
@@ -26,7 +27,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        // Carga formulario nuevo alumno
+        $cursos = Course::all()->sortBy('course');
+        return view('student.create', ['cursos' => $cursos]);
     }
 
     /**
@@ -34,7 +37,42 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Recibe los datos del formulario 
+        // Valida los datos
+        // Almacena en la tabla student de la base de datos
+
+        // Validación Formulario 
+        // Especifico en un array las reglas de validación de cada campo 
+        $validateData = $request->validate([
+            'name' => ['required', 'string', 'max:35'],
+            'last_name' => ['required', 'string', 'max:50'],
+            'birth_date' => ['required', 'max:13'],
+            'phone' => ['required', 'max:13'],
+            'city' =>['required', 'string', 'max:40'],
+            'dni' => ['required', 'string', 'max:9', 'unique:students'],
+            'email' => ['required','string', 'email', 'unique:students'],
+            'course_id' => ['required', 'exists:courses,id']
+        ]);
+
+        // Cargamos los datos recibidos y creamos el objeto alumno
+        $alumno = Student::create([
+            'name' => $request['name'],
+            'last_name' => $request['last_name'],
+            'birth_date' => $request['birth_date'],
+            'phone' => $request['phone'],
+            'city' => $request['city'],
+            'dni' => strtoupper($request['dni']),
+            'email'=>strtolower($request['email']),
+            'course_id' => $request['course_id']
+        ]);
+
+        // Guardamos 
+        $alumno->save();
+
+        // Redireccionamos 
+        return redirect()->route('alumnos.index')
+            ->with('success', 'Alumno agregado correctamente');
+
     }
 
     /**

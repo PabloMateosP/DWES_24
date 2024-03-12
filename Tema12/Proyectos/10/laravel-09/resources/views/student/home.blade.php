@@ -12,6 +12,7 @@
 @section('contenido')
     {{-- Menú Alumnos --}}
     @include('student.partials.menu')
+    @include('student.partials.alerts')
 
     {{-- Lista de alumnos --}}
     <table class="table">

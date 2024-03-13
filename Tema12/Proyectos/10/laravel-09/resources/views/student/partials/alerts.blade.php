@@ -5,12 +5,12 @@
 </div>
 @endif
 
-@if(session('error'))
+@if($errors->any())
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Formulario No Válido</strong>
     <ul>
-        @foreach($errors->all() as $e)
-            <li>{{$e}} </li>
+        @foreach($errors->all() as $error)
+            <li>{{$error}} </li>
         @endforeach
     <ul>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

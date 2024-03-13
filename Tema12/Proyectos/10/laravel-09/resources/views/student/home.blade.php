@@ -40,11 +40,15 @@
                     <td>{{ $alumno->course->course }}</td>
                     <td>
                         <!-- botones de acción -->
-                        <a href="#" title="Eliminar" onclick="return confirm('¿Quieres Borrar?')"
-                            class="btn btn-danger">
-                            <i class="bi bi-trash"></i> </a>
-                        <a href="#" title="Editar" class="btn btn-primary"> <i class="bi bi-pencil"></i> </a>
-                        <a href="#" title="Mostrar" class="btn btn-warning"> <i class="bi bi-eye"></i> </a>
+                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Confirmar borrado de alumno')"><i class="bi bi-trash"></i></button>
+                        </form>
+
+                        <a href="{{ route('alumnos.edit', $alumno->id) }}" title="Editar" class="btn btn-primary"> <i
+                                class="bi bi-pencil"></i> </a>
+                        <a href="{{ route('alumnos.show', $alumno->id) }}" title="Mostrar" class="btn btn-warning"> <i class="bi bi-eye"></i> </a>
                     </td>
                 @empty
                     <p>No hay alumnos registrados.</p>

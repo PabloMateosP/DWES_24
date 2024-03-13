@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Course;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -17,8 +18,8 @@ class StudentController extends Controller
         // Muestra los alumnos 
 
         $alumnos = Student::all()->sortBy('id');
-        
-        return view ('student.home', ['alumnos' => $alumnos]);
+
+        return view('student.home', ['alumnos' => $alumnos]);
 
     }
 
@@ -28,7 +29,10 @@ class StudentController extends Controller
     public function create()
     {
         // Carga formulario nuevo alumno
+        $cursos = Course::pluck('course', 'id');
+
         $cursos = Course::all()->sortBy('course');
+
         return view('student.create', ['cursos' => $cursos]);
     }
 
@@ -48,9 +52,9 @@ class StudentController extends Controller
             'last_name' => ['required', 'string', 'max:50'],
             'birth_date' => ['required', 'max:13'],
             'phone' => ['required', 'max:13'],
-            'city' =>['required', 'string', 'max:40'],
+            'city' => ['required', 'string', 'max:40'],
             'dni' => ['required', 'string', 'max:9', 'unique:students'],
-            'email' => ['required','string', 'email', 'unique:students'],
+            'email' => ['required', 'string', 'email', 'unique:students'],
             'course_id' => ['required', 'exists:courses,id']
         ]);
 
@@ -62,7 +66,7 @@ class StudentController extends Controller
             'phone' => $request['phone'],
             'city' => $request['city'],
             'dni' => strtoupper($request['dni']),
-            'email'=>strtolower($request['email']),
+            'email' => strtolower($request['email']),
             'course_id' => $request['course_id']
         ]);
 
@@ -71,7 +75,6 @@ class StudentController extends Controller
 
         // Redireccionamos 
         return redirect()->route('alumnos.index')->with('success', 'Alumno agregado correctamente');
-
     }
 
     /**
@@ -79,7 +82,10 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $alumno = Student::find($id);
+        $cursos = Course::all()->sortBy('course');
+
+        return view('student.show', ['alumno' => $alumno, 'cursos' => $cursos]);
     }
 
     /**
@@ -87,7 +93,12 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Cargo los datos del alumno 
+        $alumno = Student::find($id);
+        $cursos = Course::all()->sortBy('course');
+
+        // Llamamos a la vista 
+        return view('student.edit', ['alumno' => $alumno, 'cursos' => $cursos]);
     }
 
     /**
@@ -95,14 +106,47 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validación formulario edit
+        $validateData = $request->validate([
+            'name' => ['required', 'string', 'max:35'],
+            'last_name' => ['required', 'string', 'max:50'],
+            'birth_date' => ['required', 'max:13'],
+            'phone' => ['required', 'max:13'],
+            'city' => ['required', 'string', 'max:40'],
+            'dni' => ['required', 'string', 'max:9', Rule::unique('students')->ignore($id)],
+            'email' => ['required', 'string', 'email', Rule::unique('students')->ignore($id)],
+            'course_id' => ['required', 'exists:courses,id']
+        ]);
+
+        // Cargamos datos del alumno 
+        $alumno = Student::find($id);
+
+        // Actualizamos con los datos del formulario 
+        $alumno->name = $request->get('name');
+        $alumno->last_name = $request->get('last_name');
+        $alumno->birth_date = $request->get('birth_date');
+        $alumno->phone = $request->get('phone');
+        $alumno->city = $request->get('city');
+        $alumno->dni = $request->get('dni');
+        $alumno->email = $request->get('email');
+        $alumno->course_id = $request->get('course_id');
+
+        // Guardamos el registro en BD
+        $alumno->save();
+
+        // Redireccionamos a la lista de alumnos
+        return redirect()->route('alumnos.index')->with('success', 'Alumno actualizado correctamente');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $alumno)
     {
-        //
+        $alumno->delete();
+
+        return redirect()->route('alumnos.index')
+            ->with('success', 'El alumno se ha eliminado correctamente');
     }
 }
